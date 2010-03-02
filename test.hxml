@@ -1,0 +1,6 @@
+-neko test/bin/Test.n
+-lib neash
+-lib nme
+--remap flash:neash
+-main test.Test
+-cmd neko test/bin/Test.n
