@@ -1,6 +1,0 @@
-cpp
-haxe_205
-neash
-nme
-true
-/usr/lib/haxe/lib/hxcpp/2,05,1/
