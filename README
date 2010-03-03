@@ -1,3 +1,11 @@
-Ported from Casalib
-Revision 348
-http://svn.as3.casalib.org/releases/latest/code/
+Ported from...
+	Casalib
+	Revision 348
+	http://svn.as3.casalib.org/releases/latest/code/
+
+Note
+	For targets other than Flash, casahx needs nme, neash and canvas-nme.
+
+	All the codes in the repo is maintained to be already tested on ALL haxe targets, except:
+	NumberUtil.isNumber(), due to inconsistence of Std.parseFloat between targets, some weired expression may fail on some platform. But normal integer/float is ok and consistant(Please check List of test case in test.TestUtil.testNumberUtil()).
+	
