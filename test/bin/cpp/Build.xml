@@ -1,0 +1,193 @@
+<xml>
+<files id="haxe">
+<compilerflag value="-Iinclude"/>
+  <file name="src/test/TestUtil.cpp">
+   <depend name="include/IntIter.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/haxe/Public.h"/>
+   <depend name="include/haxe/unit/TestCase.h"/>
+   <depend name="include/nme/geom/Rectangle.h"/>
+   <depend name="include/org/casalib/math/Percent.h"/>
+   <depend name="include/org/casalib/util/ArrayUtil.h"/>
+   <depend name="include/org/casalib/util/NumberUtil.h"/>
+   <depend name="include/org/casalib/util/RatioUtil.h"/>
+   <depend name="include/org/casalib/util/ValidationUtil.h"/>
+   <depend name="include/test/TestUtil.h"/>
+  </file>
+  <file name="src/haxe/unit/TestStatus.cpp">
+   <depend name="include/haxe/unit/TestStatus.h"/>
+  </file>
+  <file name="src/nme/geom/Point.cpp">
+   <depend name="include/nme/geom/Point.h"/>
+  </file>
+  <file name="src/org/casalib/math/geom/Ellipse.cpp">
+   <depend name="include/nme/geom/Point.h"/>
+   <depend name="include/org/casalib/math/geom/Ellipse.h"/>
+  </file>
+  <file name="src/EReg.cpp">
+   <depend name="include/EReg.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/StringBuf.h"/>
+   <depend name="include/cpp/Lib.h"/>
+  </file>
+  <file name="src/org/casalib/math/Range.cpp">
+   <depend name="include/org/casalib/math/Percent.h"/>
+   <depend name="include/org/casalib/math/Range.h"/>
+  </file>
+  <file name="src/org/casalib/util/RatioUtil.cpp">
+   <depend name="include/nme/geom/Rectangle.h"/>
+   <depend name="include/org/casalib/math/Percent.h"/>
+   <depend name="include/org/casalib/util/RatioUtil.h"/>
+  </file>
+  <file name="src/Type.cpp">
+   <depend name="include/Reflect.h"/>
+   <depend name="include/Type.h"/>
+   <depend name="include/ValueType.h"/>
+  </file>
+  <file name="src/ValueType.cpp">
+   <depend name="include/ValueType.h"/>
+  </file>
+  <file name="src/org/casalib/util/ArrayUtil.cpp">
+   <depend name="include/IntIter.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/org/casalib/util/ArrayUtil.h"/>
+   <depend name="include/org/casalib/util/NumberUtil.h"/>
+  </file>
+  <file name="src/List.cpp">
+   <depend name="include/List.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/StringBuf.h"/>
+  </file>
+  <file name="src/org/casalib/math/Percent.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/org/casalib/math/Percent.h"/>
+  </file>
+  <file name="src/Std.cpp">
+   <depend name="include/Std.h"/>
+  </file>
+  <file name="src/nme/geom/Rectangle.cpp">
+   <depend name="include/nme/geom/Matrix.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+   <depend name="include/nme/geom/Rectangle.h"/>
+  </file>
+  <file name="src/nme/geom/Matrix.cpp">
+   <depend name="include/nme/geom/Matrix.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+  </file>
+  <file name="src/cpp/rtti/FieldNumericIntegerLookup.cpp">
+   <depend name="include/cpp/rtti/FieldNumericIntegerLookup.h"/>
+  </file>
+  <file name="src/IntIter.cpp">
+   <depend name="include/IntIter.h"/>
+  </file>
+  <file name="src/org/casalib/util/ValidationUtil.cpp">
+   <depend name="include/EReg.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/org/casalib/util/ArrayUtil.h"/>
+   <depend name="include/org/casalib/util/ValidationUtil.h"/>
+  </file>
+  <file name="src/org/casalib/math/geom/Point3d.cpp">
+   <depend name="include/org/casalib/math/Percent.h"/>
+   <depend name="include/org/casalib/math/geom/Point3d.h"/>
+   <depend name="include/org/casalib/util/NumberUtil.h"/>
+  </file>
+  <file name="src/StringBuf.cpp">
+   <depend name="include/StringBuf.h"/>
+  </file>
+  <file name="src/haxe/Log.cpp">
+   <depend name="include/haxe/Log.h"/>
+  </file>
+  <file name="src/cpp/Lib.cpp">
+   <depend name="include/cpp/Lib.h"/>
+  </file>
+  <file name="src/org/casalib/util/NumberUtil.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/org/casalib/math/Percent.h"/>
+   <depend name="include/org/casalib/util/NumberUtil.h"/>
+  </file>
+  <file name="src/haxe/unit/TestResult.cpp">
+   <depend name="include/List.h"/>
+   <depend name="include/StringBuf.h"/>
+   <depend name="include/haxe/unit/TestResult.h"/>
+   <depend name="include/haxe/unit/TestStatus.h"/>
+  </file>
+  <file name="src/Reflect.cpp">
+   <depend name="include/Reflect.h"/>
+  </file>
+  <file name="src/test/Test.cpp">
+   <depend name="include/haxe/Public.h"/>
+   <depend name="include/haxe/unit/TestCase.h"/>
+   <depend name="include/haxe/unit/TestRunner.h"/>
+   <depend name="include/test/Test.h"/>
+   <depend name="include/test/TestMath.h"/>
+   <depend name="include/test/TestUtil.h"/>
+  </file>
+  <file name="src/haxe/unit/TestRunner.cpp">
+   <depend name="include/List.h"/>
+   <depend name="include/Reflect.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/StringTools.h"/>
+   <depend name="include/Type.h"/>
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/haxe/Log.h"/>
+   <depend name="include/haxe/Public.h"/>
+   <depend name="include/haxe/Stack.h"/>
+   <depend name="include/haxe/StackItem.h"/>
+   <depend name="include/haxe/unit/TestCase.h"/>
+   <depend name="include/haxe/unit/TestResult.h"/>
+   <depend name="include/haxe/unit/TestRunner.h"/>
+   <depend name="include/haxe/unit/TestStatus.h"/>
+  </file>
+  <file name="src/StringTools.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/StringTools.h"/>
+  </file>
+  <file name="src/haxe/Stack.cpp">
+   <depend name="include/StringBuf.h"/>
+   <depend name="include/haxe/Stack.h"/>
+   <depend name="include/haxe/StackItem.h"/>
+  </file>
+  <file name="src/haxe/StackItem.cpp">
+   <depend name="include/haxe/StackItem.h"/>
+  </file>
+  <file name="src/test/TestMath.cpp">
+   <depend name="include/haxe/Public.h"/>
+   <depend name="include/haxe/unit/TestCase.h"/>
+   <depend name="include/nme/geom/Point.h"/>
+   <depend name="include/org/casalib/math/Percent.h"/>
+   <depend name="include/org/casalib/math/Range.h"/>
+   <depend name="include/org/casalib/math/geom/Ellipse.h"/>
+   <depend name="include/org/casalib/math/geom/Point3d.h"/>
+   <depend name="include/test/TestMath.h"/>
+  </file>
+  <file name="src/haxe/unit/TestCase.cpp">
+   <depend name="include/haxe/Public.h"/>
+   <depend name="include/haxe/unit/TestCase.h"/>
+   <depend name="include/haxe/unit/TestRunner.h"/>
+   <depend name="include/haxe/unit/TestStatus.h"/>
+  </file>
+  <file name="src/haxe/Public.cpp">
+   <depend name="include/haxe/Public.h"/>
+  </file>
+  <file name="src/__boot__.cpp">
+  </file>
+  <file name="src/__resources__.cpp">
+  </file>
+</files>
+<files id="__lib__">
+<compilerflag value="-Iinclude"/>
+  <file name="src/__lib__.cpp">
+   <depend name="include/haxe/unit/TestRunner.h"/>
+   <depend name="include/test/Test.h"/>
+  </file>
+</files>
+<files id="__main__">
+<compilerflag value="-Iinclude"/>
+  <file name="src/__main__.cpp">
+   <depend name="include/haxe/unit/TestRunner.h"/>
+   <depend name="include/test/Test.h"/>
+  </file>
+</files>
+<set name="HAXE_OUTPUT" value="Test" />
+<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+</xml>

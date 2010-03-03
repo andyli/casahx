@@ -20,7 +20,12 @@ class TestUtil extends TestCase {
 		
 		var alphabet:Array<String> = ["a", "d", "e"];
 		var parts:Array<String>    = ["b", "c"];
-		ArrayUtil.addItemsAt(alphabet, parts, 1);
+		
+		//alphabet.insert(2,"c");
+		//this.assertEquals(4,alphabet.length);
+		
+		this.assertTrue(ArrayUtil.addItemsAt(alphabet, parts, 1));
+		this.assertEquals(5,alphabet.length);
 		this.assertEquals("a,b,c,d,e",alphabet.join(','));
 		
 		this.assertEquals(4.0,ArrayUtil.average([2, 3, 8, 3]));
@@ -118,13 +123,13 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(0.25,NumberUtil.normalize(8, 4, 20).decimalPercentage);
 		
-		for (i in new IntIter(0,100)) {
+		for (i in new IntIter(0,10)) {
 			var randomI = NumberUtil.randomIntegerWithinRange(0,1);
 			this.assertTrue(NumberUtil.isInteger(randomI));
 			this.assertTrue(NumberUtil.isBetween(randomI,0,1));
 		}
 		
-		for (i in new IntIter(0,100)) {
+		for (i in new IntIter(0,10)) {
 			var random = NumberUtil.randomWithinRange(0,1);
 			this.assertTrue(NumberUtil.isBetween(random,0,1));
 		}
