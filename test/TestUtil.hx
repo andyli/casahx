@@ -4,8 +4,10 @@ import haxe.unit.TestCase;
 import flash.geom.Rectangle;
 import org.casalib.math.Percent;
 import org.casalib.util.ArrayUtil;
+import org.casalib.util.ClassUtil;
 import org.casalib.util.NumberUtil;
 import org.casalib.util.RatioUtil;
+import org.casalib.util.StringUtil;
 import org.casalib.util.ValidationUtil;
 
 class TestUtil extends TestCase {
@@ -70,6 +72,11 @@ class TestUtil extends TestCase {
 		this.assertEquals(0,array[0]);
 		
 		this.assertEquals(5.0,ArrayUtil.sum([1,1,1,0.25,1.75]));
+	}
+	
+	public function testClassUtil():Void {
+		this.assertTrue(Std.is(ClassUtil.construct(Array),Array));
+		this.assertTrue(new Rectangle(0,0,100,100).equals(ClassUtil.construct(Rectangle,[0,0,100,100])));
 	}
 	
 	public function testNumberUtil():Void {
@@ -156,6 +163,83 @@ class TestUtil extends TestCase {
 		this.assertTrue(RatioUtil.scaleWidth(rect,rect2.height,true).equals(RatioUtil.scale(rect2,new Percent(1))));
 		
 		this.assertEquals(4/3,RatioUtil.widthToHeight(rect));
+	}
+	
+	public function testStringUtil():Void {
+		this.assertEquals("123456", StringUtil.addAt("12456",2,"3"));
+		
+		this.assertEquals(2, StringUtil.contains("12345234","234"));
+		this.assertEquals(0, StringUtil.contains("12345234","235"));
+		this.assertEquals(0, StringUtil.contains("-14","."));
+		
+		this.assertEquals("ab",StringUtil.getLettersFromString("a123b456"));
+		
+		this.assertEquals("123456",StringUtil.getNumbersFromString("a123b456"));
+		
+		this.assertEquals("12345",StringUtil.getUniqueCharacters("12345234"));
+		
+		this.assertEquals(6,StringUtil.getWordCount("String in which to count words."));
+		
+		this.assertEquals("adf234qi^%&amp;%^@51trega&lt;&gt;",StringUtil.htmlEncode("adf234qi^%&%^@51trega<>"));
+		
+		this.assertEquals("adf234qi^%&%^@51trega<>",StringUtil.htmlDecode("adf234qi^%&amp;%^@51trega&lt;&gt;"));
+		
+		this.assertEquals(4,StringUtil.indexOfLowerCase("0123aAdf"));
+		
+		this.assertEquals(5,StringUtil.indexOfUpperCase("0123aAdf"));
+		
+		this.assertTrue(StringUtil.isLowerCase("asdg"));
+		this.assertFalse(StringUtil.isLowerCase("asdGads"));
+		
+		this.assertFalse(StringUtil.isNumber("asd"));
+		this.assertFalse(StringUtil.isNumber("f"));
+		this.assertFalse(StringUtil.isNumber("0f0"));
+		this.assertFalse(StringUtil.isNumber("0-0"));
+		this.assertFalse(StringUtil.isNumber("0..0"));
+		this.assertFalse(StringUtil.isNumber("."));
+		this.assertFalse(StringUtil.isNumber("-."));
+		this.assertTrue(StringUtil.isNumber("12.14"));
+		this.assertTrue(StringUtil.isNumber("000"));
+		this.assertTrue(StringUtil.isNumber("-1"));
+		this.assertTrue(StringUtil.isNumber("-0"));
+		this.assertTrue(StringUtil.isNumber("-00.000"));
+		/*
+		this.assertTrue(StringUtil.isNumber("-0xffffff"));
+		this.assertTrue(StringUtil.isNumber("-0x0000"));
+		this.assertTrue(StringUtil.isNumber("-0x0.000"));
+		this.assertTrue(StringUtil.isNumber("-0xff.00"));
+		this.assertTrue(StringUtil.isNumber("0.00f"));
+		this.assertTrue(StringUtil.isNumber("0F"));
+		this.assertTrue(StringUtil.isNumber("-0x0.0"));
+		this.assertTrue(StringUtil.isNumber(".00"));
+		this.assertTrue(StringUtil.isNumber("0X0f"));
+		*/
+		
+		this.assertTrue(StringUtil.isPunctuation("!@#$%^&*()_+-=[]{}\\|;:'\",.<>/?"));
+		this.assertFalse(StringUtil.isPunctuation("asdf!@34s<>"));
+		
+		this.assertTrue(StringUtil.isUpperCase("ASDF"));
+		this.assertFalse(StringUtil.isUpperCase("ASsDF"));
+		
+		this.assertEquals("sno134531lns",StringUtil.remove("asno134531lnsa","a"));
+		
+		this.assertEquals("asno14531lnsa",StringUtil.removeAt("asno134531lnsa",5));
+		
+		this.assertEquals("1 2 3 4",StringUtil.removeExtraSpaces("1  2  3 4"));
+		
+		this.assertEquals("1234",StringUtil.removeWhitespace("1  2  3 4"));
+		
+		this.assertEquals("1234",StringUtil.replace("124564","456","3"));
+		
+		this.assertEquals("1234",StringUtil.replaceAt("1254",2,"3"));
+		
+		this.assertEquals("I Am Title", StringUtil.toTitleCase("i am title"));
+		
+		this.assertEquals("hel  lo",StringUtil.trim("  hel  lo  "));
+		
+		this.assertEquals("hel  lo  ",StringUtil.trimLeft("  hel  lo  "));
+		
+		this.assertEquals("  hel  lo",StringUtil.trimRight("  hel  lo  "));
 	}
 	
 	public function testValidationUtil():Void {
