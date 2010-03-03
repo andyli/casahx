@@ -46,14 +46,20 @@
 -cmd ./test/bin/cpp/test
 -cmd echo "----------------------------------------"
 -cmd echo "Test JS!"
+-cmd echo "Clear server file..."
 -cmd rm -r /Library/WebServer/Documents/TestJS
+-cmd echo "Copy compiled files to server..."
 -cmd cp -r test/bin/js /Library/WebServer/Documents/TestJS
+-cmd echo "Open in browser..."
 -cmd open http://localhost/TestJS
--cmd echo "Opened in browser!"
+-cmd echo "Done!"
 -cmd echo "----------------------------------------"
 -cmd echo "Test PHP!"
+-cmd echo "Clear server file..."
 -cmd rm -r /Library/WebServer/Documents/TestPHP
+-cmd echo "Copy compiled files to server..."
 -cmd cp -r test/bin/php /Library/WebServer/Documents/TestPHP
+-cmd echo "Open in browser..."
 -cmd open http://localhost/TestPHP
--cmd echo "Opened in browser!"
+-cmd echo "Done!"
 -cmd echo "----------------------------------------"

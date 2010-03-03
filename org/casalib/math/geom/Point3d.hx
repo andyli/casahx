@@ -43,9 +43,9 @@ package org.casalib.math.geom;
 	*/
 	class Point3d  {
 		
-		public var x(getX, setX) : Float;
-		public var y(getY, setY) : Float;
-		public var z(getZ, setZ) : Float;
+		inline public var x(getX, setX) : Float;
+		inline public var y(getY, setY) : Float;
+		inline public var z(getZ, setZ) : Float;
 		var _x:Float;
 		var _y:Float;
 		var _z:Float;
@@ -67,11 +67,11 @@ package org.casalib.math.geom;
 		/**
 			The horizontal coordinate of the point.
 		*/
-		public function getX():Float{
+		inline public function getX():Float{
 			return this._x;
 		}
 		
-		public function setX(position:Float):Float{
+		inline public function setX(position:Float):Float{
 			this._x = position;
 			return position;
 		}
@@ -79,11 +79,11 @@ package org.casalib.math.geom;
 		/**
 			The vertical coordinate of the point.
 		*/
-		public function getY():Float{
+		inline public function getY():Float{
 			return this._y;
 		}
 		
-		public function setY(position:Float):Float{
+		inline public function setY(position:Float):Float{
 			this._y = position;
 			return position;
 		}
@@ -91,11 +91,11 @@ package org.casalib.math.geom;
 		/**
 			The depth coordinate of the point.
 		*/
-		public function getZ():Float{
+		inline public function getZ():Float{
 			return this._z;
 		}
 		
-		public function setZ(position:Float):Float{
+		inline public function setZ(position:Float):Float{
 			this._z = position;
 			return position;
 		}
@@ -106,7 +106,7 @@ package org.casalib.math.geom;
 			@param point: The point to be added.
 			@return The new point.
 		*/
-		public function add(point:Point3d):Point3d {
+		inline public function add(point:Point3d):Point3d {
 			return new Point3d(this.x + point.x, this.y + point.y, this.z + point.z);
 		}
 		
@@ -116,7 +116,7 @@ package org.casalib.math.geom;
 			@param point: The point to be subtracted.
 			@return The new point.
 		*/
-		public function subtract(point:Point3d):Point3d {
+		inline public function subtract(point:Point3d):Point3d {
 			return new Point3d(this.x - point.x, this.y - point.y, this.z - point.z);
 		}
 		
@@ -127,7 +127,7 @@ package org.casalib.math.geom;
 			@param yOffset: The amount by which to offset the vertical coordinate.
 			@param zOffset: The amount by which to offset the depth coordinate.
 		*/
-		public function offset(xOffset:Float, yOffset:Float, zOffset:Float):Void {
+		inline public function offset(xOffset:Float, yOffset:Float, zOffset:Float):Void {
 			this.x += xOffset;
 			this.y += yOffset;
 			this.z += zOffset;
@@ -139,7 +139,7 @@ package org.casalib.math.geom;
 			@param point: A Point3d object.
 			@return Returns <code>true</code> if shape's location is identical; otherwise <code>false</code>.
 		*/
-		public function equals(point:Point3d):Bool {
+		inline public function equals(point:Point3d):Bool {
 			return this.x == point.x && this.y == point.y && this.z == point.z;
 		}
 		
@@ -148,7 +148,7 @@ package org.casalib.math.geom;
 			
 			@return A new Point3d with the same values as this point.
 		*/
-		public function clone():Point3d {
+		inline public function clone():Point3d {
 			return new Point3d(this.x, this.y, this.z);
 		}
 		
@@ -159,7 +159,7 @@ package org.casalib.math.geom;
 			@param secondPoint: The second Point3d.
 			@return Distance between the two points.
 		*/
-		public static function distance(firstPoint:Point3d, secondPoint:Point3d):Float {
+		inline public static function distance(firstPoint:Point3d, secondPoint:Point3d):Float {
 			var x:Float = secondPoint.x - firstPoint.x;
 			var y:Float = secondPoint.y - firstPoint.y;
 			var z:Float = secondPoint.z - firstPoint.z;
@@ -175,7 +175,7 @@ package org.casalib.math.geom;
 			@param amount: The level of interpolation between the two points. If <code>0%</code>, <code>firstPoint</code> is returned; if <code>100%</code>, <code>secondPoint</code> is returned.
 			@return The new, interpolated point.
 		*/
-		public static function interpolate(firstPoint:Point3d, secondPoint:Point3d, amount:Percent):Point3d {
+		inline public static function interpolate(firstPoint:Point3d, secondPoint:Point3d, amount:Percent):Point3d {
 			var x:Float = NumberUtil.interpolate(amount, firstPoint.x, secondPoint.x);
 			var y:Float = NumberUtil.interpolate(amount, firstPoint.y, secondPoint.y);
 			var z:Float = NumberUtil.interpolate(amount, firstPoint.z, secondPoint.z);

@@ -42,8 +42,8 @@ package org.casalib.math;
 	*/
 	class Percent  {
 		
-		public var decimalPercentage(getDecimalPercentage, setDecimalPercentage) : Float;
-		public var percentage(getPercentage, setPercentage) : Float;
+		inline public var decimalPercentage(getDecimalPercentage, setDecimalPercentage) : Float;
+		inline public var percentage(getPercentage, setPercentage) : Float;
 		var _percent:Float;
 		
 		
@@ -64,11 +64,11 @@ package org.casalib.math;
 		/**
 			The percent expressed as a regular percentage. 37.5% would be expressed as <code>37.5</code>.
 		*/
-		public function getPercentage():Float{
+		inline public function getPercentage():Float{
 			return 100 * this._percent;
 		}
 		
-		public function setPercentage(percent:Float):Float{
+		inline public function setPercentage(percent:Float):Float{
 			this._percent = percent * .01;
 			return percent;
 		}
@@ -76,11 +76,11 @@ package org.casalib.math;
 		/**
 			The percent expressed as a decimal percentage. 37.5% would be expressed as <code>0.375</code>.
 		*/
-		public function getDecimalPercentage():Float{
+		inline public function getDecimalPercentage():Float{
 			return this._percent;
 		}
 		
-		public function setDecimalPercentage(percent:Float):Float{
+		inline public function setDecimalPercentage(percent:Float):Float{
 			this._percent = percent;
 			return percent;
 		}
@@ -91,18 +91,18 @@ package org.casalib.math;
 			@param percent: A Percent object.
 			@return Returns <code>true</code> if percents are identical; otherwise <code>false</code>.
 		*/
-		public function equals(percent:Percent):Bool {
+		inline public function equals(percent:Percent):Bool {
 			return this.decimalPercentage == percent.decimalPercentage;
 		}
 		
 		/**
 			@return A new percent object with the same value as this percent.
 		*/
-		public function clone():Percent {
+		inline public function clone():Percent {
 			return new Percent(this.decimalPercentage);
 		}
 		
-		public function valueOf():Float {
+		inline public function valueOf():Float {
 			return this.decimalPercentage;
 		}
 		
