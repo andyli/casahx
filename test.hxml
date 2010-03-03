@@ -1,3 +1,9 @@
+-swf test/bin/Test.swf
+-swf-version 10
+-main test.Test
+-lib neash
+
+--next
 -neko test/bin/Test.n
 -lib neash
 -lib nme
@@ -12,10 +18,42 @@
 -main test.Test
 
 --next
+-js test/bin/js/Test.js
+-lib neash
+-lib nme
+-cp /Users/andylihahaha/Documents/repo/canvas-nme
+--remap flash:neash
+-main test.Test
+
+--next
+-php test/bin/php
+-lib neash
+-lib nme
+--remap flash:neash
+-main test.Test
+
+
+--next
+-cmd echo "----------------------------------------"
+-cmd echo "Test Flash!"
+-cmd open test/bin/Test.swf
+-cmd echo "Opened in Flash Player!"
 -cmd echo "----------------------------------------"
 -cmd echo "Test Neko!"
 -cmd neko test/bin/Test.n
 -cmd echo "----------------------------------------"
 -cmd echo "Test C++!"
 -cmd ./test/bin/cpp/test
+-cmd echo "----------------------------------------"
+-cmd echo "Test JS!"
+-cmd rm -r /Library/WebServer/Documents/TestJS
+-cmd cp -r test/bin/js /Library/WebServer/Documents/TestJS
+-cmd open http://localhost/TestJS
+-cmd echo "Opened in browser!"
+-cmd echo "----------------------------------------"
+-cmd echo "Test PHP!"
+-cmd rm -r /Library/WebServer/Documents/TestPHP
+-cmd cp -r test/bin/php /Library/WebServer/Documents/TestPHP
+-cmd open http://localhost/TestPHP
+-cmd echo "Opened in browser!"
 -cmd echo "----------------------------------------"

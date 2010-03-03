@@ -28,7 +28,7 @@ class TestUtil extends TestCase {
 		this.assertEquals(5,alphabet.length);
 		this.assertEquals("a,b,c,d,e",alphabet.join(','));
 		
-		this.assertEquals(4.0,ArrayUtil.average([2, 3, 8, 3]));
+		this.assertTrue(4 == ArrayUtil.average([2, 3, 8, 3]));
 		
 		this.assertEquals(3, ArrayUtil.contains([1, 2, 3, 7, 7, 7, 4, 5],7));
 		
@@ -41,7 +41,7 @@ class TestUtil extends TestCase {
 		this.assertTrue(ArrayUtil.equals([1,2,-1],[1,2,-1]));
 		this.assertFalse(ArrayUtil.equals([1,2,-1],[1,2,1]));
 		
-		this.assertEquals(10.0,ArrayUtil.getHighestValue([-123,2,5,6,2,10,-0.11]));
+		this.assertTrue(10 == ArrayUtil.getHighestValue([-123,2,5,6,2,10,-0.11]));
 		
 		this.assertEquals(3,ArrayUtil.getIndexOfDifference(["Red", "Blue", "Green", "Indigo", "Violet"],["Red", "Blue", "Green", "Violet"]));
 		
@@ -55,7 +55,7 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(2, ArrayUtil.getItemsByType([14,array,"","asdfn"],String).length);
 		
-		this.assertEquals(1.0, ArrayUtil.getLowestValue([2, 1, 5, 4, 3]));
+		this.assertTrue(1 == ArrayUtil.getLowestValue([2, 1, 5, 4, 3]));
 		
 		this.assertFalse(ArrayUtil.equals(ArrayUtil.randomize(array),array));
 		
@@ -75,8 +75,8 @@ class TestUtil extends TestCase {
 	public function testNumberUtil():Void {
 		this.assertEquals("00",NumberUtil.addLeadingZero(0));
 		
-		this.assertEquals(-1.0,NumberUtil.constrain(-1,-1.001,100));
-		this.assertEquals(0.0,NumberUtil.constrain(-1,0,1));
+		this.assertTrue(-1 == NumberUtil.constrain(-1,-1.001,100));
+		this.assertTrue(0 == NumberUtil.constrain(-1,0,1));
 		
 		this.assertEquals("10 20 30 40",NumberUtil.createStepsBetween(0,50,4).join(' '));
 		
@@ -113,15 +113,15 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(75.0,NumberUtil.map(0.75, 0, 1, 0, 100));
 		
-		this.assertEquals(-5.0,NumberUtil.max(-5, null));
-		this.assertEquals(-5.0,NumberUtil.max(-5, "CASA"));
-		this.assertEquals(-5.0,NumberUtil.max(-5, -13));
+		this.assertTrue(-5 == NumberUtil.max(-5, null));
+		this.assertTrue(-5 == NumberUtil.max(-5, "CASA"));
+		this.assertTrue(-5 == NumberUtil.max(-5, -13));
 		
-		this.assertEquals(5.0,NumberUtil.min(5, null));
-		this.assertEquals(5.0,NumberUtil.min(5, "CASA"));
-		this.assertEquals(5.0,NumberUtil.min(5, 13));
+		this.assertTrue(5 == NumberUtil.min(5, null));
+		this.assertTrue(5 == NumberUtil.min(5, "CASA"));
+		this.assertTrue(5 == NumberUtil.min(5, 13));
 		
-		this.assertEquals(0.25,NumberUtil.normalize(8, 4, 20).decimalPercentage);
+		this.assertTrue(0.25 == NumberUtil.normalize(8, 4, 20).decimalPercentage);
 		
 		for (i in new IntIter(0,10)) {
 			var randomI = NumberUtil.randomIntegerWithinRange(0,1);
