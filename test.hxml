@@ -3,4 +3,19 @@
 -lib nme
 --remap flash:neash
 -main test.Test
+
+--next
+-cpp test/bin/cpp
+-lib neash
+-lib nme
+--remap flash:neash
+-main test.Test
+
+--next
+-cmd echo "----------------------------------------"
+-cmd echo "Test Neko!"
 -cmd neko test/bin/Test.n
+-cmd echo "----------------------------------------"
+-cmd echo "Test C++!"
+-cmd ./test/bin/cpp/test
+-cmd echo "----------------------------------------"
