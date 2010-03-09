@@ -6,7 +6,10 @@ import org.casalib.math.Percent;
 import org.casalib.util.ArrayUtil;
 import org.casalib.util.ClassUtil;
 import org.casalib.util.ColorUtil;
+import org.casalib.util.ConversionUtil;
+//import org.casalib.util.DateUtil;
 import org.casalib.util.NumberUtil;
+import org.casalib.util.ObjectUtil;
 import org.casalib.util.RatioUtil;
 import org.casalib.util.StringUtil;
 import org.casalib.util.ValidationUtil;
@@ -99,6 +102,40 @@ class TestUtil extends TestCase {
 		this.assertEquals(1.0*0xff,ct05.alphaOffset);
 	}
 	
+	public function testConversionUtil():Void {
+		this.assertTrue(1 == ConversionUtil.bitsToBytes(8));
+		
+		this.assertTrue(1 == ConversionUtil.bitsToKilobits(1024));
+		
+		this.assertTrue(1 == ConversionUtil.bitsToKilobytes(1024*8));
+		
+		this.assertTrue(1 == ConversionUtil.bytesToBits(1/8));
+		
+		this.assertTrue(1 == ConversionUtil.bytesToKilobytes(1024));
+		
+		this.assertTrue(1 == ConversionUtil.millisecondsToDays(ConversionUtil.daysToMilliseconds(1)));
+		
+		this.assertTrue(1 == ConversionUtil.minutesToDays(ConversionUtil.daysToMinutes(1)));
+		
+		this.assertTrue(1 == ConversionUtil.secondsToDays(ConversionUtil.daysToSeconds(1)));
+		
+		this.assertTrue(1 == ConversionUtil.radiansToDegrees(ConversionUtil.degreesToRadians(1)));
+		
+		this.assertTrue(1 == ConversionUtil.daysToHours(ConversionUtil.hoursToDays(1)));
+		
+		this.assertTrue(1 == ConversionUtil.millisecondsToHours(ConversionUtil.hoursToMilliseconds(1)));
+		
+		this.assertTrue(1 == ConversionUtil.minutesToHours(ConversionUtil.hoursToMinutes(1)));
+		
+		this.assertTrue(1 == ConversionUtil.secondsToHours(ConversionUtil.hoursToSeconds(1)));
+		
+		this.assertTrue(1 == ConversionUtil.bitsToKilobits(ConversionUtil.kilobitsToBits(1)));
+		
+		this.assertTrue(1024 == ConversionUtil.bytesToBits(ConversionUtil.kilobitsToBytes(1)));
+		
+		this.assertTrue(1 == ConversionUtil.kilobytesToKilobits(ConversionUtil.kilobitsToKilobytes(1)));
+	}
+	
 	public function testNumberUtil():Void {
 		this.assertEquals("00",NumberUtil.addLeadingZero(0));
 		
@@ -163,6 +200,30 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(3.14,NumberUtil.roundDecimalToPlace(3.14159, 2));
 		this.assertEquals(3.142,NumberUtil.roundDecimalToPlace(3.14159, 3));
+	}
+	
+	public function testObjectUtil():Void {
+		var rect = new Rectangle(1,2,3,4);
+		
+		this.assertTrue(rect.equals(ObjectUtil.clone(rect)));
+		
+		this.assertTrue(ObjectUtil.contains(rect,3.0));
+		
+		this.assertTrue(ObjectUtil.getKeys(rect).length >= 4);
+		
+		this.assertTrue(ObjectUtil.isEmpty([]));
+		
+		this.assertTrue(ObjectUtil.isEmpty({}));
+		
+		this.assertFalse(ObjectUtil.isEmpty(rect));
+		
+		this.assertFalse(ObjectUtil.isNull(12));
+		this.assertFalse(ObjectUtil.isNull(rect));
+		var that = this;
+		var test = function (?n:Dynamic):Void{
+			that.assertTrue(ObjectUtil.isNull(n));
+		}
+		test();
 	}
 	
 	public function testRatioUtil():Void {
