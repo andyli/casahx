@@ -2,3 +2,5 @@
 -swf-version 10
 -main test.Test
 -lib neash
+
+-cmd open test/bin/Test.swf

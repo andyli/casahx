@@ -5,6 +5,7 @@ import flash.geom.Rectangle;
 import org.casalib.math.Percent;
 import org.casalib.util.ArrayUtil;
 import org.casalib.util.ClassUtil;
+import org.casalib.util.ColorUtil;
 import org.casalib.util.NumberUtil;
 import org.casalib.util.RatioUtil;
 import org.casalib.util.StringUtil;
@@ -22,9 +23,6 @@ class TestUtil extends TestCase {
 		
 		var alphabet:Array<String> = ["a", "d", "e"];
 		var parts:Array<String>    = ["b", "c"];
-		
-		//alphabet.insert(2,"c");
-		//this.assertEquals(4,alphabet.length);
 		
 		this.assertTrue(ArrayUtil.addItemsAt(alphabet, parts, 1));
 		this.assertEquals(5,alphabet.length);
@@ -77,6 +75,28 @@ class TestUtil extends TestCase {
 	public function testClassUtil():Void {
 		this.assertTrue(Std.is(ClassUtil.construct(Array),Array));
 		this.assertTrue(new Rectangle(0,0,100,100).equals(ClassUtil.construct(Rectangle,[0,0,100,100])));
+	}
+	
+	public function testColorUtil():Void {
+		var myRGB = ColorUtil.getARGB(0xCCFF0011);
+		this.assertEquals(0xCC,myRGB.a);
+		this.assertEquals(0xFF,myRGB.r);
+		this.assertEquals(0x00,myRGB.g);
+		this.assertEquals(0x11,myRGB.b);
+		
+		this.assertEquals(0xCCFF0011,ColorUtil.getColor(myRGB.r,myRGB.g,myRGB.b,myRGB.a));
+		
+		this.assertEquals("CCFF0011",ColorUtil.getHexStringFromARGB(myRGB.a,myRGB.r,myRGB.g,myRGB.b));
+		
+		this.assertEquals("FF0011",ColorUtil.getHexStringFromRGB(myRGB.r,myRGB.g,myRGB.b));
+		
+		var ct0 = new flash.geom.ColorTransform(1,1,1,1,0x00,0x66,0x44,0xff);
+		var ct1 = new flash.geom.ColorTransform(1,1,1,1,0,0,0,0xff);
+		var ct05 = ColorUtil.interpolateColor(ct0,ct1,new Percent(0.5));
+		this.assertEquals(1.0*0x00,ct05.redOffset);
+		this.assertEquals(1.0*0x33,ct05.greenOffset);
+		this.assertEquals(1.0*0x22,ct05.blueOffset);
+		this.assertEquals(1.0*0xff,ct05.alphaOffset);
 	}
 	
 	public function testNumberUtil():Void {
