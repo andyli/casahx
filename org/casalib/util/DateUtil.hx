@@ -310,8 +310,8 @@ package org.casalib.util;
 						case 'A' :
 							returnString += DateUtil.getMeridiem(dateToFormat.getHours());
 						// Swatch Internet time
-						//TO-DOcase 'B' :
-							//returnString += NumberUtil.format(DateUtil.getInternetTime(dateToFormat), 3, null, '0');
+						case 'B' :
+							returnString += NumberUtil.format(DateUtil.getInternetTime(dateToFormat), 3, null, '0');
 						// 12-hour format of an hour without leading zeros
 						case 'g' :
 							t = dateToFormat.getHours();
@@ -345,25 +345,25 @@ package org.casalib.util;
 						case 's' :
 							returnString += NumberUtil.addLeadingZero(dateToFormat.getSeconds());
 						// Whether or not the date is in daylights savings time
-						//TO-DOcase 'I' :
-							//returnString += (DateUtil.isDaylightSavings(dateToFormat)) ? '1' : '0';
+						case 'I' :
+							returnString += (DateUtil.isDaylightSavings(dateToFormat)) ? '1' : '0';
 						// Difference to Greenwich time (GMT/UTC) in hours
-						//TO-DOcase 'O' :
-							//returnString += DateUtil.getFormattedDifferenceFromUTC(dateToFormat);
-						//TO-DOcase 'P' :
-							//returnString += DateUtil.getFormattedDifferenceFromUTC(dateToFormat, ':');
+						case 'O' :
+							returnString += DateUtil.getFormattedDifferenceFromUTC(dateToFormat);
+						case 'P' :
+							returnString += DateUtil.getFormattedDifferenceFromUTC(dateToFormat, ':');
 						// Timezone identifier
-						//TO-DOcase 'e','T' :
-							//returnString += DateUtil.getTimezone(dateToFormat);
+						case 'e','T' :
+							returnString += DateUtil.getTimezone(dateToFormat);
 						// Timezone offset (GMT/UTC) in seconds.
-						//TO-DOcase 'Z' :
-							//returnString += Math.round(DateUtil.getDifferenceFromUTCInSeconds(dateToFormat));
+						case 'Z' :
+							returnString += Math.round(DateUtil.getDifferenceFromUTCInSeconds(dateToFormat));
 						// ISO 8601 date
-						//TO-DOcase 'c' :
-							//returnString += dateToFormat.getFullYear() + "-" + NumberUtil.addLeadingZero(dateToFormat.getMonth() + 1) + "-" + NumberUtil.addLeadingZero(dateToFormat.getDate()) + "T" + NumberUtil.addLeadingZero(dateToFormat.getHours()) + ":" + NumberUtil.addLeadingZero(dateToFormat.getMinutes()) + ":" + NumberUtil.addLeadingZero(dateToFormat.getSeconds()) + DateUtil.getFormattedDifferenceFromUTC(dateToFormat, ':');
+						case 'c' :
+							returnString += dateToFormat.getFullYear() + "-" + NumberUtil.addLeadingZero(dateToFormat.getMonth() + 1) + "-" + NumberUtil.addLeadingZero(dateToFormat.getDate()) + "T" + NumberUtil.addLeadingZero(dateToFormat.getHours()) + ":" + NumberUtil.addLeadingZero(dateToFormat.getMinutes()) + ":" + NumberUtil.addLeadingZero(dateToFormat.getSeconds()) + DateUtil.getFormattedDifferenceFromUTC(dateToFormat, ':');
 						// RFC 2822 formatted date
-						//TO-DOcase 'r' :
-							//returnString += DateUtil.getDayAbbrAsString(dateToFormat.getDay()) + ', ' + dateToFormat.getDate() + ' ' + DateUtil.getMonthAbbrAsString(dateToFormat.getMonth()) + ' ' + dateToFormat.getFullYear() + ' ' + NumberUtil.addLeadingZero(dateToFormat.getHours()) + ':' + NumberUtil.addLeadingZero(dateToFormat.getMinutes()) + ':' + NumberUtil.addLeadingZero(dateToFormat.getSeconds()) + ' ' + DateUtil.getFormattedDifferenceFromUTC(dateToFormat);
+						case 'r' :
+							returnString += DateUtil.getDayAbbrAsString(dateToFormat.getDay()) + ', ' + dateToFormat.getDate() + ' ' + DateUtil.getMonthAbbrAsString(dateToFormat.getMonth()) + ' ' + dateToFormat.getFullYear() + ' ' + NumberUtil.addLeadingZero(dateToFormat.getHours()) + ':' + NumberUtil.addLeadingZero(dateToFormat.getMinutes()) + ':' + NumberUtil.addLeadingZero(dateToFormat.getSeconds()) + ' ' + DateUtil.getFormattedDifferenceFromUTC(dateToFormat);
 						// Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)
 						case 'U' :
 							t = Math.round(dateToFormat.getTime() / 1000);
@@ -417,17 +417,17 @@ package org.casalib.util;
 					millisecond = Math.floor(1000 * ((temp % 1) / 1));
 				}
 				
-				/*TO-DOif (index != time[2].length) {
+				if (index != time[2].length) {
 					var offset:String     = time[2].substr(index);
-					var userOffset:Float = DateUtil.getDifferenceFromUTCInHours(new Date(year, month, day));
+					var userOffset:Float = DateUtil.getDifferenceFromUTCInHours(new Date(year, month, day, 0, 0, 0));
 					
 					switch (offset.charAt(0)) {
 						case '+','-' :
-							hour -= userOffset + Std.parseFloat(offset);
+							hour -= Math.round(userOffset + Std.parseFloat(offset));
 						case 'Z' :
-							hour -= userOffset;
+							hour -= Math.round(userOffset);
 					}
-				}*/
+				}
 			}
 			return new Date(year, month, day, hour, minute, second/*TO-DO, millisecond*/);
 		}
@@ -578,14 +578,35 @@ package org.casalib.util;
 		}
 		
 		/**
+			Returns the difference, in minutes, between universal time (UTC) and the computer's local time.
+		*/
+		public static function getTimezoneOffset(date:Date):Int {
+			var numOfDay:Float = 0;
+			for (i in 1970...date.getFullYear()) {
+				numOfDay+=DateUtil.isLeapYear(i)?366.0:365.0;
+			}
+			for (i in 0...date.getMonth()) {
+				numOfDay+=DateUtil.getDaysInMonth(date.getFullYear(),i);
+			}
+			numOfDay+=date.getDate();
+			
+			var numOfMilliseconds:Float = ConversionUtil.daysToMilliseconds(numOfDay);
+			numOfMilliseconds += date.getHours()*60.0*60.0*1000.0;
+			numOfMilliseconds += date.getMinutes()*60.0*1000.0;
+			numOfMilliseconds += date.getSeconds()*1000.0;
+			
+			return Math.round((24+ConversionUtil.millisecondsToHours(date.getTime() - numOfMilliseconds))*60);
+		}
+		
+		/**
 			Determines the difference to coordinated universal time (UTC) in seconds.
 			
 			@param d: Date object to find the time zone offset of.
 			@return Returns the difference in seconds from UTC.
 		*/
-		/*TO-DOpublic static function getDifferenceFromUTCInSeconds(d:Date):Int {
-			return ConversionUtil.minutesToSeconds(d.getTimezoneOffset());
-		}*/
+		inline public static function getDifferenceFromUTCInSeconds(d:Date):Int {
+			return Math.round(ConversionUtil.minutesToSeconds(DateUtil.getTimezoneOffset(d)));
+		}
 		
 		/**
 			Determines the difference to coordinated universal time (UTC) in hours.
@@ -593,9 +614,9 @@ package org.casalib.util;
 			@param d: Date object to find the time zone offset of.
 			@return Returns the difference in hours from UTC.
 		*/
-		/*TO-DOpublic static function getDifferenceFromUTCInHours(d:Date):Int {
-			return ConversionUtil.minutesToHours(d.getTimezoneOffset());
-		}*/
+		inline public static function getDifferenceFromUTCInHours(d:Date):Int {
+			return Math.round(ConversionUtil.minutesToHours(DateUtil.getTimezoneOffset(d)));
+		}
 		
 		/**
 			Formats the difference to coordinated undefined time (UTC).
@@ -604,11 +625,12 @@ package org.casalib.util;
 			@param separator: The character(s) that separates the hours from minutes.
 			@return Returns the formatted time difference from UTC.
 		*/
-		/*TO-DOpublic static function getFormattedDifferenceFromUTC(d:Date, ?separator:String = ""):String {
-			var pre:String = (-d.getTimezoneOffset() < 0) ? '-' : '+';
+		inline public static function getFormattedDifferenceFromUTC(d:Date, ?separator:String = ""):String {
+			var offset = DateUtil.getTimezoneOffset(d);
+			var pre:String = (-offset < 0) ? '-' : '+';
 			
-			return pre + NumberUtil.addLeadingZero(Math.floor(DateUtil.getDifferenceFromUTCInHours(d))) + separator + NumberUtil.addLeadingZero(d.getTimezoneOffset() % 60);
-		}*/
+			return pre + NumberUtil.addLeadingZero(Math.abs(DateUtil.getDifferenceFromUTCInHours(d))) + separator + NumberUtil.addLeadingZero(offset % 60);
+		}
 		
 		/**
 			Determines the time zone of the user from a Date object.
@@ -620,15 +642,15 @@ package org.casalib.util;
 					trace(DateUtil.getTimezone(new Date()));
 				</code>
 		*/
-		/*TO-DOpublic static function getTimezone(d:Date):String {
+		public static function getTimezone(d:Date):String {
 			var timeZones:Array<String> = ['IDLW', 'NT', 'HST', 'AKST', 'PST', 'MST', 'CST', 'EST', 'AST', 'ADT', 'AT', 'WAT', 'GMT', 'CET', 'EET', 'MSK', 'ZP4', 'ZP5', 'ZP6', 'WAST', 'WST', 'JST', 'AEST', 'AEDT', 'NZST'];
-			var hour:UInt       = Math.round(12 + -(d.getTimezoneOffset() / 60));
+			var hour:UInt       = Math.round(12 + -(DateUtil.getTimezoneOffset(d) / 60));
 			
 			if (DateUtil.isDaylightSavings(d))
 				hour--;
 			
 			return timeZones[hour];
-		}*/
+		}
 		
 		/**
 			Determines if year is a leap year or a common year.
@@ -652,20 +674,20 @@ package org.casalib.util;
 			@param d: Date to find if it is during daylight savings time.
 			@return Returns <code>true</code> if daylight savings time; otherwise <code>false</code>.
 		*/
-		/*TO-DOpublic static function isDaylightSavings(d:Date):Bool {
+		public static function isDaylightSavings(d:Date):Bool {
 			var months:UInt = 12;
-			var offset:UInt = d.getTimezoneOffset();
+			var offset:UInt = DateUtil.getTimezoneOffset(d);
 			var offsetCheck:Float;
 			
-			while (months--) {
-				offsetCheck = (new Date(d.getFullYear(), months, 1)).getTimezoneOffset();
+			while (months-- > 0) {
+				offsetCheck = DateUtil.getTimezoneOffset(new Date(d.getFullYear(), months, 1, 0 ,0 ,0));
 				
 				if (offsetCheck != offset)
 					return (offsetCheck > offset);
 			}
 			
 			return false;
-		}*/
+		}
 		
 		/**
 			Converts current time into Swatch internet time or beats.
@@ -673,10 +695,12 @@ package org.casalib.util;
 			@param d: Date object to convert.
 			@return Returns time in beats (0 to 999).
 		*/
-		/*TO-DOpublic static function getInternetTime(d:Date):Float {
-			var beats:UInt = ((d.getUTCHours() + 1 + ConversionUtil.minutesToHours(d.getUTCMinutes()) + ConversionUtil.secondsToHours(d.getUTCSeconds())) / 0.024);
+		public static function getInternetTime(d:Date):Float {
+			var offset:UInt = DateUtil.getTimezoneOffset(d);
+			d = DateTools.delta(d,offset*60*1000);
+			var beats:UInt = Math.floor((d.getHours() + 1.0 + ConversionUtil.minutesToHours(d.getMinutes()) + ConversionUtil.secondsToHours(d.getSeconds())) / 0.024);
 			return (beats > 1000) ? beats - 1000 : beats;
-		}*/
+		}
 		
 		/**
 			Gets the current day out of the total days in the year (starting from 0).

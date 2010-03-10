@@ -12,8 +12,8 @@ Note
 	There are some functions different from the original casalib:
 	-added UInt (org.casalib.core) : Used internally to make it usable in non-Flash targets.
 	-ArrayUtil
-		added indexOf		: Same as Flash's Array
-		added lastIndexOf	: Same as Flash's Array
-		added filter			: Same as Flash's Array
+		added indexOf		: Same as AS3's Array
+		added lastIndexOf	: Same as AS3's Array
+		added filter			: Same as AS3's Array
 	-DateUtil
-		As haxe core do not have a function to get current timezone. Timezone related parts are removed.
+		added getTimezoneOffset : Same as AS3's Date

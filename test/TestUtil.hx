@@ -175,7 +175,23 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(3,DateUtil.getCountdownUntil(d0,d1).days);
 		
-		this.assertEquals(d0.getTime(),DateUtil.iso8601ToDate("1988-06-14T12:34:56-00:00").getTime());
+		var offset = DateUtil.getTimezoneOffset(d0);
+		
+		this.assertEquals(d0.getTime()-offset*60*1000,DateUtil.iso8601ToDate("1988-06-14T12:34:56-00:00").getTime());
+		
+		this.assertEquals(offset/60,DateUtil.getDifferenceFromUTCInHours(d0));
+		
+		this.assertEquals(offset*60,DateUtil.getDifferenceFromUTCInSeconds(d0));
+		
+		this.assertEquals(5,DateUtil.getFormattedDifferenceFromUTC(d0).length);
+		
+		DateUtil.isDaylightSavings(d0);
+		
+		this.assertTrue(DateUtil.getTimezone(d0).length>0);
+		
+		this.assertTrue(NumberUtil.isBetween(DateUtil.getInternetTime(Date.now()),0,1000));
+		
+		
 	}
 	
 	public function testNumberUtil():Void {
