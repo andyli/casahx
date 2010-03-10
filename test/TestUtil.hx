@@ -7,7 +7,7 @@ import org.casalib.util.ArrayUtil;
 import org.casalib.util.ClassUtil;
 import org.casalib.util.ColorUtil;
 import org.casalib.util.ConversionUtil;
-//import org.casalib.util.DateUtil;
+import org.casalib.util.DateUtil;
 import org.casalib.util.NumberUtil;
 import org.casalib.util.ObjectUtil;
 import org.casalib.util.RatioUtil;
@@ -134,6 +134,48 @@ class TestUtil extends TestCase {
 		this.assertTrue(1024 == ConversionUtil.bytesToBits(ConversionUtil.kilobitsToBytes(1)));
 		
 		this.assertTrue(1 == ConversionUtil.kilobytesToKilobits(ConversionUtil.kilobitsToKilobytes(1)));
+	}
+	
+	public function testDate():Void {
+		var d0:Date = Date.fromString("1988-06-14 12:34:56");
+		var d1:Date = Date.fromString("1988-06-14 12:34:56");
+	
+		this.assertTrue(DateUtil.equals(d0,d1));
+		this.assertEquals("14",DateUtil.formatDate(d0, "d"));
+		this.assertEquals("Tue",DateUtil.formatDate(d0, "D"));
+		this.assertEquals("14",DateUtil.formatDate(d0, "j"));
+		this.assertEquals("Tuesday",DateUtil.formatDate(d0, "l"));
+		this.assertEquals("2",DateUtil.formatDate(d0, "N"));
+		this.assertEquals("th",DateUtil.formatDate(d0, "S"));
+		this.assertEquals("2",DateUtil.formatDate(d0, "w"));
+		this.assertTrue(Std.string(DateUtil.getDayOfTheYear(d0))==DateUtil.formatDate(d0, "z"));
+		this.assertTrue(Std.string(DateUtil.getWeekOfTheYear(d0))==DateUtil.formatDate(d0, "W"));
+		this.assertEquals("June",DateUtil.formatDate(d0, "F"));
+		this.assertEquals("06",DateUtil.formatDate(d0, "m"));
+		this.assertEquals("Jun",DateUtil.formatDate(d0, "M"));
+		this.assertEquals("6",DateUtil.formatDate(d0, "n"));
+		this.assertEquals("30",DateUtil.formatDate(d0, "t"));
+		this.assertEquals("1",DateUtil.formatDate(d0, "L"));
+		this.assertEquals("1988",DateUtil.formatDate(d0, "o"));
+		this.assertEquals("1988",DateUtil.formatDate(d0, "Y"));
+		this.assertEquals("88",DateUtil.formatDate(d0, "y"));
+		this.assertEquals("pm",DateUtil.formatDate(d0, "a"));
+		this.assertEquals("PM",DateUtil.formatDate(d0, "A"));
+		this.assertEquals("12",DateUtil.formatDate(d0, "g"));
+		this.assertEquals("12",DateUtil.formatDate(d0, "G"));
+		this.assertEquals("12",DateUtil.formatDate(d0, "h"));
+		this.assertEquals("12",DateUtil.formatDate(d0, "H"));
+		this.assertEquals("34",DateUtil.formatDate(d0, "i"));
+		this.assertEquals("56",DateUtil.formatDate(d0, "s"));
+		this.assertTrue(Std.string(d0.getTime()/1000)==DateUtil.formatDate(d0, "U"));
+		
+		this.assertEquals(31,DateUtil.getDaysInMonth(2010,12));
+		
+		d1 = DateTools.delta(d1,ConversionUtil.daysToMilliseconds(3));
+		
+		this.assertEquals(3,DateUtil.getCountdownUntil(d0,d1).days);
+		
+		this.assertEquals(d0.getTime(),DateUtil.iso8601ToDate("1988-06-14T12:34:56-00:00").getTime());
 	}
 	
 	public function testNumberUtil():Void {

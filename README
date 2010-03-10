@@ -9,9 +9,11 @@ Note
 	All the codes in the repo is maintained to be already tested on ALL haxe targets, except:
 	NumberUtil.isNumber(), due to inconsistence of Std.parseFloat between targets, some weired expression may fail on some platform. But normal integer/float is ok and consistant(Please check List of test case in test.TestUtil.testNumberUtil()).
 	
-	There are some additional functions not avalible in the original casalib:
-	ArrayUtil
-		indexOf			: Same as Flash's Array
-		lastIndexOf		: Same as Flash's Array
-		filter			: Same as Flash's Array
-	UInt (org.casalib.core) : Used internally to make it usable in non-Flash targets.
+	There are some functions different from the original casalib:
+	-added UInt (org.casalib.core) : Used internally to make it usable in non-Flash targets.
+	-ArrayUtil
+		added indexOf		: Same as Flash's Array
+		added lastIndexOf	: Same as Flash's Array
+		added filter			: Same as Flash's Array
+	-DateUtil
+		As haxe core do not have a function to get current timezone. Timezone related parts are removed.
