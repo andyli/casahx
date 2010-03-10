@@ -580,7 +580,9 @@ package org.casalib.util;
 		/**
 			Returns the difference, in minutes, between universal time (UTC) and the computer's local time.
 		*/
-		public static function getTimezoneOffset(date:Date):Int {
+		public static function getTimezoneOffset(?date:Date):Int {
+			if (date == null) return Math.round(new Date(1970,0,1,0,0,0).getTime()/1000/60);
+		
 			var numOfDay:Float = 0;
 			for (i in 1970...date.getFullYear()) {
 				numOfDay+=DateUtil.isLeapYear(i)?366.0:365.0;

@@ -175,6 +175,9 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(3,DateUtil.getCountdownUntil(d0,d1).days);
 		
+		//just to run it once... because I don't know your computer setting...
+		DateUtil.getTimezoneOffset();
+		
 		var offset = DateUtil.getTimezoneOffset(d0);
 		
 		this.assertEquals(d0.getTime()-offset*60*1000,DateUtil.iso8601ToDate("1988-06-14T12:34:56-00:00").getTime());
@@ -185,6 +188,7 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(5,DateUtil.getFormattedDifferenceFromUTC(d0).length);
 		
+		//just to run it once... because I don't know your computer setting...
 		DateUtil.isDaylightSavings(d0);
 		
 		this.assertTrue(DateUtil.getTimezone(d0).length>0);

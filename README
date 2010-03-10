@@ -16,4 +16,4 @@ Note
 		added lastIndexOf	: Same as AS3's Array
 		added filter			: Same as AS3's Array
 	-DateUtil
-		added getTimezoneOffset : Same as AS3's Date
+		added getTimezoneOffset : Same as AS3's Date. If date is not supplied, it use 1970-1-1, which gives best performance.
