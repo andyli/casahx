@@ -2,6 +2,7 @@ package test;
 
 import haxe.unit.TestCase;
 import flash.geom.Rectangle;
+import org.casalib.core.UInt;
 import org.casalib.math.Percent;
 import org.casalib.util.ArrayUtil;
 import org.casalib.util.ClassUtil;
@@ -13,6 +14,20 @@ import org.casalib.util.ObjectUtil;
 import org.casalib.util.RatioUtil;
 import org.casalib.util.StringUtil;
 import org.casalib.util.ValidationUtil;
+
+//below modified from AS3's doc
+private class User {
+	public var name:String;
+	public var age:Float;
+	public function new(name:String, age:UInt) {
+		this.name = name;
+		this.age = age;
+	}
+
+	public function toString():String {
+		return this.name + ":" + this.age;
+	}
+}
 
 class TestUtil extends TestCase {
 	public function testArrayUtil():Void {
@@ -64,6 +79,9 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(4,ArrayUtil.removeDuplicates(a1).length);
 		
+		var testAry:Array<Int> = [1,2,1,2];
+		this.assertEquals(2,ArrayUtil.removeDuplicates(testAry).length);
+		
 		this.assertEquals(3,ArrayUtil.removeItem(array,5));
 		
 		ArrayUtil.removeItems(array,[1,11]);
@@ -73,6 +91,99 @@ class TestUtil extends TestCase {
 		this.assertEquals(0,array[0]);
 		
 		this.assertEquals(5.0,ArrayUtil.sum([1,1,1,0.25,1.75]));
+		
+		//////////Test sortOn...//////////
+		var ary:Array<{a:String}> = [{a:"A"},{a:"a"},{a:"z"},{a:"Z"}];
+		var dumpAry = function (ary:Array<Dynamic>,?field:String):String {
+			var str:String = "[";
+			for (i in 0...ary.length){
+				str += field == null || ObjectUtil.isEmpty(ary[i]) ? ary[i] : Reflect.field(ary[i],field);
+				str += i == ary.length-1?"":",";
+			}
+			return str + "]";
+		}
+		var str0:String;
+		var str1:String;
+		
+		str0 = dumpAry([{a:"A"},{a:"Z"},{a:"a"},{a:"z"}]);
+		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"]));
+		this.assertEquals(str0,str1);
+		
+		str0 = dumpAry([{a:"z"},{a:"a"},{a:"Z"},{a:"A"}]);
+		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_DESCENDING));
+		this.assertEquals(str0,str1);
+		
+		str0 = dumpAry([{a:"A"},{a:"a"},{a:"Z"},{a:"z"}]);
+		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_CASEINSENSITIVE));
+		this.assertEquals(str0.toLowerCase(),str1.toLowerCase());
+		
+		str0 = dumpAry([{a:"Z"},{a:"z"},{a:"A"},{a:"a"}]);
+		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_CASEINSENSITIVE|ArrayUtil.SORT_DESCENDING));
+		this.assertEquals(str0.toLowerCase(),str1.toLowerCase());
+		
+		str0 = dumpAry([{a:"A"},{a:"Z"},{a:"a"},{a:"z"}]);
+		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_UNIQUESORT));
+		this.assertEquals(str0,str1);
+		
+		var p = str1;
+		str0 = dumpAry([]);
+		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_CASEINSENSITIVE|ArrayUtil.SORT_UNIQUESORT));
+		this.assertEquals(str0,str1);
+		
+		this.assertEquals(p,dumpAry(ary));
+		
+		str0 = dumpAry([3,2,1,0]);
+		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_DESCENDING|ArrayUtil.SORT_RETURNINDEXEDARRAY));
+		this.assertEquals(str0,str1);
+		
+		//below modified from AS3's doc
+		var users:Array<Dynamic> = [];
+		var rUser:Array<Dynamic>;
+		users.push(new User("Bob", 3));
+		users.push(new User("barb", 35));
+		users.push(new User("abcd", 4));
+		users.push(new User("catchy", 5));
+		
+		var dumpUsers = function (users:Array<Dynamic>):String {
+			var ary:Array<String> = [];
+			for (user in users) {
+				ary.push(user.toString());
+			}
+			return ary.join(",");
+		}
+
+		this.assertEquals("Bob:3,abcd:4,barb:35,catchy:5",dumpUsers(ArrayUtil.sortOn(users,["name"])));
+		
+		this.assertEquals("abcd:4,barb:35,Bob:3,catchy:5",dumpUsers(ArrayUtil.sortOn(users,["name"],ArrayUtil.SORT_CASEINSENSITIVE)));
+		
+		this.assertEquals("catchy:5,Bob:3,barb:35,abcd:4",dumpUsers(ArrayUtil.sortOn(users,["name"],ArrayUtil.SORT_CASEINSENSITIVE|ArrayUtil.SORT_DESCENDING)));
+		
+		var workaroundCppArrayBug = true;
+		
+		rUser = ArrayUtil.sortOn(users,['age']);
+		this.assertEquals("Bob:3,barb:35,abcd:4,catchy:5",dumpUsers(rUser));
+		if (workaroundCppArrayBug)(users = rUser);
+		
+		rUser = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_NUMERIC);
+		this.assertEquals("Bob:3,abcd:4,catchy:5,barb:35",dumpUsers(rUser));
+		if (workaroundCppArrayBug)(users = rUser);
+		
+		rUser = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_DESCENDING|ArrayUtil.SORT_NUMERIC);
+		this.assertEquals("barb:35,catchy:5,abcd:4,Bob:3",dumpUsers(rUser));
+		if (workaroundCppArrayBug)(users = rUser);
+		
+		rUser = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_NUMERIC);
+		this.assertEquals("Bob:3,abcd:4,catchy:5,barb:35",dumpUsers(rUser));
+		if (workaroundCppArrayBug)(users = rUser);
+
+		var indices = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_NUMERIC | ArrayUtil.SORT_RETURNINDEXEDARRAY);
+		var index:UInt;
+		var tempA:Array<String> = new Array<String>();
+		for(i in 0...indices.length) {
+			index = indices[i];
+			tempA.push(users[index].name);
+		}
+		this.assertEquals("Bob,abcd,catchy,barb",tempA.join(','));
 	}
 	
 	public function testClassUtil():Void {

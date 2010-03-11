@@ -12,8 +12,22 @@ Note
 	There are some functions different from the original casalib:
 	-added UInt (org.casalib.core) : Used internally to make it usable in non-Flash targets.
 	-ArrayUtil
-		added indexOf		: Same as AS3's Array
-		added lastIndexOf	: Same as AS3's Array
-		added filter			: Same as AS3's Array
+		added indexOf:
+			Same as AS3's Array.
+		added lastIndexOf: 
+			Same as AS3's Array.
+		added filter: 
+			Same as AS3's Array.
+		added sortOn	: 
+			Same as AS3's Array.
+			Options are:
+				ArrayUtil.SORT_CASEINSENSITIVE
+				ArrayUtil.SORT_DESCENDING
+				ArrayUtil.SORT_UNIQUESORT
+				ArrayUtil.SORT_RETURNINDEXEDARRAY
+				ArrayUtil.SORT_NUMERIC
+			For fieldNames, it must be a Array. Even if you use only single field, you need to put it into an Array.
+			When using SORT_RETURNINDEXEDARRAY and two elements are the same, instead of return 0, it returns [];
+			Due to a bug in hxcpp, this function do not modify the input Array. But its' output is correct.
 	-DateUtil
 		added getTimezoneOffset : Same as AS3's Date. If date is not supplied, it use 1970-1-1, which gives best performance.
