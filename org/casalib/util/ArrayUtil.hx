@@ -56,7 +56,7 @@
 			For fieldNames, it must be a Array. Even if you use only single field, you need to put it into an Array.
 			When using SORT_RETURNINDEXEDARRAY and two elements are the same, instead of return 0, it returns [];
 		*/
-		public static function sortOn(inArray:Array<Dynamic>, fieldNames:Array<String>, ?options:Int = 0):Array<Dynamic> {
+		inline public static function sortOn(inArray:Array<Dynamic>, fieldNames:Array<String>, ?options:Int = 0):Array<Dynamic> {
 			#if flash
 			
 			var result:Dynamic = untyped inArray.sortOn(fieldNames, options);
@@ -71,7 +71,8 @@
 				var oUniquesort = options >> 2 & 1 == 1;
 				var oDescending = options >> 1 & 1 == 1;
 				var oCaseinsensitive = options & 1 == 1;
-			
+				
+				var hasDup = false;
 				if (oUniquesort) {
 					var testCase = new Array<Array<Dynamic>>();
 					for (i in 0...inArray.length) {
@@ -84,11 +85,37 @@
 						}
 					}
 					var removedDup = ArrayUtil.removeDuplicates2(testCase);
-					if (removedDup.length != testCase.length) return result;
+					if (removedDup.length != testCase.length) hasDup = true;
 				}
-				var sortArray = oReturnindexedarray ? inArray.copy() : inArray;
-				sortArray.sort(
-					function (a,b) {
+				if (!hasDup){
+					var sortArray = oReturnindexedarray ? inArray.copy() : inArray;
+					sortArray.sort(getSortingFunction(oNumeric, oReturnindexedarray, oUniquesort, oDescending, oCaseinsensitive,fieldNames));
+			
+					if (!oReturnindexedarray) {
+						result = sortArray;
+					} else {
+						var usedArray = new Array<Bool>();
+						for (e in inArray){
+							usedArray.push(false);
+						}
+						for (e in inArray){
+							var index = 0;
+							do {
+								index = ArrayUtil.indexOf(sortArray,e,index);
+							} while ((index < usedArray.length) && (usedArray[index] == true));
+							usedArray[index] = true;
+					
+							result.push(index);
+						}
+					}
+				}
+			}
+			return result;
+			#end
+		}
+		
+		public static function getSortingFunction(oNumeric:Bool, oReturnindexedarray:Bool, oUniquesort:Bool, oDescending:Bool, oCaseinsensitive:Bool, fieldNames:Array<String>):Dynamic {
+			return function (a,b):Int {
 						var r = 0;
 						for (f in fieldNames){
 							var af:Dynamic = Reflect.field(a,f);
@@ -129,28 +156,7 @@
 							}
 						}
 						return r;
-					});
-			
-				if (!oReturnindexedarray) {
-					result = sortArray;
-				} else {
-					var usedArray = new Array<Bool>();
-					for (e in inArray){
-						usedArray.push(false);
 					}
-					for (e in inArray){
-						var index = 0;
-						do {
-							index = ArrayUtil.indexOf(sortArray,e,index);
-						} while ((index < usedArray.length) && (usedArray[index] == true));
-						usedArray[index] = true;
-					
-						result.push(index);
-					}
-				}
-			}
-			return result;
-			#end
 		}
 		
 		inline public static var SORT_CASEINSENSITIVE(_CASEINSENSITIVE,null):Int;
@@ -222,7 +228,7 @@
 					tarArray.insert(index++,items[i]);
 				}
 							return true;
-			}		}				/**			Creates new Array composed of only the non-identical elements of passed Array.						@param inArray: Array to remove equivalent items.			@return A new Array composed of only unique elements.			@example				<code>					var numberArray:Array = new Array(1, 2, 3, 4, 4, 4, 4, 5);					trace(ArrayUtil.removeDuplicates(numberArray));				</code>		*/		inline public static function removeDuplicates(inArray:Array<Dynamic>):Array<Dynamic> {			//return filter(inArray,ArrayUtil._removeDuplicatesFilter);
+			}		}				/**			Creates new Array composed of only the non-identical elements of passed Array.						@param inArray: Array to remove equivalent items.			@return A new Array composed of only unique elements.			@example				<code>					var numberArray:Array = new Array(1, 2, 3, 4, 4, 4, 4, 5);					trace(ArrayUtil.removeDuplicates(numberArray));				</code>		*/		inline public static function removeDuplicates(inArray:Array<Dynamic>):Array<Dynamic> {
 			var i = 0;
 			var cp = inArray.copy();
 			var outArray = inArray.copy();
@@ -233,7 +239,7 @@
 			}
 			return outArray;		}
 		
-		inline private static function removeDuplicates2(inArray:Array<Array<Dynamic>>):Array<Dynamic> {			//return filter(inArray,ArrayUtil._removeDuplicatesFilter);
+		inline private static function removeDuplicates2(inArray:Array<Array<Dynamic>>):Array<Dynamic> {
 			var i = 0;
 			var cp = inArray.copy();
 			var outArray = inArray.copy();

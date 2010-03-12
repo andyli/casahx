@@ -158,23 +158,18 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals("catchy:5,Bob:3,barb:35,abcd:4",dumpUsers(ArrayUtil.sortOn(users,["name"],ArrayUtil.SORT_CASEINSENSITIVE|ArrayUtil.SORT_DESCENDING)));
 		
-		var workaroundCppArrayBug = true;
 		
 		rUser = ArrayUtil.sortOn(users,['age']);
 		this.assertEquals("Bob:3,barb:35,abcd:4,catchy:5",dumpUsers(rUser));
-		if (workaroundCppArrayBug)(users = rUser);
 		
 		rUser = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_NUMERIC);
 		this.assertEquals("Bob:3,abcd:4,catchy:5,barb:35",dumpUsers(rUser));
-		if (workaroundCppArrayBug)(users = rUser);
 		
 		rUser = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_DESCENDING|ArrayUtil.SORT_NUMERIC);
 		this.assertEquals("barb:35,catchy:5,abcd:4,Bob:3",dumpUsers(rUser));
-		if (workaroundCppArrayBug)(users = rUser);
 		
 		rUser = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_NUMERIC);
 		this.assertEquals("Bob:3,abcd:4,catchy:5,barb:35",dumpUsers(rUser));
-		if (workaroundCppArrayBug)(users = rUser);
 
 		var indices = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_NUMERIC | ArrayUtil.SORT_RETURNINDEXEDARRAY);
 		var index:UInt;
