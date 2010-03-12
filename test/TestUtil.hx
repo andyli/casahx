@@ -54,7 +54,7 @@ class TestUtil extends TestCase {
 		this.assertFalse(ArrayUtil.containsAll([1,2,3,4,5],[1,3,6]));
 		
 		this.assertTrue(ArrayUtil.containsAny([1,2,3,4,5],[1,6,5]));
-		this.assertFalse(ArrayUtil.containsAny([1,2,3,4,5],[-1,0,6.1]));
+		this.assertFalse(ArrayUtil.containsAny([1,2,3,4,5],[-1,0,6]));
 		
 		this.assertTrue(ArrayUtil.equals([1,2,-1],[1,2,-1]));
 		this.assertFalse(ArrayUtil.equals([1,2,-1],[1,2,1]));
@@ -64,10 +64,11 @@ class TestUtil extends TestCase {
 		this.assertEquals(3,ArrayUtil.getIndexOfDifference(["Red", "Blue", "Green", "Indigo", "Violet"],["Red", "Blue", "Green", "Violet"]));
 		
 		var item = {a:123, b:456};
-		this.assertEquals(item, ArrayUtil.getItemByKey([{b:12},{b:15},item],"b",456));
+		this.assertEquals(item, ArrayUtil.getItemByKey([{a:0,b:12},{a:0,b:15},item],"b",456));
 		
 		var array = [1,2,3,4,5,5,7,5,9,0,11,12,13];
-		this.assertEquals(array, ArrayUtil.getItemByType([14,array,"","asdfn"],Array));
+		
+		this.assertEquals(array, ArrayUtil.getItemByType([14,array,"","asdfn"],Type.getClass(array)));
 		
 		this.assertEquals(3, ArrayUtil.getItemsByKey([{b:12},{b:15},item,{b:15},{b:15}],"b",15).length);
 		
@@ -83,6 +84,8 @@ class TestUtil extends TestCase {
 		this.assertEquals(2,ArrayUtil.removeDuplicates(testAry).length);
 		
 		this.assertEquals(3,ArrayUtil.removeItem(array,5));
+		
+		this.assertEquals(3,ArrayUtil.removeItem([1,2,3,4,5,5,[],5,9,0,11,{a:0},13],5));
 		
 		ArrayUtil.removeItems(array,[1,11]);
 		this.assertEquals(8,array.length);
