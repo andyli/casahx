@@ -114,6 +114,92 @@
 			#end
 		}
 		
+		
+		/**
+			Basically same as sortOn, but it ignores ArrayUtil.SORT_RETURNINDEXEDARRAY.
+			The return is typed same as inArray.
+		*/
+		inline public static function sortOnLite<T>(inArray:Array<T>, fieldNames:Array<String>, ?options:Int = 0):Array<T> {
+			#if flash
+			
+			var result:Dynamic = untyped inArray.sortOn(fieldNames, options & 23);
+			return Std.is(result,Array) ? result : [];
+			
+			#else
+			
+			var result:Array<T> = [];
+			if (inArray.length != 0) {
+				var oNumeric = options >> 4 & 1 == 1;
+				var oUniquesort = options >> 2 & 1 == 1;
+				var oDescending = options >> 1 & 1 == 1;
+				var oCaseinsensitive = options & 1 == 1;
+				
+				var hasDup = false;
+				if (oUniquesort) {
+					var testCase = new Array<Array<Dynamic>>();
+					for (i in 0...inArray.length) {
+						testCase[i] = new Array<Dynamic>();
+						for (f in fieldNames) {
+							var fi = Reflect.field(inArray[i],f);
+							var isString = !(Std.is(fi,Float) || Std.is(fi,Int));
+							var ele:Dynamic;
+							if (oCaseinsensitive && isString) {
+								ele = Std.string(fi).toLowerCase();
+							} else {
+								ele = inArray[i];
+							}
+							testCase[i].push(ele);
+						}
+					}
+					var removedDup = ArrayUtil.removeDuplicates2(testCase);
+					if (removedDup.length != testCase.length) hasDup = true;
+				}
+				if (!hasDup){
+					inArray.sort(getSortingFunction(oNumeric, false, oUniquesort, oDescending, oCaseinsensitive,fieldNames));
+			
+					result = inArray;
+				}
+			}
+			return result;
+			#end
+		}
+		
+		/**
+			Basically same as sortOn, but ArrayUtil.SORT_RETURNINDEXEDARRAY is fixed whatever you supplied as options.
+			The return is typed as Array<Int>.
+		*/
+		#if cpp
+		inline
+		#end public static function indiceOfSorted(inArray:Array<Dynamic>, fieldNames:Array<String>, ?options:Int = 0):Array<Int> {
+			#if flash
+			
+			var result:Dynamic = untyped inArray.sortOn(fieldNames, options | 8);
+			return Std.is(result,Array) ? result : [];
+			
+			#else
+			
+			var result:Array<Int> = [];
+			var sortArray = ArrayUtil.sortOnLite(inArray.copy(), fieldNames, options);
+					
+			if (sortArray.length != 0) {
+				var usedArray = new Array<Bool>();
+				for (e in inArray){
+					usedArray.push(false);
+				}
+				for (e in inArray){
+					var index = 0;
+					do {
+						index = ArrayUtil.indexOf(sortArray,e,index);
+					} while ((index < usedArray.length) && (usedArray[index] == true));
+					usedArray[index] = true;
+	
+					result.push(index);
+				}
+			}
+			return result;
+			#end
+		}
+		
 		public static function getSortingFunction(oNumeric:Bool, oReturnindexedarray:Bool, oUniquesort:Bool, oDescending:Bool, oCaseinsensitive:Bool, fieldNames:Array<String>):Dynamic {
 			return function (a,b):Int {
 						var r = 0;

@@ -112,20 +112,40 @@ class TestUtil extends TestCase {
 		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"]));
 		this.assertEquals(str0,str1);
 		
+		str0 = dumpAry([{a:"A"},{a:"Z"},{a:"a"},{a:"z"}]);
+		str1 = dumpAry(ArrayUtil.sortOnLite(ary,["a"]));
+		this.assertEquals(str0,str1);
+		
 		str0 = dumpAry([{a:"z"},{a:"a"},{a:"Z"},{a:"A"}]);
 		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_DESCENDING));
+		this.assertEquals(str0,str1);
+		
+		str0 = dumpAry([{a:"z"},{a:"a"},{a:"Z"},{a:"A"}]);
+		str1 = dumpAry(ArrayUtil.sortOnLite(ary,["a"],ArrayUtil.SORT_DESCENDING));
 		this.assertEquals(str0,str1);
 		
 		str0 = dumpAry([{a:"A"},{a:"a"},{a:"Z"},{a:"z"}]);
 		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_CASEINSENSITIVE));
 		this.assertEquals(str0.toLowerCase(),str1.toLowerCase());
 		
+		str0 = dumpAry([{a:"A"},{a:"a"},{a:"Z"},{a:"z"}]);
+		str1 = dumpAry(ArrayUtil.sortOnLite(ary,["a"],ArrayUtil.SORT_CASEINSENSITIVE));
+		this.assertEquals(str0.toLowerCase(),str1.toLowerCase());
+		
 		str0 = dumpAry([{a:"Z"},{a:"z"},{a:"A"},{a:"a"}]);
 		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_CASEINSENSITIVE|ArrayUtil.SORT_DESCENDING));
 		this.assertEquals(str0.toLowerCase(),str1.toLowerCase());
 		
+		str0 = dumpAry([{a:"Z"},{a:"z"},{a:"A"},{a:"a"}]);
+		str1 = dumpAry(ArrayUtil.sortOnLite(ary,["a"],ArrayUtil.SORT_CASEINSENSITIVE|ArrayUtil.SORT_DESCENDING));
+		this.assertEquals(str0.toLowerCase(),str1.toLowerCase());
+		
 		str0 = dumpAry([{a:"A"},{a:"Z"},{a:"a"},{a:"z"}]);
 		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_UNIQUESORT));
+		this.assertEquals(str0,str1);
+		
+		str0 = dumpAry([{a:"A"},{a:"Z"},{a:"a"},{a:"z"}]);
+		str1 = dumpAry(ArrayUtil.sortOnLite(ary,["a"],ArrayUtil.SORT_UNIQUESORT));
 		this.assertEquals(str0,str1);
 		
 		var p = str1;
@@ -135,8 +155,18 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(p,dumpAry(ary));
 		
+		str0 = dumpAry([]);
+		str1 = dumpAry(ArrayUtil.sortOnLite(ary,["a"],ArrayUtil.SORT_CASEINSENSITIVE|ArrayUtil.SORT_UNIQUESORT));
+		this.assertEquals(str0,str1);
+		
+		this.assertEquals(p,dumpAry(ary));
+		
 		str0 = dumpAry([3,2,1,0]);
 		str1 = dumpAry(ArrayUtil.sortOn(ary,["a"],ArrayUtil.SORT_DESCENDING|ArrayUtil.SORT_RETURNINDEXEDARRAY));
+		this.assertEquals(str0,str1);
+		
+		str0 = dumpAry([3,2,1,0]);
+		str1 = dumpAry(ArrayUtil.indiceOfSorted(ary,["a"],ArrayUtil.SORT_DESCENDING|ArrayUtil.SORT_RETURNINDEXEDARRAY));
 		this.assertEquals(str0,str1);
 		
 		//below modified from AS3's doc
@@ -157,29 +187,54 @@ class TestUtil extends TestCase {
 
 		this.assertEquals("Bob:3,abcd:4,barb:35,catchy:5",dumpUsers(ArrayUtil.sortOn(users,["name"])));
 		
+		this.assertEquals("Bob:3,abcd:4,barb:35,catchy:5",dumpUsers(ArrayUtil.sortOnLite(users,["name"])));
+		
 		this.assertEquals("abcd:4,barb:35,Bob:3,catchy:5",dumpUsers(ArrayUtil.sortOn(users,["name"],ArrayUtil.SORT_CASEINSENSITIVE)));
 		
+		this.assertEquals("abcd:4,barb:35,Bob:3,catchy:5",dumpUsers(ArrayUtil.sortOnLite(users,["name"],ArrayUtil.SORT_CASEINSENSITIVE)));
+		
 		this.assertEquals("catchy:5,Bob:3,barb:35,abcd:4",dumpUsers(ArrayUtil.sortOn(users,["name"],ArrayUtil.SORT_CASEINSENSITIVE|ArrayUtil.SORT_DESCENDING)));
+		
+		this.assertEquals("catchy:5,Bob:3,barb:35,abcd:4",dumpUsers(ArrayUtil.sortOnLite(users,["name"],ArrayUtil.SORT_CASEINSENSITIVE|ArrayUtil.SORT_DESCENDING)));
 		
 		
 		rUser = ArrayUtil.sortOn(users,['age']);
 		this.assertEquals("Bob:3,barb:35,abcd:4,catchy:5",dumpUsers(rUser));
 		
+		rUser = ArrayUtil.sortOnLite(users,['age']);
+		this.assertEquals("Bob:3,barb:35,abcd:4,catchy:5",dumpUsers(rUser));
+		
 		rUser = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_NUMERIC);
+		this.assertEquals("Bob:3,abcd:4,catchy:5,barb:35",dumpUsers(rUser));
+		
+		rUser = ArrayUtil.sortOnLite(users,['age'],ArrayUtil.SORT_NUMERIC);
 		this.assertEquals("Bob:3,abcd:4,catchy:5,barb:35",dumpUsers(rUser));
 		
 		rUser = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_DESCENDING|ArrayUtil.SORT_NUMERIC);
 		this.assertEquals("barb:35,catchy:5,abcd:4,Bob:3",dumpUsers(rUser));
 		
+		rUser = ArrayUtil.sortOnLite(users,['age'],ArrayUtil.SORT_DESCENDING|ArrayUtil.SORT_NUMERIC);
+		this.assertEquals("barb:35,catchy:5,abcd:4,Bob:3",dumpUsers(rUser));
+		
 		rUser = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_NUMERIC);
+		this.assertEquals("Bob:3,abcd:4,catchy:5,barb:35",dumpUsers(rUser));
+		
+		rUser = ArrayUtil.sortOnLite(users,['age'],ArrayUtil.SORT_NUMERIC);
 		this.assertEquals("Bob:3,abcd:4,catchy:5,barb:35",dumpUsers(rUser));
 
 		var indices = ArrayUtil.sortOn(users,['age'],ArrayUtil.SORT_NUMERIC | ArrayUtil.SORT_RETURNINDEXEDARRAY);
 		var index:UInt;
 		var tempA:Array<String> = new Array<String>();
-		for(i in 0...indices.length) {
-			index = indices[i];
-			tempA.push(users[index].name);
+		for(i in indices) {
+			tempA.push(users[i].name);
+		}
+		this.assertEquals("Bob,abcd,catchy,barb",tempA.join(','));
+		
+		var indices2 = ArrayUtil.indiceOfSorted(users,['age'],ArrayUtil.SORT_NUMERIC | ArrayUtil.SORT_RETURNINDEXEDARRAY);
+		index = 0;
+		tempA = new Array<String>();
+		for(i in indices2) {
+			tempA.push(users[i].name);
 		}
 		this.assertEquals("Bob,abcd,catchy,barb",tempA.join(','));
 	}
