@@ -1,0 +1,9 @@
+-neko test/bin/Test.n
+-lib neash
+-lib nme
+--remap flash:neash
+-main test.Test
+-cmd echo "----------------------------------------"
+-cmd echo "Test Neko!"
+-cmd neko test/bin/Test.n
+-cmd echo "----------------------------------------"
