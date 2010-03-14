@@ -12,6 +12,9 @@ import org.casalib.util.ConversionUtil;
 import org.casalib.util.DateUtil;
 import org.casalib.util.GeomUtil;
 import org.casalib.util.LoadUtil;
+#if !php
+import org.casalib.util.LocationUtil;
+#end
 import org.casalib.util.NumberUtil;
 import org.casalib.util.ObjectUtil;
 import org.casalib.util.RatioUtil;
@@ -393,6 +396,36 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(100/1024,LoadUtil.calculateKBps(100,100,1100));
 	}
+	
+	#if !php
+	public function testLocationUtil():Void {
+		#if flash
+			var domain = LocationUtil.getDomain(flash.Lib.current);
+			LocationUtil.isAirApplication();
+			this.assertTrue(LocationUtil.isDomain(flash.Lib.current,domain));
+			LocationUtil.isIde();
+			LocationUtil.isPlugin();
+			LocationUtil.isStandAlone();
+			LocationUtil.isWeb(flash.Lib.current);
+		#elseif js
+			var domain = LocationUtil.getDomain(flash.Lib.current);
+			this.assertFalse(LocationUtil.isAirApplication());
+			this.assertTrue(LocationUtil.isDomain(flash.Lib.current,domain));
+			this.assertFalse(LocationUtil.isIde());
+			this.assertFalse(LocationUtil.isPlugin());
+			this.assertFalse(LocationUtil.isStandAlone());
+			this.assertTrue(LocationUtil.isWeb(flash.Lib.current));
+		#else
+			var domain = LocationUtil.getDomain(flash.Lib.current);
+			this.assertFalse(LocationUtil.isAirApplication());
+			this.assertTrue(LocationUtil.isDomain(flash.Lib.current,domain));
+			this.assertFalse(LocationUtil.isIde());
+			this.assertFalse(LocationUtil.isPlugin());
+			this.assertFalse(LocationUtil.isStandAlone());
+			this.assertFalse(LocationUtil.isWeb(flash.Lib.current));
+		#end
+	}
+	#end
 	
 	public function testNumberUtil():Void {
 		this.assertEquals("00",NumberUtil.addLeadingZero(0));

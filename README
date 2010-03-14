@@ -4,10 +4,11 @@ Ported from...
 	http://svn.as3.casalib.org/releases/latest/code/
 
 Note
-	For targets other than Flash, casahx needs nme, neash and canvas-nme.
+	For targets other than Flash, casahx needs nme, neash and canvas-nme. To compile test.hxml, remember to modify the path to canvas-nme and the path to your local test server first.
 
-	All the codes in the repo is maintained to be already tested on ALL haxe targets, except:
-	NumberUtil.isNumber(), due to inconsistence of Std.parseFloat between targets, some weired expression may fail on some platform. But normal integer/float is ok and consistant(Please check List of test case in test.TestUtil.testNumberUtil()).
+	All the codes in the repo is maintained to be already tested and is consistant on ALL haxe targets, except:
+	-NumberUtil.isNumber(), due to inconsistence of Std.parseFloat between targets, some weired expression may fail on some platform. But normal integer/float is ok and consistant(Please check List of test case in test.TestUtil.testNumberUtil()).
+	-LocationUtil is not avalible on PHP. Assume JS is running in the web. Assume C++/Neko is not in the web.
 	
 	There are some functions different from the original casalib:
 	-added UInt (org.casalib.core) : Used internally to make it usable in non-Flash targets.
