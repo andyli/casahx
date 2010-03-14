@@ -2,6 +2,7 @@ package test;
 
 import haxe.unit.TestCase;
 import flash.geom.Rectangle;
+import flash.geom.Point;
 import org.casalib.core.UInt;
 import org.casalib.math.Percent;
 import org.casalib.util.ArrayUtil;
@@ -9,6 +10,7 @@ import org.casalib.util.ClassUtil;
 import org.casalib.util.ColorUtil;
 import org.casalib.util.ConversionUtil;
 import org.casalib.util.DateUtil;
+import org.casalib.util.GeomUtil;
 import org.casalib.util.NumberUtil;
 import org.casalib.util.ObjectUtil;
 import org.casalib.util.RatioUtil;
@@ -360,6 +362,26 @@ class TestUtil extends TestCase {
 		this.assertTrue(NumberUtil.isBetween(DateUtil.getInternetTime(Date.now()),0,1000));
 		
 		
+	}
+	
+	public function testGeomUtil():Void {
+		var pt = new Point(100,100);
+		var pt0 = new Point();
+		this.assertEquals(45.0,GeomUtil.angle(pt0,pt));
+		
+		this.assertTrue(300 == GeomUtil.getRectanglePerimeter(new Rectangle(0,0,100,50)));
+		
+		GeomUtil.rotatePoint(pt,pt0,90);
+		GeomUtil.rotatePoint(pt,pt0,90);
+		
+		this.assertTrue(-100 == pt.x);
+		this.assertTrue(-100 == pt.y);
+		
+		GeomUtil.rotatePoint(pt,pt0,90);
+		GeomUtil.rotatePoint(pt,pt0,90);
+		
+		this.assertTrue(100 == pt.x);
+		this.assertTrue(100 == pt.y);
 	}
 	
 	public function testNumberUtil():Void {
