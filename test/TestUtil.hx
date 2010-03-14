@@ -11,6 +11,7 @@ import org.casalib.util.ColorUtil;
 import org.casalib.util.ConversionUtil;
 import org.casalib.util.DateUtil;
 import org.casalib.util.GeomUtil;
+import org.casalib.util.LoadUtil;
 import org.casalib.util.NumberUtil;
 import org.casalib.util.ObjectUtil;
 import org.casalib.util.RatioUtil;
@@ -382,6 +383,15 @@ class TestUtil extends TestCase {
 		
 		this.assertTrue(100 == pt.x);
 		this.assertTrue(100 == pt.y);
+	}
+	
+	public function testLoadUtil():Void {
+		this.assertEquals(100,LoadUtil.calculateBps(100,100,1100));
+		
+		//calculateMillisecondsUntilBuffered is also tested here...
+		this.assertTrue(1 == LoadUtil.calculateBufferPercent(100,100,100,1100,1000).decimalPercentage);
+		
+		this.assertEquals(100/1024,LoadUtil.calculateKBps(100,100,1100));
 	}
 	
 	public function testNumberUtil():Void {
