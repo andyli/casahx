@@ -4,7 +4,7 @@
 					return true;
 				}
 			}
-						return false;		}				/**			Makes a clone of the original Object.						@param obj: Object to make the clone of.			@return Returns a duplicate Object.			@example				<code>					this._author      = new Person();					this._author.name = "Aaron";										registerClassAlias("Person", Person);										var humanClone:Person = Person(ObjectUtil.clone(this._author));										trace(humanClone.name);				</code>		*/		inline public static function clone(obj:Dynamic):Dynamic {			return haxe.Unserializer.run(haxe.Serializer.run(obj));		}				/**			Creates an Array comprised of all the keys in an Object.						@param obj: Object in which to find keys.			@return Array containing all the string key names.		*/		public static function getKeys(obj:Dynamic):Array<String> {
+						return false;		}				/**			Makes a clone of the original Object.						@param obj: Object to make the clone of.			@return Returns a duplicate Object.			@example				<code>					this._author      = new Person();					this._author.name = "Aaron";										registerClassAlias("Person", Person);										var humanClone:Person = Person(ObjectUtil.clone(this._author));										trace(humanClone.name);				</code>		*/		inline public static function clone<T>(obj:Dynamic):T {			return cast haxe.Unserializer.run(haxe.Serializer.run(obj));		}				/**			Creates an Array comprised of all the keys in an Object.						@param obj: Object in which to find keys.			@return Array containing all the string key names.		*/		public static function getKeys(obj:Dynamic):Array<String> {
 			#if !flash				return Reflect.fields(obj);
 			#else
 				var keys:Array<String> = Reflect.fields(obj);
