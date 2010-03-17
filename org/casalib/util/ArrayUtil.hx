@@ -170,7 +170,7 @@
 		*/
 		#if cpp
 		inline
-		#end public static function indiceOfSorted(inArray:Array<Dynamic>, fieldNames:Array<String>, ?options:Int = 0):Array<Int> {
+		#end public static function indicesOfSorted(inArray:Array<Dynamic>, fieldNames:Array<String>, ?options:Int = 0):Array<Int> {
 			#if flash
 			
 			var result:Dynamic = untyped inArray.sortOn(fieldNames, options | 8);

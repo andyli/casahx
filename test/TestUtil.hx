@@ -172,7 +172,7 @@ class TestUtil extends TestCase {
 		this.assertEquals(str0,str1);
 		
 		str0 = dumpAry([3,2,1,0]);
-		str1 = dumpAry(ArrayUtil.indiceOfSorted(ary,["a"],ArrayUtil.SORT_DESCENDING|ArrayUtil.SORT_RETURNINDEXEDARRAY));
+		str1 = dumpAry(ArrayUtil.indicesOfSorted(ary,["a"],ArrayUtil.SORT_DESCENDING|ArrayUtil.SORT_RETURNINDEXEDARRAY));
 		this.assertEquals(str0,str1);
 		
 		//below modified from AS3's doc
@@ -236,7 +236,7 @@ class TestUtil extends TestCase {
 		}
 		this.assertEquals("Bob,abcd,catchy,barb",tempA.join(','));
 		
-		var indices2 = ArrayUtil.indiceOfSorted(users,['age'],ArrayUtil.SORT_NUMERIC | ArrayUtil.SORT_RETURNINDEXEDARRAY);
+		var indices2 = ArrayUtil.indicesOfSorted(users,['age'],ArrayUtil.SORT_NUMERIC | ArrayUtil.SORT_RETURNINDEXEDARRAY);
 		index = 0;
 		tempA = new Array<String>();
 		for(i in indices2) {
