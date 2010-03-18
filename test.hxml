@@ -23,6 +23,7 @@
 -lib nme
 -cp /Users/andylihahaha/Documents/repo/canvas-nme
 --remap flash:neash
+--remap nme:canvas
 -main test.Test
 
 --next

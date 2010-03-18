@@ -1,10 +1,14 @@
 package test;
 
 import haxe.unit.TestCase;
+
+#if !php import flash.display.Sprite; #end
 import flash.geom.Rectangle;
 import flash.geom.Point;
+
 import org.casalib.core.UInt;
 import org.casalib.math.Percent;
+#if !php import org.casalib.util.AlignUtil; #end
 import org.casalib.util.ArrayUtil;
 import org.casalib.util.ClassUtil;
 import org.casalib.util.ColorUtil;
@@ -12,9 +16,7 @@ import org.casalib.util.ConversionUtil;
 import org.casalib.util.DateUtil;
 import org.casalib.util.GeomUtil;
 import org.casalib.util.LoadUtil;
-#if !php
-import org.casalib.util.LocationUtil;
-#end
+#if !php import org.casalib.util.LocationUtil; #end
 import org.casalib.util.NumberUtil;
 import org.casalib.util.ObjectUtil;
 import org.casalib.util.RatioUtil;
@@ -36,6 +38,24 @@ private class User {
 }
 
 class TestUtil extends TestCase {
+	#if !php
+	public function testAlignUtil():Void {
+		//just run all function once...
+		
+		var d = new Sprite();
+		var b = new Rectangle(0,0,100,100);
+		AlignUtil.alignBottom(d,b);
+		AlignUtil.alignCenter(d,b);
+		AlignUtil.alignCenterMiddle(d,b);
+		AlignUtil.alignLeft(d,b);
+		this.assertEquals(b.x,d.x);
+		AlignUtil.alignMiddle(d,b);
+		AlignUtil.alignRight(d,b);
+		AlignUtil.alignTop(d,b);
+		this.assertEquals(b.y,d.y);
+	}
+	#end
+
 	public function testArrayUtil():Void {
 		var a1:Array<Int> = [1,6,3,3,8];
 		
