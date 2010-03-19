@@ -8,18 +8,22 @@ import flash.geom.Point;
 
 import org.casalib.core.UInt;
 import org.casalib.math.Percent;
+
 #if !php import org.casalib.util.AlignUtil; #end
 import org.casalib.util.ArrayUtil;
 import org.casalib.util.ClassUtil;
 import org.casalib.util.ColorUtil;
 import org.casalib.util.ConversionUtil;
 import org.casalib.util.DateUtil;
+#if !php import org.casalib.util.DisplayObjectUtil; #end
+#if !php import org.casalib.util.DrawUtil; #end
 import org.casalib.util.GeomUtil;
 import org.casalib.util.LoadUtil;
 #if !php import org.casalib.util.LocationUtil; #end
 import org.casalib.util.NumberUtil;
 import org.casalib.util.ObjectUtil;
 import org.casalib.util.RatioUtil;
+#if !php import org.casalib.util.StageReference; #end
 import org.casalib.util.StringUtil;
 import org.casalib.util.ValidationUtil;
 
@@ -388,6 +392,58 @@ class TestUtil extends TestCase {
 		
 	}
 	
+	#if !php
+	public function testDisplayObjectUtil():Void {
+		var d = new Sprite();
+		var e = new Sprite();
+		for (i in 0...10){
+			d.addChild(new Sprite());
+			e.addChild(new Sprite());
+		}
+		d.addChild(e);
+		this.assertEquals(11,d.numChildren);
+		this.assertEquals(10,e.numChildren);
+		
+		DisplayObjectUtil.removeChildren(d);
+		this.assertEquals(0,d.numChildren);
+		this.assertEquals(10,e.numChildren);
+		
+		d.addChild(e);
+		this.assertEquals(1,d.numChildren);
+		
+		DisplayObjectUtil.removeChildren(d,false,true);
+		this.assertEquals(0,d.numChildren);
+		this.assertEquals(0,e.numChildren);
+	}
+	#end
+	
+	#if !php
+	public function testDrawUtil():Void {
+		var d = new Sprite();
+		var e = new Sprite();
+		flash.Lib.current.addChild(d);
+		flash.Lib.current.addChild(e);
+		d.graphics.beginFill(0,1);
+		e.graphics.beginFill(0,1);
+		
+		DrawUtil.drawRoundRect(d.graphics,0,0,100,100,5,5);
+		#if flash
+		this.assertEquals(100.0,d.width);
+		#end
+		
+		DrawUtil.drawWedge(e.graphics,new org.casalib.math.geom.Ellipse(0,0,100,100),0,180);
+		#if flash
+		this.assertEquals(50.0,e.width);
+		this.assertEquals(100.0,e.height);
+		#end
+		
+		this.assertTrue(true);
+		
+		flash.Lib.current.removeChild(d);
+		flash.Lib.current.removeChild(e);
+	}
+	#end
+	
 	public function testGeomUtil():Void {
 		var pt = new Point(100,100);
 		var pt0 = new Point();
@@ -556,6 +612,21 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(4/3,RatioUtil.widthToHeight(rect));
 	}
+	
+	#if !php
+	public function testStageReference():Void {
+		var stage = flash.Lib.current.stage;
+		StageReference.setStage(stage);
+		this.assertEquals(stage,StageReference.getStage());
+		this.assertEquals(StageReference.STAGE_DEFAULT,StageReference.getIds()[0]);
+		this.assertEquals(StageReference.STAGE_DEFAULT,StageReference.getStageId(stage));
+		StageReference.setStage(stage,"test");
+		this.assertEquals(2,StageReference.getIds().length);
+		StageReference.removeStage("test");
+		this.assertEquals(1,StageReference.getIds().length);
+		this.assertEquals(StageReference.STAGE_DEFAULT,StageReference.getStageId(stage));
+	}
+	#end
 	
 	public function testStringUtil():Void {
 		this.assertEquals("123456", StringUtil.addAt("12456",2,"3"));
