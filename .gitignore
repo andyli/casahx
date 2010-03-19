@@ -1,7 +1,7 @@
 test/bin/cpp
 test/bin/php
 test/bin/js/*.js
+test/bin/swf/*.swf
 test/bin/*.n
-test/bin/*.swf
 
 .DS_Store

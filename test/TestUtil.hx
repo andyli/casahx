@@ -22,9 +22,13 @@ import org.casalib.util.LoadUtil;
 #if !php import org.casalib.util.LocationUtil; #end
 import org.casalib.util.NumberUtil;
 import org.casalib.util.ObjectUtil;
+import org.casalib.util.PropertySetter;
+import org.casalib.util.QueryStringUtil;
 import org.casalib.util.RatioUtil;
+import org.casalib.util.SingletonUtil;
 #if !php import org.casalib.util.StageReference; #end
 import org.casalib.util.StringUtil;
+#if !php import org.casalib.util.TextFieldUtil; #end
 import org.casalib.util.ValidationUtil;
 
 //below modified from AS3's doc
@@ -593,6 +597,36 @@ class TestUtil extends TestCase {
 		test();
 	}
 	
+	public function testPropertySetter():Void {
+		var rect = new Rectangle(0,0,640,480);
+		
+		var ps = new PropertySetter(rect,"y");
+		
+		ps.defineProperty([10.0]);
+		
+		this.assertEquals(10.0,rect.y);
+	}
+	
+	public function testQueryStringUtil():Void {
+		#if (php||js)
+			this.assertEquals("q=123",QueryStringUtil.queryString);
+			this.assertTrue(QueryStringUtil.hasKey("q"));
+			this.assertEquals("123",QueryStringUtil.getValue("q"));
+			this.assertFalse(QueryStringUtil.hasKey("w"));
+		#elseif flash
+			if (LocationUtil.isWeb(flash.Lib.current)){
+				this.assertEquals("q=123",QueryStringUtil.queryString);
+				this.assertTrue(QueryStringUtil.hasKey("q"));
+				this.assertEquals("123",QueryStringUtil.getValue("q"));
+				this.assertFalse(QueryStringUtil.hasKey("w"));
+			}else {
+				this.assertEquals(null,QueryStringUtil.queryString);
+			}
+		#elseif (neko||cpp)
+			this.assertEquals(null,QueryStringUtil.queryString);
+		#end
+	}
+	
 	public function testRatioUtil():Void {
 		var rect = new Rectangle(0,0,640,480);
 		this.assertEquals(3/4,RatioUtil.heightToWidth(rect));
@@ -611,6 +645,10 @@ class TestUtil extends TestCase {
 		this.assertTrue(RatioUtil.scaleWidth(rect,rect2.height,true).equals(RatioUtil.scale(rect2,new Percent(1))));
 		
 		this.assertEquals(4/3,RatioUtil.widthToHeight(rect));
+	}
+	
+	public function testSingletonUtil():Void {
+		this.assertEquals(SingletonUtil.singleton(haxe.Serializer),SingletonUtil.singleton(haxe.Serializer));
 	}
 	
 	#if !php
@@ -704,6 +742,47 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals("  hel  lo",StringUtil.trimRight("  hel  lo  "));
 	}
+	
+	#if !php
+	public function testTextFieldUtil():Void {
+		var title:flash.text.TextField = new flash.text.TextField();
+		title.autoSize      = flash.text.TextFieldAutoSize.LEFT;
+		
+		#if flash
+		var smallCapsStyle:flash.text.StyleSheet = new flash.text.StyleSheet();
+		smallCapsStyle.parseCSS("p {font-size:15px;} .smallCaps {font-size:30px;}");
+		
+		title.styleSheet    = smallCapsStyle;
+		#end
+		
+		title.htmlText      = "<p>This Text is Small Caps.</p>";
+
+		TextFieldUtil.classSmallCaps(title, "smallCaps");
+		
+		this.assertEquals(('<P><SPAN CLASS="SMALLCAPS">T</SPAN>HIS <SPAN CLASS="SMALLCAPS">T</SPAN>EXT IS <SPAN CLASS="SMALLCAPS">S</SPAN>MALL <SPAN CLASS="SMALLCAPS">C</SPAN>APS.</P>').toLowerCase(),title.htmlText.toLowerCase());
+		
+		
+		#if flash
+		var small:flash.text.TextFormat = new flash.text.TextFormat();
+		var large:flash.text.TextFormat = new flash.text.TextFormat();
+
+		small.size = 15;
+		large.size = 30;
+		
+		title = new flash.text.TextField();
+		title.autoSize      = flash.text.TextFieldAutoSize.LEFT;
+		title.text          = "This Text is Small Caps.";
+		title.setTextFormat(small);
+
+		TextFieldUtil.formatSmallCaps(title, large);
+		
+		title.width = 10;
+		this.assertTrue(TextFieldUtil.hasOverFlow(title));
+		TextFieldUtil.removeOverFlow(title);
+		this.assertFalse(TextFieldUtil.hasOverFlow(title));
+		#end
+	}
+	#end
 	
 	public function testValidationUtil():Void {
 		//card numbers from https://www.paypal.com/en_US/vhelp/paypalmanager_help/credit_card_numbers.htm

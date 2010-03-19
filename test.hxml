@@ -1,4 +1,4 @@
--swf test/bin/Test.swf
+-swf test/bin/swf/Test.swf
 -swf-version 10
 -main test.Test
 -lib neash
@@ -36,15 +36,20 @@
 
 --next
 -cmd echo "----------------------------------------"
--cmd echo "Test Flash!"
--cmd open test/bin/Test.swf
--cmd echo "Opened in Flash Player!"
+-cmd echo "Test C++!"
+-cmd ./test/bin/cpp/test
 -cmd echo "----------------------------------------"
 -cmd echo "Test Neko!"
 -cmd neko test/bin/Test.n
 -cmd echo "----------------------------------------"
--cmd echo "Test C++!"
--cmd ./test/bin/cpp/test
+-cmd echo "Test Flash!"
+-cmd echo "Clear server file..."
+-cmd rm -r /Library/WebServer/Documents/TestSWF
+-cmd echo "Copy compiled files to server..."
+-cmd cp -r test/bin/swf /Library/WebServer/Documents/TestSWF
+-cmd echo "Open in browser..."
+-cmd open http://localhost/TestSWF?q=123
+-cmd echo "Done!"
 -cmd echo "----------------------------------------"
 -cmd echo "Test JS!"
 -cmd echo "Clear server file..."
@@ -52,7 +57,7 @@
 -cmd echo "Copy compiled files to server..."
 -cmd cp -r test/bin/js /Library/WebServer/Documents/TestJS
 -cmd echo "Open in browser..."
--cmd open http://localhost/TestJS
+-cmd open http://localhost/TestJS?q=123
 -cmd echo "Done!"
 -cmd echo "----------------------------------------"
 -cmd echo "Test PHP!"
@@ -61,6 +66,6 @@
 -cmd echo "Copy compiled files to server..."
 -cmd cp -r test/bin/php /Library/WebServer/Documents/TestPHP
 -cmd echo "Open in browser..."
--cmd open http://localhost/TestPHP
+-cmd open http://localhost/TestPHP?q=123
 -cmd echo "Done!"
 -cmd echo "----------------------------------------"
