@@ -1,3 +1,7 @@
-test/bin
+test/bin/cpp
+test/bin/php
+test/bin/js/*.js
+test/bin/*.n
+test/bin/*.swf
 
 .DS_Store
