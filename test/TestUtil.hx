@@ -17,9 +17,12 @@ import org.casalib.util.ConversionUtil;
 import org.casalib.util.DateUtil;
 #if !php import org.casalib.util.DisplayObjectUtil; #end
 #if !php import org.casalib.util.DrawUtil; #end
+#if flash import org.casalib.util.FlashVarUtil; #end
+#if flash import org.casalib.util.FrameUtil; #end
 import org.casalib.util.GeomUtil;
 import org.casalib.util.LoadUtil;
 #if !php import org.casalib.util.LocationUtil; #end
+#if !php import org.casalib.util.NavigateUtil; #end
 import org.casalib.util.NumberUtil;
 import org.casalib.util.ObjectUtil;
 import org.casalib.util.PropertySetter;
@@ -448,6 +451,30 @@ class TestUtil extends TestCase {
 	}
 	#end
 	
+	#if flash
+	public function testFlashVarUtil():Void {
+		StageReference.setStage(flash.Lib.current.stage);
+		if (LocationUtil.isWeb(flash.Lib.current)){
+			this.assertTrue(FlashVarUtil.hasKey("flashvar"));
+			this.assertEquals("something",FlashVarUtil.getValue("flashvar"));
+		} else {
+			this.assertFalse(FlashVarUtil.hasKey("flashvar"));
+		}		
+	}
+	#end
+	
+	#if flash
+	public function testFrameUtil():Void {
+		//TO-DO Test with a swf that really have some frames...
+		
+		var mc = new flash.display.MovieClip();
+		var reach = false;
+		this.assertTrue(FrameUtil.addFrameScript(mc,1,function(){trace("here");reach = true;}));
+		FrameUtil.removeFrameScript(mc,1);
+		this.assertEquals(-1,FrameUtil.getFrameNumberForLabel(mc,"test"));
+	}
+	#end
+	
 	public function testGeomUtil():Void {
 		var pt = new Point(100,100);
 		var pt0 = new Point();
@@ -503,6 +530,21 @@ class TestUtil extends TestCase {
 			this.assertFalse(LocationUtil.isPlugin());
 			this.assertFalse(LocationUtil.isStandAlone());
 			this.assertFalse(LocationUtil.isWeb(flash.Lib.current));
+		#end
+	}
+	#end
+	
+	#if !php
+	public function testNavigateUtil():Void {
+		#if flash
+		NavigateUtil.openUrl("http://www.google.com/#swf");
+		this.assertEquals(flash.external.ExternalInterface.available,NavigateUtil.openWindow("http://www.adobe.com/#swf"));
+		#elseif js
+		this.assertTrue(NavigateUtil.openWindow("http://www.google.com/#js"));
+		#elseif neko
+		this.assertTrue(NavigateUtil.openWindow("http://www.google.com/#neko"));
+		#elseif cpp
+		this.assertTrue(NavigateUtil.openWindow("http://www.google.com/#cpp"));
 		#end
 	}
 	#end
