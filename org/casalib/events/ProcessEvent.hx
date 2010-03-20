@@ -29,34 +29,46 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.core; 
-	import org.casalib.core.IDestroyable;
-	
+package org.casalib.events; 
+	import flash.events.Event;
 	
 	/**
-		Base class for objects that are destroyable.
+		An event dispatched during a {@link Process}.
 		
 		@author Aaron Clinger
-		@version 10/27/08
+		@version 10/28/08
 	*/
-	class Destroyable implements IDestroyable {
+	class ProcessEvent extends Event {
 		
-		public var destroyed(getDestroyed, null) : Bool ;
-		var _isDestroyed:Bool;
+		inline public static var COMPLETE:String = 'processComplete';
+		inline public static var START:String    = 'processStart';
+		inline public static var STOP:String     = 'processStop';
 		
 		
 		/**
-			Creates a new Destroyable object.
+			Creates a new ProcessEvent.
+			
+			@param type: The type of event.
+			@param bubbles: Determines whether the Event object participates in the bubbling stage of the event flow.
+			@param cancelable: Determines whether the Event object can be canceled.
 		*/
-		public function new() {
-			_isDestroyed = false;
+		public function new(type:String, ?bubbles:Bool = false, ?cancelable:Bool = false) {
+			super(type, bubbles, cancelable);
 		}
 		
-		public function getDestroyed():Bool {
-			return this._isDestroyed;
+		/**
+			@return A string containing all the properties of the event.
+		*/
+		public override function toString():String {
+			return formatToString('ProcessEvent', 'type', 'Bps', 'bytesLoaded', 'bytesTotal', 'progress');
 		}
 		
-		public function destroy():Void {
-			this._isDestroyed = true;
+		/**
+			@return Duplicates an instance of the event.
+		*/
+		public override function clone():Event {
+			var e:ProcessEvent = new ProcessEvent(this.type, this.bubbles, this.cancelable);
+			
+			return e;
 		}
 	}

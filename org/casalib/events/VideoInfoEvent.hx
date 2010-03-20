@@ -29,34 +29,60 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.core; 
-	import org.casalib.core.IDestroyable;
-	
+package org.casalib.events; 
+	import flash.events.Event;
 	
 	/**
-		Base class for objects that are destroyable.
+		An event dispatched when meta data, or cue point is received from the {@link VideoLoad}.
 		
 		@author Aaron Clinger
 		@version 10/27/08
 	*/
-	class Destroyable implements IDestroyable {
+	class VideoInfoEvent extends Event {
 		
-		public var destroyed(getDestroyed, null) : Bool ;
-		var _isDestroyed:Bool;
+		public var infoObject(getInfoObject, setInfoObject) : Dynamic;
+		public static var CUE_POINT:String = 'cuePoint';
+		public static var META_DATA:String = 'metaData';
+		var _infoObject:Dynamic;
 		
 		
 		/**
-			Creates a new Destroyable object.
+			Creates a new VideoInfoEvent.
+			
+			@param type: The type of event.
+			@param bubbles: Determines whether the Event object participates in the bubbling stage of the event flow.
+			@param cancelable: Determines whether the Event object can be canceled.
 		*/
-		public function new() {
-			_isDestroyed = false;
+		public function new(type:String, ?bubbles:Bool = false, ?cancelable:Bool = false) {
+			super(type, bubbles, cancelable);
 		}
 		
-		public function getDestroyed():Bool {
-			return this._isDestroyed;
+		/**
+			The meta data or cue point info object.
+		*/
+		public function getInfoObject():Dynamic{
+			return this._infoObject;
 		}
 		
-		public function destroy():Void {
-			this._isDestroyed = true;
+		public function setInfoObject(info:Dynamic):Dynamic{
+			this._infoObject = info;
+			return info;
+		}
+		
+		/**
+			@return A string containing all the properties of the event.
+		*/
+		public override function toString():String {
+			return formatToString('VideoInfoEvent', 'type', 'bubbles', 'cancelable', 'infoObject');
+		}
+		
+		/**
+			@return Duplicates an instance of the event.
+		*/
+		public override function clone():Event {
+			var e:VideoInfoEvent = new VideoInfoEvent(this.type, this.bubbles, this.cancelable);
+			e.infoObject         = this.infoObject;
+			
+			return e;
 		}
 	}

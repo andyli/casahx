@@ -3,4 +3,5 @@
 -main test.Test
 -lib neash
 
--cmd open test/bin/swf/Test.swf
+-cmd cd test/bin/swf
+-cmd open Test.swf

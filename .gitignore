@@ -2,6 +2,5 @@ test/bin/cpp
 test/bin/php
 test/bin/js/*.js
 test/bin/swf/*.swf
-test/bin/*.n
 
 .DS_Store

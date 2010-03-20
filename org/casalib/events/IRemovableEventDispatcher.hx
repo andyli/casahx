@@ -29,34 +29,31 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.core; 
-	import org.casalib.core.IDestroyable;
-	
+package org.casalib.events; 
+	import flash.events.IEventDispatcher;
 	
 	/**
-		Base class for objects that are destroyable.
-		
 		@author Aaron Clinger
 		@version 10/27/08
 	*/
-	class Destroyable implements IDestroyable {
-		
-		public var destroyed(getDestroyed, null) : Bool ;
-		var _isDestroyed:Bool;
-		
+	interface IRemovableEventDispatcher implements IEventDispatcher{
 		
 		/**
-			Creates a new Destroyable object.
+			Removes all events of a specific type.
+			
+			@param type: The type of event.
 		*/
-		public function new() {
-			_isDestroyed = false;
-		}
+		function removeEventsForType(type:String):Void;
 		
-		public function getDestroyed():Bool {
-			return this._isDestroyed;
-		}
+		/**
+			Removes all events that report to the specified listener.
+			
+			@param listener: The listener function that processes the event.
+		*/
+		function removeEventsForListener(listener:Dynamic):Void;
 		
-		public function destroy():Void {
-			this._isDestroyed = true;
-		}
+		/**
+			Removes all event listeners.
+		*/
+		function removeEventListeners():Void;
 	}

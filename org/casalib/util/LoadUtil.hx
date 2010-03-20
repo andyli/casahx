@@ -52,7 +52,7 @@ package org.casalib.util;
 			@return Bytes per second.
 			@usageNote This method returns BYTES per second, not bits per second.
 		*/
-		public static function calculateBps(bytesLoaded:UInt, startTime:UInt, elapsedTime:UInt):Int {
+		public static function calculateBps(bytesLoaded:Float, startTime:Float, elapsedTime:Float):Float {
 			return Std.int(Math.max(0, (bytesLoaded / ConversionUtil.millisecondsToSeconds(elapsedTime - startTime))));
 		}
 		
@@ -65,7 +65,7 @@ package org.casalib.util;
 			@return Kilobytes per second.
 			@usageNote This method returns kiloBYTES per second, not kilobits per second.
 		*/
-		public static function calculateKBps(bytesLoaded:UInt, startTime:UInt, elapsedTime:UInt):Float {
+		public static function calculateKBps(bytesLoaded:Float, startTime:Float, elapsedTime:Float):Float {
 			return ConversionUtil.bytesToKilobytes(LoadUtil.calculateBps(bytesLoaded, startTime, elapsedTime));
 		}
 		
@@ -79,9 +79,9 @@ package org.casalib.util;
 			@param lengthInMilliseconds: The total duration/length of the video in milliseconds.
 			@return The percent buffered.
 		*/
-		public static function calculateBufferPercent(bytesLoaded:UInt, bytesTotal:UInt, startTime:UInt, elapsedTime:UInt, lengthInMilliseconds:UInt):Percent {
+		public static function calculateBufferPercent(bytesLoaded:Float, bytesTotal:Float, startTime:Float, elapsedTime:Float, lengthInMilliseconds:Float):Percent {
 			var totalWait:Float           = bytesTotal / (bytesLoaded / (elapsedTime - startTime)) - lengthInMilliseconds;
-			var millisecondsRemaining:UInt = LoadUtil.calculateMillisecondsUntilBuffered(bytesLoaded, bytesTotal, startTime, elapsedTime, lengthInMilliseconds);
+			var millisecondsRemaining:Float = LoadUtil.calculateMillisecondsUntilBuffered(bytesLoaded, bytesTotal, startTime, elapsedTime, lengthInMilliseconds);
 			
 			if (millisecondsRemaining == 0) return new Percent(1);
 			
@@ -98,7 +98,7 @@ package org.casalib.util;
 			@param lengthInMilliseconds: The total duration/length of the video in milliseconds.
 			@return The amount millisecond that remain before the video is buffered.
 		*/
-		public static function calculateMillisecondsUntilBuffered(bytesLoaded:UInt, bytesTotal:UInt, startTime:UInt, elapsedTime:UInt, lengthInMilliseconds:UInt):UInt {
+		public static function calculateMillisecondsUntilBuffered(bytesLoaded:Float, bytesTotal:Float, startTime:Float, elapsedTime:Float, lengthInMilliseconds:Float):Float {
 			return Std.int(Math.max(Math.ceil((bytesTotal - bytesLoaded) / (bytesLoaded / (elapsedTime - startTime))) - lengthInMilliseconds, 0));
 		}
 	}

@@ -29,34 +29,18 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.core; 
-	import org.casalib.core.IDestroyable;
-	
+package org.casalib.control; 
 	
 	/**
-		Base class for objects that are destroyable.
-		
 		@author Aaron Clinger
+		@author Mike Creighton
 		@version 10/27/08
 	*/
-	class Destroyable implements IDestroyable {
-		
-		public var destroyed(getDestroyed, null) : Bool ;
-		var _isDestroyed:Bool;
+	interface IResumable implements IRunnable{
 		
 		
 		/**
-			Creates a new Destroyable object.
+			Resumes the process from <code>stop()</code>.
 		*/
-		public function new() {
-			_isDestroyed = false;
-		}
-		
-		public function getDestroyed():Bool {
-			return this._isDestroyed;
-		}
-		
-		public function destroy():Void {
-			this._isDestroyed = true;
-		}
+		function resume():Void;
 	}

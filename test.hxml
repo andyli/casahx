@@ -4,7 +4,7 @@
 -lib neash
 
 --next
--neko test/bin/Test.n
+-neko test/bin/neko/Test.n
 -lib neash
 -lib nme
 --remap flash:neash
@@ -37,16 +37,23 @@
 --next
 -cmd echo "----------------------------------------"
 -cmd echo "Test C++!"
--cmd ./test/bin/cpp/test
+-cmd cd test/bin/cpp
+-cmd ./test
 -cmd echo "----------------------------------------"
 -cmd echo "Test Neko!"
--cmd neko test/bin/Test.n
+-cmd cd ../neko
+-cmd neko Test.n
+-cmd echo "----------------------------------------"
+-cmd echo "Clear assets"
+-cmd rm -r /Library/WebServer/Documents/assets
+-cmd echo "Copy assets"
+-cmd cp -r ../assets /Library/WebServer/Documents/assets
 -cmd echo "----------------------------------------"
 -cmd echo "Test Flash!"
 -cmd echo "Clear server file..."
 -cmd rm -r /Library/WebServer/Documents/TestSWF
 -cmd echo "Copy compiled files to server..."
--cmd cp -r test/bin/swf /Library/WebServer/Documents/TestSWF
+-cmd cp -r ../swf /Library/WebServer/Documents/TestSWF
 -cmd echo "Open in browser..."
 -cmd open http://localhost/TestSWF?q=123
 -cmd echo "Done!"
@@ -55,7 +62,7 @@
 -cmd echo "Clear server file..."
 -cmd rm -r /Library/WebServer/Documents/TestJS
 -cmd echo "Copy compiled files to server..."
--cmd cp -r test/bin/js /Library/WebServer/Documents/TestJS
+-cmd cp -r ../js /Library/WebServer/Documents/TestJS
 -cmd echo "Open in browser..."
 -cmd open http://localhost/TestJS?q=123
 -cmd echo "Done!"
@@ -64,7 +71,7 @@
 -cmd echo "Clear server file..."
 -cmd rm -r /Library/WebServer/Documents/TestPHP
 -cmd echo "Copy compiled files to server..."
--cmd cp -r test/bin/php /Library/WebServer/Documents/TestPHP
+-cmd cp -r ../php /Library/WebServer/Documents/TestPHP
 -cmd echo "Open in browser..."
 -cmd open http://localhost/TestPHP?q=123
 -cmd echo "Done!"

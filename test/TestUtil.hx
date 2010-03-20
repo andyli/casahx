@@ -496,7 +496,7 @@ class TestUtil extends TestCase {
 	}
 	
 	public function testLoadUtil():Void {
-		this.assertEquals(100,LoadUtil.calculateBps(100,100,1100));
+		this.assertTrue(100 == LoadUtil.calculateBps(100,100,1100));
 		
 		//calculateMillisecondsUntilBuffered is also tested here...
 		this.assertTrue(1 == LoadUtil.calculateBufferPercent(100,100,100,1100,1000).decimalPercentage);
@@ -537,8 +537,7 @@ class TestUtil extends TestCase {
 	#if !php
 	public function testNavigateUtil():Void {
 		#if flash
-		NavigateUtil.openUrl("http://www.google.com/#swf");
-		this.assertEquals(flash.external.ExternalInterface.available,NavigateUtil.openWindow("http://www.adobe.com/#swf"));
+		this.assertEquals(flash.external.ExternalInterface.available,NavigateUtil.openWindow("http://www.google.com/#swf"));
 		#elseif js
 		this.assertTrue(NavigateUtil.openWindow("http://www.google.com/#js"));
 		#elseif neko

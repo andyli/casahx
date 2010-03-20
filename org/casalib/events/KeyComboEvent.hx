@@ -29,34 +29,62 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.core; 
-	import org.casalib.core.IDestroyable;
-	
+package org.casalib.events; 
+	import flash.events.Event;
+	import org.casalib.ui.KeyCombo;
 	
 	/**
-		Base class for objects that are destroyable.
+		An event dispatched in response to a user {@link KeyComboEvent#DOWN holding}, {@link KeyComboEvent#RELEASE releasing} or {@link KeyComboEvent#SEQUENCE typing} a combination of keys.
 		
 		@author Aaron Clinger
 		@version 10/27/08
 	*/
-	class Destroyable implements IDestroyable {
+	class KeyComboEvent extends Event {
 		
-		public var destroyed(getDestroyed, null) : Bool ;
-		var _isDestroyed:Bool;
+		public var keyCombo(getKeyCombo, setKeyCombo) : KeyCombo;
+		public static var DOWN:String     = 'down';
+		public static var RELEASE:String  = 'release';
+		public static var SEQUENCE:String = 'sequence';
+		var _keyCombo:KeyCombo;
 		
 		
 		/**
-			Creates a new Destroyable object.
+			Creates a new KeyComboEvent.
+			
+			@param type: The type of event.
+			@param bubbles: Determines whether the Event object participates in the bubbling stage of the event flow.
+			@param cancelable: Determines whether the Event object can be canceled.
 		*/
-		public function new() {
-			_isDestroyed = false;
+		public function new(type:String, ?bubbles:Bool = false, ?cancelable:Bool = false) {
+			super(type, bubbles, cancelable);
 		}
 		
-		public function getDestroyed():Bool {
-			return this._isDestroyed;
+		/**
+			The {@link KeyCombo} that contains the key codes that triggered the event.
+		*/
+		public function getKeyCombo():KeyCombo{
+			return this._keyCombo;
 		}
 		
-		public function destroy():Void {
-			this._isDestroyed = true;
+		public function setKeyCombo(keyCombo:KeyCombo):KeyCombo{
+			this._keyCombo = keyCombo;
+			return keyCombo;
+		}
+		
+		/**
+			@return A string containing all the properties of the event.
+		*/
+		public override function toString():String {
+			return formatToString('VideoInfoEvent', 'type', 'bubbles', 'cancelable', 'keyCombo');
+		}
+		
+		/**
+			@return Duplicates an instance of the event.
+		*/
+		public override function clone():Event {
+			var e:KeyComboEvent = new KeyComboEvent(this.type, this.bubbles, this.cancelable);
+			e.keyCombo          = this.keyCombo;
+			
+			return e;
 		}
 	}

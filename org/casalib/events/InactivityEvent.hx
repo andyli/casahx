@@ -29,34 +29,60 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.core; 
-	import org.casalib.core.IDestroyable;
-	
+package org.casalib.events; 
+	import flash.events.Event;
 	
 	/**
-		Base class for objects that are destroyable.
+		An event dispatched from {@link Inactivity}.
 		
 		@author Aaron Clinger
 		@version 10/27/08
 	*/
-	class Destroyable implements IDestroyable {
+	class InactivityEvent extends Event {
 		
-		public var destroyed(getDestroyed, null) : Bool ;
-		var _isDestroyed:Bool;
+		public var milliseconds(getMilliseconds, setMilliseconds) : UInt;
+		inline public static var INACTIVE:String  = 'inactive';
+		inline public static var ACTIVATED:String = 'activated';
+		var _milliseconds:UInt;
 		
 		
 		/**
-			Creates a new Destroyable object.
+			Creates a new InactivityEvent.
+			
+			@param type: The type of event.
+			@param bubbles: Determines whether the Event object participates in the bubbling stage of the event flow.
+			@param cancelable: Determines whether the Event object can be canceled.
 		*/
-		public function new() {
-			_isDestroyed = false;
+		public function new(type:String, ?bubbles:Bool = false, ?cancelable:Bool = false) {
+			super(type, bubbles, cancelable);
 		}
 		
-		public function getDestroyed():Bool {
-			return this._isDestroyed;
+		/**
+			The length of time an user has been inactive.
+		*/
+		public function getMilliseconds():UInt{
+			return this._milliseconds;
 		}
 		
-		public function destroy():Void {
-			this._isDestroyed = true;
+		public function setMilliseconds(time:UInt):UInt{
+			this._milliseconds = time;
+			return time;
+		}
+		
+		/**
+			@return A string containing all the properties of the event.
+		*/
+		public override function toString():String {
+			return formatToString('InactivityEvent', 'type', 'bubbles', 'cancelable', 'milliseconds');
+		}
+		
+		/**
+			@return Duplicates an instance of the event.
+		*/
+		public override function clone():Event {
+			var e:InactivityEvent = new InactivityEvent(this.type, this.bubbles, this.cancelable);
+			e.milliseconds        = this.milliseconds;
+			
+			return e;
 		}
 	}

@@ -29,34 +29,59 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.core; 
-	import org.casalib.core.IDestroyable;
-	
+package org.casalib.events; 
+	import flash.events.Event;
 	
 	/**
-		Base class for objects that are destroyable.
+		An event dispatched when a load request is retried after previously failing.
 		
 		@author Aaron Clinger
 		@version 10/27/08
 	*/
-	class Destroyable implements IDestroyable {
+	class RetryEvent extends Event {
 		
-		public var destroyed(getDestroyed, null) : Bool ;
-		var _isDestroyed:Bool;
+		public var attempts(getAttempts, setAttempts) : Int;
+		public static var RETRY:String = 'retry';
+		var _attempts:Int;
 		
 		
 		/**
-			Creates a new Destroyable object.
+			Creates a new LoadEvent.
+			
+			@param type: The type of event.
+			@param bubbles: Determines whether the Event object participates in the bubbling stage of the event flow.
+			@param cancelable: Determines whether the Event object can be canceled.
 		*/
-		public function new() {
-			_isDestroyed = false;
+		public function new(type:String, ?bubbles:Bool = false, ?cancelable:Bool = false) {
+			super(type, bubbles, cancelable);
 		}
 		
-		public function getDestroyed():Bool {
-			return this._isDestroyed;
+		/**
+			The number of times the file has attempted to load.
+		*/
+		public function getAttempts():Int{
+			return this._attempts;
 		}
 		
-		public function destroy():Void {
-			this._isDestroyed = true;
+		public function setAttempts(amount:Int):Int{
+			this._attempts = amount;
+			return amount;
+		}
+		
+		/**
+			@return A string containing all the properties of the event.
+		*/
+		public override function toString():String {
+			return formatToString('RetryEvent', 'type', 'bubbles', 'cancelable', 'attempts');
+		}
+		
+		/**
+			@return Duplicates an instance of the event.
+		*/
+		public override function clone():Event {
+			var e:RetryEvent = new RetryEvent(this.type, this.bubbles, this.cancelable);
+			e.attempts       = this.attempts;
+			
+			return e;
 		}
 	}
