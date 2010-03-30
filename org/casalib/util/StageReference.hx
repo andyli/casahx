@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -35,10 +35,10 @@ package org.casalib.util;
 	
 	
 	/**
-		Stores a reference to Stage for classes that cannot easily access it. This class allows you to stored multiple references by ID to different <code>Stage</code>}s which is helpful in an AIR environment.
+		Stores a reference to Stage for classes that cannot easily access it. This class allows you to stored multiple references by ID to different <code>Stage</code>'s which is helpful in an AIR environment.
 		
 		@author Aaron Clinger
-		@version 09/06/09
+		@version 03/26/10
 		@usageNote You must first initialize the class by setting a reference to Stage. See example below:
 		@example
 			<code>

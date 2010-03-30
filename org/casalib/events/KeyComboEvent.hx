@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -37,14 +37,14 @@ package org.casalib.events;
 		An event dispatched in response to a user {@link KeyComboEvent#DOWN holding}, {@link KeyComboEvent#RELEASE releasing} or {@link KeyComboEvent#SEQUENCE typing} a combination of keys.
 		
 		@author Aaron Clinger
-		@version 10/27/08
+		@version 01/19/10
 	*/
 	class KeyComboEvent extends Event {
 		
-		public var keyCombo(getKeyCombo, setKeyCombo) : KeyCombo;
-		public static var DOWN:String     = 'down';
-		public static var RELEASE:String  = 'release';
-		public static var SEQUENCE:String = 'sequence';
+		inline public var keyCombo(getKeyCombo, setKeyCombo) : KeyCombo;
+		inline public static var DOWN:String     = 'down';
+		inline public static var RELEASE:String  = 'release';
+		inline public static var SEQUENCE:String = 'sequence';
 		var _keyCombo:KeyCombo;
 		
 		
@@ -62,11 +62,11 @@ package org.casalib.events;
 		/**
 			The {@link KeyCombo} that contains the key codes that triggered the event.
 		*/
-		public function getKeyCombo():KeyCombo{
+		inline public function getKeyCombo():KeyCombo{
 			return this._keyCombo;
 		}
 		
-		public function setKeyCombo(keyCombo:KeyCombo):KeyCombo{
+		inline public function setKeyCombo(keyCombo:KeyCombo):KeyCombo{
 			this._keyCombo = keyCombo;
 			return keyCombo;
 		}
@@ -75,7 +75,7 @@ package org.casalib.events;
 			@return A string containing all the properties of the event.
 		*/
 		public override function toString():String {
-			return formatToString('VideoInfoEvent', 'type', 'bubbles', 'cancelable', 'keyCombo');
+			return formatToString('KeyComboEvent', 'type', 'bubbles', 'cancelable', 'keyCombo');
 		}
 		
 		/**

@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,7 @@ package org.casalib.util;
 		Utilities for determining the location of the SWF and the type of runtime environment.
 		
 		@author Aaron Clinger
-		@version 03/03/08
+		@version 12/08/09
 	*/
 	class LocationUtil  {
 		/**
@@ -49,7 +49,7 @@ package org.casalib.util;
 			@return Returns <code>true</code> if SWF is being served on the internet; otherwise <code>false</code>.
 			@usage
 				<code>
-					trace(LocationUtil.isWeb(_root));
+					trace(LocationUtil.isWeb(this.stage));
 				</code>
 		*/
 		public static function isWeb(location:DisplayObject):Bool {
@@ -71,8 +71,8 @@ package org.casalib.util;
 			@usage
 				To check for domain:
 				<code>
-					trace(LocationUtil.isDomain(_root, "google.com"));
-					trace(LocationUtil.isDomain(_root, "bbc.co.uk"));
+					trace(LocationUtil.isDomain(this.stage, "google.com"));
+					trace(LocationUtil.isDomain(this.stage, "bbc.co.uk"));
 				</code>
 				
 				You can even check for subdomains:
@@ -91,7 +91,7 @@ package org.casalib.util;
 			@return Returns full domain (including sub-domains) of MovieClip's location.
 			@usage
 				<code>
-					trace(LocationUtil.getDomain(_root));
+					trace(LocationUtil.getDomain(this.stage));
 				</code>
 			@usageNote Function does not return folder path or file name. The method also treats "www" and sans "www" as the same; if "www" is present method does not return it.
 		*/

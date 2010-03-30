@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -30,6 +30,7 @@
 	POSSIBILITY OF SUCH DAMAGE.
 */
 package org.casalib.load; 
+	import flash.errors.IOError;
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;
 	import flash.events.IEventDispatcher;
@@ -59,10 +60,13 @@ package org.casalib.load;
 		Base class used by load classes. LoadItem is not designed to be used on its own and needs to be extended to function.
 		
 		@author Aaron Clinger
-		@version 05/30/09
+		@version 02/13/10
 	*/
 	class LoadItem extends Process {
+		static private var nextId:Int = 0;
+		public var id(default,null):Int;
 		
+		public var errored(getErrored,null):Bool;
 		public var Bps(getBps, null) : Int ;
 		public var attempts(getAttempts, null) : UInt ;
 		public var bytesLoaded(getBytesLoaded, null) : UInt ;
@@ -79,6 +83,7 @@ package org.casalib.load;
 		public var urlRequest(getUrlRequest, null) : URLRequest ;
 		var _attempts:UInt;
 		var _loaded:Bool;
+		var _errrored:Bool;
 		var _preventCache:Bool;
 		var _retries:UInt;
 		var _dispatcher:IEventDispatcher;
@@ -90,14 +95,16 @@ package org.casalib.load;
 		var _progress:Percent;
 		var _request:URLRequest;
 		var _startTime:Float;
+		var _url:String;
 		
 		
 		/**
 			Defines the load object and file location.
 			
 			@param load: The load object.
-			@param request: A String or an URLRequest reference to the file you wish to load.
-			@throws ArguementTypeError if you pass a value type other than a String or URLRequest to parameter <code>request</code>.
+			@param request: A <code>String</code> or an <code>URLRequest</code> reference to the file you wish to load.
+			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
+			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
 		public function new(load:Dynamic, request:Dynamic) {
 			super();
@@ -108,6 +115,8 @@ package org.casalib.load;
 			this._retries  = 2;
 			this._Bps      = -1;
 			this._progress = new Percent();
+			
+			id = nextId++;
 		}
 		
 		/**
@@ -122,6 +131,7 @@ package org.casalib.load;
 			super.start();
 			
 			this._loaded    = false;
+			this._errrored = false;
 			this._startTime = Timer.stamp();
 			this._attempts  = 0;
 			this._progress  = new Percent();
@@ -153,7 +163,10 @@ package org.casalib.load;
 			
 			super.stop();
 			
-			this._loadItem.close();
+			try{
+				this._loadItem.close();
+			} catch (error:IOError) {}
+			
 			this.dispatchEvent(this._createDefinedLoadEvent(LoadEvent.STOP));
 		}
 		
@@ -220,7 +233,7 @@ package org.casalib.load;
 			The URL of the requested file.
 		*/
 		public function getUrl():String {
-			return this.urlRequest.url;
+			return this._url;
 		}
 		
 		/**
@@ -235,6 +248,13 @@ package org.casalib.load;
 		*/
 		public function getLoaded():Bool {
 			return this._loaded;
+		}
+		
+		/**
+			Determines if the requested file could not complete because of an error <code>true</code>, or hasn't encountered an error <code>false</code>.
+		*/
+		public function getErrored():Bool {
+			return this._errrored;
 		}
 		
 		/**
@@ -289,7 +309,9 @@ package org.casalib.load;
 		
 		function _createRequest(request:Dynamic):Void {
 			if (Std.is( request, String)) {
-				if (StringUtil.removeWhitespace(request) == '')
+				request = StringUtil.trim(request);
+				
+				if (request == '')
 					throw 'Cannot load an empty reference/String';
 				
 				request = new URLRequest(request);
@@ -297,6 +319,7 @@ package org.casalib.load;
 				throw new ArguementTypeError('request');
 			
 			this._request = request;
+			this._url = this._request.url;
 		}
 		
 		/**
@@ -312,6 +335,8 @@ package org.casalib.load;
 				
 				this._load();
 			} else {
+				this._errrored = true;
+				
 				super._complete();
 				
 				this.dispatchEvent(error);
@@ -346,7 +371,7 @@ package org.casalib.load;
 			this._Bps  = Std.int(LoadUtil.calculateBps(this.bytesLoaded, this._startTime, currentTime));
 			this._time = Std.int(currentTime - this._startTime);
 			
-			this._progress.decimalPercentage = this.bytesLoaded / this.bytesTotal;
+			this._progress.decimalPercentage = Math.min(this.bytesLoaded / this.bytesTotal, 1);
 			
 			this.dispatchEvent(this._createDefinedLoadEvent(LoadEvent.PROGRESS));
 		}

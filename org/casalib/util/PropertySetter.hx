@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import org.casalib.core.UInt;
 		@author Aaron Clinger
 		@author Mike Creighton
 		@author David Nelson
-		@version 08/06/08
+		@version 02/13/10
 	*/
 	class PropertySetter  {
 		
@@ -52,14 +52,14 @@ import org.casalib.core.UInt;
 		/**
 			Defines the property you wish to define with {@link #defineProperty}.
 			
-			@param scope: An object that contains the property specified by "property".
+			@param scope: An object that contains the property specified by <code>property</code>.
 			@param property: Name of the property you want to assign the value of.
 			@param argument: The position the value to assign falls in the argument order.
 			@throws Error if the property does not exist or is not available in defined scope.
 		*/
 		public function new(scope:Dynamic, property:String, ?argument:UInt = 0) {
 			if (!Reflect.hasField(scope,property))
-				throw "Property \"" + property + "\" of object does not exist.";
+				throw 'Property "' + property + '" does not exist or is not available in defined scope.';
 			
 			this._scope    = scope;
 			this._property = property;

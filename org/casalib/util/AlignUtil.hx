@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -30,102 +30,289 @@
 	POSSIBILITY OF SUCH DAMAGE.
 */
 package org.casalib.util; 
-	import flash.geom.Rectangle;
 	import flash.display.DisplayObject;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import org.casalib.core.UInt;
+	import org.casalib.util.DisplayObjectUtil;
+	
 	
 	/**
-		Provides utility functions aligning DisplayObjects.
+		Provides utility functions for aligning.
 		
 		@author Aaron Clinger
 		@author Jon Adams
-		@version 05/29/09
+		@version 03/28/10
 	*/
 	class AlignUtil  {
+		inline public static var BOTTOM:String        = 'bottom';
+		inline public static var BOTTOM_CENTER:String = 'bottomCenter';
+		inline public static var BOTTOM_LEFT:String   = 'bottomLeft';
+		inline public static var BOTTOM_RIGHT:String  = 'bottomRight';
+		inline public static var CENTER:String        = 'center';
+		inline public static var LEFT:String          = 'left';
+		inline public static var MIDDLE:String        = 'middle';
+		inline public static var MIDDLE_CENTER:String = 'middleCenter';
+		inline public static var MIDDLE_LEFT:String   = 'middleLeft';
+		inline public static var MIDDLE_RIGHT:String  = 'middleRight';
+		inline public static var RIGHT:String         = 'right';
+		inline public static var TOP:String           = 'top';
+		inline public static var TOP_CENTER:String    = 'topCenter';
+		inline public static var TOP_LEFT:String      = 'topLeft';
+		inline public static var TOP_RIGHT:String     = 'topRight';
+		
+		
 		/**
-			Aligns a DisplayObject to the left side of the bounding Rectangle.
+			Aligns a <code>DisplayObject</code> to the bounding <code>Rectangle</code> acording to the defined alignment.
 			
-			@param displayObject: The DisplayObject to align.
-			@param bounds: The area in which to align the DisplayObject.
-			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the DisplayObject be positioned on sub-pixels <code>false</code>.
-			@param outside: Align the DisplayObject to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+			@param align: The alignment type/position.
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
 		*/
-		public static function alignLeft(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
-			var x:Float    = outside ? bounds.left - displayObject.width : bounds.left;
-			displayObject.x = snapToPixel ? Math.round(x) : x;
+		inline public static function align(alignment:String, displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			var targetPosition:Point = AlignUtil._getPosition(alignment, Std.int(displayObject.width), Std.int(displayObject.height), bounds, outside);
+			var offsetPosition:Point = DisplayObjectUtil.getOffsetPosition(displayObject);
+			
+			displayObject.x = targetPosition.x + offsetPosition.x;
+			displayObject.y = targetPosition.y + offsetPosition.y;
+			
+			if (snapToPixel)
+				AlignUtil.alignToPixel(displayObject);
 		}
 		
 		/**
-			Aligns a DisplayObject to the right side of the bounding Rectangle.
+			Aligns a <code>Rectangle</code> to another <code>Rectangle</code>.
 			
-			@param displayObject: The DisplayObject to align.
-			@param bounds: The area in which to align the DisplayObject.
-			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the DisplayObject be positioned on sub-pixels <code>false</code>.
-			@param outside: Align the DisplayObject to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+			@param align: The alignment type/position.
+			@param rectangle: The <code>Rectangle</code> to align.
+			@param bounds: The area in which to align the <code>Rectangle</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>Rectangle</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>Rectangle</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+			@return A new aligned <code>Rectangle</code>.
 		*/
-		public static function alignRight(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
-			var x:Float    = outside ? bounds.right : bounds.right - displayObject.width;
-			displayObject.x = snapToPixel ? Math.round(x) : x;
+		public static function alignRectangle(alignment:String, rectangle:Rectangle, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Rectangle {
+			var alignedRectangle:Rectangle = rectangle.clone();
+			
+			alignedRectangle.offsetPoint(AlignUtil._getPosition(alignment, Std.int(rectangle.width), Std.int(rectangle.height), bounds, outside));
+			
+			if (snapToPixel) {
+				alignedRectangle.x = Math.round(alignedRectangle.x);
+				alignedRectangle.y = Math.round(alignedRectangle.y);
+			}
+			
+			return alignedRectangle;
 		}
 		
 		/**
-			Aligns a DisplayObject to the top of the bounding Rectangle.
+			Aligns a <code>DisplayObject</code> to the nearest Pixel.
 			
-			@param displayObject: The DisplayObject to align.
-			@param bounds: The area in which to align the DisplayObject.
-			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the DisplayObject be positioned on sub-pixels <code>false</code>.
-			@param outside: Align the DisplayObject to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+			@param displayObject: The <code>DisplayObject</code> to align.
 		*/
-		public static function alignTop(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
-			var y:Float    = outside ? bounds.top - displayObject.height : bounds.top;
-			displayObject.y = snapToPixel ? Math.round(y) : y;
+		inline public static function alignToPixel(displayObject:DisplayObject):Void {
+			displayObject.x = Math.round(displayObject.x);
+			displayObject.y = Math.round(displayObject.y);
 		}
 		
 		/**
-			Aligns a DisplayObject to the bottom of the bounding Rectangle.
+			Aligns a <code>DisplayObject</code> to the bottom of the bounding <code>Rectangle</code>.
 			
-			@param displayObject: The DisplayObject to align.
-			@param bounds: The area in which to align the DisplayObject.
-			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the DisplayObject be positioned on sub-pixels <code>false</code>.
-			@param outside: Align the DisplayObject to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
 		*/
 		public static function alignBottom(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
-			var y:Float    = outside ? bounds.bottom : bounds.bottom - displayObject.height;
-			displayObject.y = snapToPixel ? Math.round(y) : y;
+			AlignUtil.align(AlignUtil.BOTTOM, displayObject, bounds, snapToPixel, outside);
 		}
 		
 		/**
-			Aligns a DisplayObject to the horizontal center of the bounding Rectangle.
+			Aligns a <code>DisplayObject</code> to the bottom left of the bounding <code>Rectangle</code>.
 			
-			@param displayObject: The DisplayObject to align.
-			@param bounds: The area in which to align the DisplayObject.
-			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the DisplayObject be positioned on sub-pixels <code>false</code>.
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+		*/
+		public static function alignBottomLeft(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.BOTTOM_LEFT, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the bottom and horizontal center of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+		*/
+		public static function alignBottomCenter(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.BOTTOM_CENTER, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the bottom right of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+		*/
+		public static function alignBottomRight(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.BOTTOM_RIGHT, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the horizontal center of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
 		*/
 		public static function alignCenter(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true):Void {
-			var centerX:Float = bounds.width * 0.5 - displayObject.width * 0.5 + bounds.x;
-			displayObject.x    = snapToPixel ? Math.round(centerX) : centerX;
+			AlignUtil.align(AlignUtil.CENTER, displayObject, bounds, snapToPixel);
 		}
 		
 		/**
-			Aligns a DisplayObject to the vertical middle of the bounding Rectangle.
+			Aligns a <code>DisplayObject</code> to the left side of the bounding <code>Rectangle</code>.
 			
-			@param displayObject: The DisplayObject to align.
-			@param bounds: The area in which to align the DisplayObject.
-			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the DisplayObject be positioned on sub-pixels <code>false</code>.
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+		*/
+		public static function alignLeft(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.LEFT, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the vertical middle of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
 		*/
 		public static function alignMiddle(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true):Void {
-			var centerY:Float = bounds.height * 0.5 - displayObject.height * 0.5 + bounds.y;
-			displayObject.y    = snapToPixel ? Math.round(centerY) : centerY;
+			AlignUtil.align(AlignUtil.MIDDLE, displayObject, bounds, snapToPixel);
 		}
 		
 		/**
-			Aligns a DisplayObject to the horizontal center and vertical middle of the bounding Rectangle.
+			Aligns a <code>DisplayObject</code> to the vertical middle and left side of the bounding <code>Rectangle</code>.
 			
-			@param displayObject: The DisplayObject to align.
-			@param bounds: The area in which to align the DisplayObject.
-			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the DisplayObject be positioned on sub-pixels <code>false</code>.
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
 		*/
-		public static function alignCenterMiddle(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true):Void {
-			AlignUtil.alignCenter(displayObject, bounds, snapToPixel);
-			AlignUtil.alignMiddle(displayObject, bounds, snapToPixel);
+		public static function alignMiddleLeft(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.MIDDLE_LEFT, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the vertical middle and horizontal center of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+		*/
+		public static function alignMiddleCenter(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true):Void {
+			AlignUtil.align(AlignUtil.MIDDLE_CENTER, displayObject, bounds, snapToPixel);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the vertical middle and right side of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+		*/
+		public static function alignMiddleRight(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.MIDDLE_RIGHT, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the right side of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+		*/
+		public static function alignRight(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.RIGHT, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the top of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+		*/
+		public static function alignTop(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.TOP, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the top left of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+		*/
+		public static function alignTopLeft(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.TOP_LEFT, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the top side and horizontal center of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+		*/
+		public static function alignTopCenter(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.TOP_CENTER, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		/**
+			Aligns a <code>DisplayObject</code> to the top right of the bounding <code>Rectangle</code>.
+			
+			@param displayObject: The <code>DisplayObject</code> to align.
+			@param bounds: The area in which to align the <code>DisplayObject</code>.
+			@param snapToPixel: Force the position to whole pixels <code>true</code>, or to let the <code>DisplayObject</code> be positioned on sub-pixels <code>false</code>.
+			@param outside: Align the <code>DisplayObject</code> to the outside of the bounds <code>true</code>, or the inside <code>false</code>.
+		*/
+		public static function alignTopRight(displayObject:DisplayObject, bounds:Rectangle, ?snapToPixel:Bool = true, ?outside:Bool = false):Void {
+			AlignUtil.align(AlignUtil.TOP_RIGHT, displayObject, bounds, snapToPixel, outside);
+		}
+		
+		inline static function _getPosition(alignment:String, targetWidth:UInt, targetHeight:UInt, bounds:Rectangle, outside:Bool):Point {
+			var position:Point = new Point();
+			
+			switch (alignment) {
+				case AlignUtil.BOTTOM_LEFT, AlignUtil.LEFT, AlignUtil.MIDDLE_LEFT, AlignUtil.TOP_LEFT :
+					position.x = outside ? bounds.x - targetWidth : bounds.x;
+				case AlignUtil.BOTTOM_CENTER, AlignUtil.CENTER, AlignUtil.MIDDLE_CENTER, AlignUtil.TOP_CENTER :
+					position.x = (bounds.width - targetWidth) * 0.5 + bounds.x;
+				case AlignUtil.BOTTOM_RIGHT, AlignUtil.MIDDLE_RIGHT, AlignUtil.RIGHT, AlignUtil.TOP_RIGHT:
+					position.x = outside ? bounds.right : bounds.right - targetWidth;
+			}
+			
+			switch (alignment) {
+				case AlignUtil.TOP, AlignUtil.TOP_CENTER, AlignUtil.TOP_LEFT, AlignUtil.TOP_RIGHT:
+					position.y = outside ? bounds.y - targetHeight : bounds.y;
+				case AlignUtil.MIDDLE, AlignUtil.MIDDLE_CENTER, AlignUtil.MIDDLE_LEFT, AlignUtil.MIDDLE_RIGHT :
+					position.y = (bounds.height - targetHeight) * 0.5 + bounds.y;
+				case AlignUtil.BOTTOM, AlignUtil.BOTTOM_CENTER, AlignUtil.BOTTOM_LEFT, AlignUtil.BOTTOM_RIGHT:
+					position.y = outside ? bounds.bottom : bounds.bottom - targetHeight;
+			}
+			
+			return position;
 		}
 	}

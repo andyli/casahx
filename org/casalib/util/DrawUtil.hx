@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -31,15 +31,68 @@
 */
 package org.casalib.util; 
 	import flash.display.Graphics;
+	import flash.geom.Point;
+	import org.casalib.core.UInt;
+	import org.casalib.errors.ArrayContentsError;
 	import org.casalib.math.geom.Ellipse;
 	
 	/**
 		Utilities for drawing shapes.
 		
 		@author Aaron Clinger
-		@version 12/04/08
+		@version 03/26/10
 	*/
 	class DrawUtil  {
+		/**
+			Draws a path through the defined points.
+			
+			@param graphics: The location where drawing should occur.
+			@param points: An Array comprised of at least two <code>Point</code>s to be use to draw a path.
+			@throws ArrayContentsError if the Array is comprised of elements other than <code>Point</code> objects.
+			@throws Error if the Array has less than two <code>Point</code>s.
+			@example
+				<code>
+					this.graphics.lineStyle(4, 0x00FF00);
+					DrawUtil.drawPath(this.graphics, new Array(new Point(50, 25), new Point(25, 50), new Point(50, 75), new Point(25, 100)));
+					this.graphics.endFill();
+				</code>
+		*/
+		inline public static function drawPath(graphics:Graphics, points:Array<Point>):Void {
+			var i:UInt = points.length;
+			
+			if (points.length < 2)
+				throw 'At least three Points are needed to draw a shape.';
+			
+			graphics.moveTo(points[0].x, points[0].y);
+			
+			i = 0;
+			while (++i < points.length)
+				graphics.lineTo(points[i].x, points[i].y);
+		}
+		
+		/**
+			Draws a closed shape with the defined points.
+			
+			@param graphics: The location where drawing should occur.
+			@param points: An Array comprised of at least three <code>Point</code>s to be use to draw a shape.
+			@throws ArrayContentsError if the Array is comprised of elements other than <code>Point</code> objects.
+			@throws Error if the Array has less than three <code>Point</code>s.
+			@usageNote This method will automatically connect the last point to the starting point.
+			@example
+				<code>
+					this.graphics.beginFill(0xFF00FF);
+					DrawUtil.drawShape(this.graphics, new Array(new Point(50, 25), new Point(75, 75), new Point(25, 75)));
+					this.graphics.endFill();
+				</code>
+		*/
+		inline public static function drawShape(graphics:Graphics, points:Array<Point>):Void {
+			if (points.length < 3)
+				throw 'At least three Points are needed to draw a shape.';
+			
+			DrawUtil.drawPath(graphics, points);
+			
+			graphics.lineTo(points[0].x, points[0].y);
+		}
 		
 		/**
 			Draws a circular wedge.

@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ package org.casalib.util;
 		Utility for providing easy access to the browser query string.
 		
 		@author Aaron Clinger
-		@version 09/02/08
+		@version 03/28/10
 	*/
 	class QueryStringUtil  {
 		
@@ -53,7 +53,11 @@ package org.casalib.util;
 				
 				var query:String = null;
 				#if flash
-				query = LocationUtil.isWeb(flash.Lib.current) ? flash.external.ExternalInterface.call('document.location.search.toString') : null;
+				if (flash.external.ExternalInterface.available){
+					try {
+						query = LocationUtil.isWeb(flash.Lib.current) ? flash.external.ExternalInterface.call('document.location.search.toString') : null;
+					} catch (e:Dynamic){}
+				}
 				#elseif js
 				query = js.Lib.window.location.search;
 				#elseif neko

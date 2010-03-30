@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ package org.casalib.events;
 	class RetryEvent extends Event {
 		
 		public var attempts(getAttempts, setAttempts) : Int;
-		public static var RETRY:String = 'retry';
+		inline public static var RETRY:String = 'retry';
 		var _attempts:Int;
 		
 		
@@ -59,11 +59,11 @@ package org.casalib.events;
 		/**
 			The number of times the file has attempted to load.
 		*/
-		public function getAttempts():Int{
+		inline public function getAttempts():Int{
 			return this._attempts;
 		}
 		
-		public function setAttempts(amount:Int):Int{
+		inline public function setAttempts(amount:Int):Int{
 			this._attempts = amount;
 			return amount;
 		}

@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -30,6 +30,7 @@
 	POSSIBILITY OF SUCH DAMAGE.
 */
 package org.casalib.process; 
+	import org.casalib.core.UInt;
 	import org.casalib.events.ProcessEvent;
 	import org.casalib.process.Process;
 	import org.casalib.util.ArrayUtil;
@@ -39,7 +40,7 @@ package org.casalib.process;
 		Manages and threads {@link Process processes}.
 		
 		@author Aaron Clinger
-		@version 09/06/09
+		@version 02/09/10
 		@example
 			<code>
 				package {
@@ -97,8 +98,8 @@ package org.casalib.process;
 		public var queuedProcesses(getQueuedProcesses, null) : Array<Process> ;
 		public var runningProcesses(getRunningProcesses, null) : Array<Process> ;
 		public var threads(getThreads, setThreads) : UInt;
-		inline public static var NORM_THREADS:UInt  = 1; /**< The default amount of threads for all ProcessGroup instances. */
-		public static var MAX_THREADS:UInt = 2147483647;  /**< The maximum amount of threads for a ProcessGroup instance. Use this value if you wish to disable threading. */
+		public static var NORM_THREADS:UInt  = 1; /**< The default amount of threads for all ProcessGroup instances. */
+		inline public static var MAX_THREADS:UInt = 2147483647;  /**< The maximum amount of threads for a ProcessGroup instance. Use this value if you wish to disable threading. */
 		var _threads:UInt;
 		var _processes:Array<Process>;
 		var _autoStart:Bool;
@@ -121,6 +122,8 @@ package org.casalib.process;
 		}
 		
 		public override function stop():Void {
+			this._isRunning = false;
+		
 			var l:UInt = this._processes.length;
 			while (l-- > 0) {
 				if (this._processes[l].running) {
@@ -228,10 +231,34 @@ package org.casalib.process;
 			Determines if this ProcessGroup contains a specific process.
 			
 			@param process: The process to search for.
+			@param recursive: If any child of this ProcessGroup is also a ProcessGroup search its children <code>true</code>, or only search this ProcessGroup's children <code>false</code>.
 			@return Returns <code>true</code> if the ProcessGroup contains the process; otherwise <code>false</code>.
 		*/
-		public function hasProcess(process:Process):Bool {
-			return this._processes.indexOf(process) > -1;
+		public function hasProcess(process:Process, ?recursive:Bool = true):Bool {
+			var processFound:Bool = this._processes.indexOf(process) > -1;
+			
+			if (!recursive)
+				return processFound;
+			
+			if (processFound)
+				return true;
+			
+			var l:UInt = this._processes.length;
+			var p:Process;
+			var g:ProcessGroup;
+			
+			while (l-- > 0) {
+				p = this._processes[l];
+				
+				if (Std.is(p, ProcessGroup)) {
+					g = p;
+					
+					if (g.hasProcess(process, true))
+						return true;
+				}
+			}
+			
+			return false;
 		}
 		
 		/**
@@ -283,11 +310,30 @@ package org.casalib.process;
 		
 		/**
 			Calls {@link Process#destroy destroy} on all processes in the group and removes them from the ProcessGroup.
+			
+			@param recursive: If any child of this ProcessGroup is also a ProcessGroup destroy its children <code>true</code>, or only destroy this ProcessGroup's children <code>false</code>.
 		*/
-		public function destroyProcesses():Void {
+		public function destroyProcesses(recursive:Bool = true):Void {
+			this.stop();
+			
 			var l:UInt = this._processes.length;
-			while (l-- > 0)
-				this._processes[l].destroy();
+			
+			if (recursive) {
+				var p:Process;
+				var g:ProcessGroup;
+				
+				while (l-- > 0) {
+					p = this._processes[l];
+					
+					if (Std.is(p, ProcessGroup)) {
+						g = p;
+						g.destroyProcesses(true);
+					} else
+						p.destroy();
+				}
+			} else
+				while (l-- > 0)
+					this._processes[l].destroy();
 			
 			this._processes = new Array<Process>();
 		}
@@ -315,13 +361,13 @@ package org.casalib.process;
 				
 				if (p.running)
 					t--;
-				else if (!p.completed) {
+				else if (!p.completed && this.running) {
 					p.start();
 					t--;
 				}
 			}
 			
-			if (t == this.threads)
+			if (t == this.threads && this.running)
 				this._complete();
 		}
 		

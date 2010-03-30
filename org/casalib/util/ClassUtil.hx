@@ -1,6 +1,6 @@
 /*
 	CASA Framework for ActionScript 3.0
-	Copyright (c) 2009, Contributors of CASA Framework
+	Copyright (c) 2010, Contributors of CASA Framework
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ package org.casalib.util;
 		Utilities for constructing and working with Classes.
 		
 		@author Aaron Clinger
-		@version 12/23/08
+		@version 02/13/10
 	*/
 	class ClassUtil  {
 		
@@ -45,6 +45,7 @@ package org.casalib.util;
 			@param type: The Class to create.
 			@param arguments: Up to ten arguments to the constructor.
 			@return Returns the dynamically created instance of the Class specified by <code>type</code> parameter.
+			@throws Error if you pass more arguments than this method accepts (accepts 15 or less).
 			@example
 				<code>
 					var bData:* = ClassUtil.construct(BitmapData, 200, 200);

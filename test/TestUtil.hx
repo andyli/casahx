@@ -20,6 +20,7 @@ import org.casalib.util.DateUtil;
 #if flash import org.casalib.util.FlashVarUtil; #end
 #if flash import org.casalib.util.FrameUtil; #end
 import org.casalib.util.GeomUtil;
+#if flash import org.casalib.util.LibraryManager; #end
 import org.casalib.util.LoadUtil;
 #if !php import org.casalib.util.LocationUtil; #end
 #if !php import org.casalib.util.NavigateUtil; #end
@@ -49,15 +50,16 @@ private class User {
 }
 
 class TestUtil extends TestCase {
-	#if !php
+	#if flash
 	public function testAlignUtil():Void {
 		//just run all function once...
 		
 		var d = new Sprite();
 		var b = new Rectangle(0,0,100,100);
+		flash.Lib.current.addChild(d);
 		AlignUtil.alignBottom(d,b);
 		AlignUtil.alignCenter(d,b);
-		AlignUtil.alignCenterMiddle(d,b);
+		AlignUtil.alignMiddleCenter(d,b);
 		AlignUtil.alignLeft(d,b);
 		this.assertEquals(b.x,d.x);
 		AlignUtil.alignMiddle(d,b);
@@ -131,6 +133,24 @@ class TestUtil extends TestCase {
 		this.assertEquals(0,array[0]);
 		
 		this.assertEquals(5.0,ArrayUtil.sum([1,1,1,0.25,1.75]));
+		
+		a1 = [1,2,3,4,5];
+		this.assertEquals(1, ArrayUtil.contains(a1,ArrayUtil.random(a1)));
+		
+		var ta:Array<Dynamic> = [{name: "Aaron", sex: "Male", hair: "Brown"}, {name: "Linda", sex: "Female", hair: "Blonde"}, {name: "Katie", sex: "Female", hair: "Brown"}, {name: "Nikki", sex: "Female", hair: "Blonde"}];
+		
+		this.assertEquals("Katie", ArrayUtil.getItemByKeys(ta ,{sex: "Female", hair: "Brown"}).name);
+		
+		var tb:Array<Dynamic> = ArrayUtil.getItemsByKeys(ta,{sex: "Female", hair: "Blonde"});
+		this.assertEquals(2,tb.length);
+		
+		this.assertEquals("Aaron",ArrayUtil.getItemByAnyKey(ta, {sex: "Female", hair: "Brown"}).name);
+		
+		tb = ArrayUtil.getItemsByAnyKey(ta, {sex: "Female", hair: "Brown"});
+		this.assertEquals(4,tb.length);
+		
+		var tc = ArrayUtil.getValuesByKey(ta, "sex");
+		this.assertTrue(ArrayUtil.containsAll(["Male","Female"],cast tc));
 		
 		//////////Test sortOn...//////////
 		var ary:Array<{a:String}> = [{a:"A"},{a:"a"},{a:"z"},{a:"Z"}];
@@ -443,6 +463,10 @@ class TestUtil extends TestCase {
 		this.assertEquals(50.0,e.width);
 		this.assertEquals(100.0,e.height);
 		#end
+		
+		DrawUtil.drawPath(d.graphics,[new Point(),new Point(34,66),new Point(10,124)]);
+		
+		DrawUtil.drawShape(e.graphics,[new Point(),new Point(34,66),new Point(10,124)]);
 		
 		this.assertTrue(true);
 		

@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@ package org.casalib.events;
 		An event dispatched during a {@link Process}.
 		
 		@author Aaron Clinger
-		@version 10/28/08
+		@version 02/01/10
 	*/
 	class ProcessEvent extends Event {
 		
@@ -60,7 +60,7 @@ package org.casalib.events;
 			@return A string containing all the properties of the event.
 		*/
 		public override function toString():String {
-			return formatToString('ProcessEvent', 'type', 'Bps', 'bytesLoaded', 'bytesTotal', 'progress');
+			return formatToString('ProcessEvent', 'type', 'bubbles', 'cancelable');
 		}
 		
 		/**

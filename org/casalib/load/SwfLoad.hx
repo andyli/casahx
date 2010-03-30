@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,7 @@ package org.casalib.load;
 		
 		@author Aaron Clinger
 		@author Mike Creighton
-		@version 09/06/09
+		@version 02/13/10
 		@example
 			<code>
 				package {
@@ -146,6 +146,8 @@ package org.casalib.load;
 			
 			@param request: A <code>String</code> or an <code>URLRequest</code> reference to the SWF you wish to load or the <code>Class</code> of the embeded SWF.
 			@param context: An optional LoaderContext object.
+			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
+			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
 		public function new(request:Dynamic, ?context:LoaderContext = null) {
 			super(request, context);
