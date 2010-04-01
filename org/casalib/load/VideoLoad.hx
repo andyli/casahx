@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,6 @@ package org.casalib.load;
 	import flash.media.Video;
 	import flash.net.NetConnection;
 	import haxe.Timer;
-	import org.casalib.events.LoadEvent;
 	import org.casalib.events.VideoInfoEvent;
 	import org.casalib.events.VideoLoadEvent;
 	import org.casalib.load.LoadItem;
@@ -59,7 +58,7 @@ package org.casalib.load;
 		Provides an easy and standardized way to load video files. VideoLoad also includes {@link VideoLoadEvent buffer progress information} in the progress event.
 		
 		@author Aaron Clinger
-		@version 09/06/09
+		@version 02/13/10
 		@example 
 			<code>
 				package {
@@ -126,6 +125,8 @@ package org.casalib.load;
 			
 			@param request: A <code>String</code> or an <code>URLRequest</code> reference to the video you wish to load.
 			@param completeWhenBuffered: If the load should be considered complete when buffered <code>true</code>, or when the video has completely loaded <code>false</code>; defaults to <code>false</code>.
+			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
+			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
 		public function new(request:Dynamic, ?completeWhenBuffered:Bool = false) {
 			this._netConnection = new NetConnection();
@@ -150,11 +151,11 @@ package org.casalib.load;
 			
 			@usageNote Setting this value will override the length (provided by the video metadata) that is used to calculate buffer.
 		*/
-		public function getDuration():Float{
+		private function getDuration():Float{
 			return this._duration;
 		}
 		
-		public function setDuration(seconds:Float):Float{
+		private function setDuration(seconds:Float):Float{
 			this._duration = seconds;
 			return seconds;
 		}
@@ -162,11 +163,11 @@ package org.casalib.load;
 		/**
 			Indicates to pause video at start <code>true</code>, or to let the video automatically play <code>false</code>; defaults to <code>false</code>.
 		*/
-		public function getPauseStart():Bool{
+		private function getPauseStart():Bool{
 			return this._pauseStart;
 		}
 		
-		public function setPauseStart(shouldPause:Bool):Bool{
+		private function setPauseStart(shouldPause:Bool):Bool{
 			this._pauseStart = shouldPause;
 			return shouldPause;
 		}
@@ -174,21 +175,21 @@ package org.casalib.load;
 		/**
 			A Video class with attached NetStream.
 		*/
-		public function getVideo():Video {
+		private function getVideo():Video {
 			return this._video;
 		}
 		
 		/**
 			The NetConnection class used by the VideoLoad class.
 		*/
-		public function getNetConnection():NetConnection {
+		private function getNetConnection():NetConnection {
 			return this._netConnection;
 		}
 		
 		/**
 			The NetStream class used by the VideoLoad class.
 		*/
-		public function getNetStream():NetStream {
+		private function getNetStream():NetStream {
 			return cast( this._loadItem, NetStream);
 		}
 		
@@ -197,7 +198,7 @@ package org.casalib.load;
 			
 			@usageNote {@link VideoLoad} will report <code>-1</code> milliseconds until two seconds of load time has elapsed.
 		*/
-		public function getMillisecondsUntilBuffered():Int {
+		private function getMillisecondsUntilBuffered():Int {
 			return this._millisecondsUntilBuffered;
 		}
 		
@@ -206,21 +207,21 @@ package org.casalib.load;
 			
 			@usageNote {@link VideoLoad} will report <code>0</code> percent until two seconds of load time has elapsed.
 		*/
-		public function getBuffer():Percent {
+		private function getBuffer():Percent {
 			return this._buffer.clone();
 		}
 		
 		/**
 			Determines if the requested video has buffered <code>true</code>, or hasn't finished buffering <code>false</code>.
 		*/
-		public function getBuffered():Bool {
+		private function getBuffered():Bool {
 			return this._buffered;
 		}
 		
 		/**
 			The meta data information embedded in the video being loaded.
 		*/
-		public function getMetaData():Dynamic {
+		private function getMetaData():Dynamic {
 			return this._metaData;
 		}
 		

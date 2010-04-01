@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -32,6 +32,8 @@
 package org.casalib.load; 
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
+	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
 	import flash.media.Sound;
 	import flash.media.SoundLoaderContext;
 	import org.casalib.load.LoadItem;
@@ -42,7 +44,7 @@ package org.casalib.load;
 		Provides an easy and standardized way to load audio files.
 		
 		@author Aaron Clinger
-		@version 09/06/09
+		@version 02/13/10
 		@example
 			<code>
 				package {
@@ -74,6 +76,7 @@ package org.casalib.load;
 		
 		public var sound(getSound, null) : Sound ;
 		var _context:SoundLoaderContext;
+		var _isFirstLoad:Bool;
 		
 		
 		/**
@@ -81,11 +84,14 @@ package org.casalib.load;
 			
 			@param request: A <code>String</code> or an <code>URLRequest</code> reference to the file you wish to load.
 			@param context: An optional SoundLoaderContext object.
+			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
+			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
 		public function new(request:Dynamic, ?context:SoundLoaderContext = null) {
 			super(new Sound(), request);
 			
 			this._context = context;
+			this._isFirstLoad = true;
 			
 			this._initListeners(this._loadItem);
 		}
@@ -93,17 +99,30 @@ package org.casalib.load;
 		/**
 			The Sound object.
 		*/
-		public function getSound():Sound {
+		private function getSound():Sound {
 			return cast( this._loadItem, Sound);
 		}
 		
 		public override function destroy():Void {
-			this._dispatcher.removeEventListener(Event.ID3, this.dispatchEvent);
+			this._dispatcher.removeEventListener(Event.ID3, this._dispatchEvent);
 			
 			super.destroy();
 		}
 		
 		override function _load():Void {
+			if (!this._isFirstLoad) {
+				this._dispatcher.removeEventListener(Event.COMPLETE, this._onComplete);
+				this._dispatcher.removeEventListener(Event.OPEN, this._onOpen);
+				this._dispatcher.removeEventListener(IOErrorEvent.IO_ERROR, this._onLoadError);
+				this._dispatcher.removeEventListener(ProgressEvent.PROGRESS, this._onProgress);
+				this._dispatcher.removeEventListener(Event.ID3, this._dispatchEvent);
+				
+				this._loadItem = new Sound();
+				this._initListeners(this._loadItem);
+			}
+			
+			this._isFirstLoad = false;
+		
 			this._loadItem.load(this._request, this._context);
 		}
 		
@@ -113,6 +132,6 @@ package org.casalib.load;
 		override function _initListeners(dispatcher:IEventDispatcher):Void {
 			super._initListeners(dispatcher);
 			
-			this._dispatcher.addEventListener(Event.ID3, this.dispatchEvent, false, 0, true);
+			this._dispatcher.addEventListener(Event.ID3, this._dispatchEvent, false, 0, true);
 		}
 	}

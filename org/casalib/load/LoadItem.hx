@@ -173,11 +173,11 @@ package org.casalib.load;
 		/**
 			Specifies if a random value name/value pair should be appended to the query string to help prevent caching <code>true</code>, or not append <code>false</code>; defaults to <code>false</code>.
 		*/
-		public function getPreventCache():Bool{
+		private function getPreventCache():Bool{
 			return this._preventCache;
 		}
 		
-		public function setPreventCache(cache:Bool):Bool{
+		private function setPreventCache(cache:Bool):Bool{
 			this._preventCache = cache;
 			return cache;
 		}
@@ -185,35 +185,35 @@ package org.casalib.load;
 		/**
 			The total number of bytes of the requested file.
 		*/
-		public function getBytesTotal():Float {
+		private function getBytesTotal():Float {
 			return (this._loadItem.bytesTotal == 0 && this.bytesLoaded != 0) ? Math.POSITIVE_INFINITY : this._loadItem.bytesTotal;
 		}
 		
 		/**
 			The number of bytes loaded of the requested file.
 		*/
-		public function getBytesLoaded():UInt {
+		private function getBytesLoaded():UInt {
 			return this._loadItem.bytesLoaded;
 		}
 		
 		/**
 			The percent that the requested file has loaded.
 		*/
-		public function getProgress():Percent {
+		private function getProgress():Percent {
 			return this._progress.clone();
 		}
 		
 		/**
 			The number of additional times the file has attempted to load after {@link #start start} was called.
 		*/
-		public function getAttempts():UInt {
+		private function getAttempts():UInt {
 			return this._attempts;
 		}
 		
 		/**
 			The number of additional load retries the class should attempt before failing; defaults to <code>2</code> additional retries / <code>3</code> total load attempts.
 		*/
-		public function getRetries():UInt{
+		private function getRetries():UInt{
 			return this._retries;
 		}
 		
@@ -225,63 +225,63 @@ package org.casalib.load;
 		/**
 			The URLRequest reference to the requested file.
 		*/
-		public function getUrlRequest():URLRequest {
+		private function getUrlRequest():URLRequest {
 			return this._request;
 		}
 		
 		/**
 			The URL of the requested file.
 		*/
-		public function getUrl():String {
+		private function getUrl():String {
 			return this._url;
 		}
 		
 		/**
 			Determines if the requested file is loading <code>true</code>, or if it isn't currently loading <code>false</code>.
 		*/
-		public function getLoading():Bool {
+		private function getLoading():Bool {
 			return this.running;
 		}
 		
 		/**
 			Determines if the requested file has loaded <code>true</code>, or hasn't finished loading <code>false</code>.
 		*/
-		public function getLoaded():Bool {
+		private function getLoaded():Bool {
 			return this._loaded;
 		}
 		
 		/**
 			Determines if the requested file could not complete because of an error <code>true</code>, or hasn't encountered an error <code>false</code>.
 		*/
-		public function getErrored():Bool {
+		private function getErrored():Bool {
 			return this._errrored;
 		}
 		
 		/**
 			The current download speed of the requested file in bytes per second.
 		*/
-		public function getBps():Int {
+		private function getBps():Int {
 			return this._Bps;
 		}
 		
 		/**
 			The current time duration in milliseconds the load has taken.
 		*/
-		public function getTime():UInt {
+		private function getTime():UInt {
 			return this._time;
 		}
 		
 		/**
 			The time in milliseconds that the server took to respond.
 		*/
-		public function getLatency():UInt {
+		private function getLatency():UInt {
 			return this._latency;
 		}
 		
 		/**
 			The HTTP status code returned by the server; or <code>0</code> if no status has/can been received or the load is a stream.
 		*/
-		public function getHttpStatus():UInt {
+		private function getHttpStatus():UInt {
 			return this._httpStatus;
 		}
 		

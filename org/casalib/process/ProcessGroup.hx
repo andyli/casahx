@@ -172,7 +172,7 @@ package org.casalib.process;
 			} else {
 				var i:Int = -1;
 				var l:Int = this._processes.length - 1;
-				var hasAdded:Bool;
+				var hasAdded:Bool = false;
 				var p:Process;
 				
 				while (++i < this._processes.length) {
@@ -187,7 +187,7 @@ package org.casalib.process;
 					
 					if (!hasAdded) {
 						if (process.priority > p.priority) {
-							this._processes.splice(i, 0, process);
+							this._processes.insert(i, process);
 							hasAdded = true;
 						} else if (i == l) {
 							this._processes.push(process);
@@ -235,7 +235,7 @@ package org.casalib.process;
 			@return Returns <code>true</code> if the ProcessGroup contains the process; otherwise <code>false</code>.
 		*/
 		public function hasProcess(process:Process, ?recursive:Bool = true):Bool {
-			var processFound:Bool = this._processes.indexOf(process) > -1;
+			var processFound:Bool = ArrayUtil.indexOf(this._processes, process) > -1;
 			
 			if (!recursive)
 				return processFound;
@@ -251,7 +251,7 @@ package org.casalib.process;
 				p = this._processes[l];
 				
 				if (Std.is(p, ProcessGroup)) {
-					g = p;
+					g = cast p;
 					
 					if (g.hasProcess(process, true))
 						return true;
@@ -265,7 +265,7 @@ package org.casalib.process;
 			The processes that compose the group.
 		*/
 		public function getProcesses():Array<Process> {
-			return this._processes.concat();
+			return this._processes.copy();
 		}
 		
 		/**
@@ -326,7 +326,7 @@ package org.casalib.process;
 					p = this._processes[l];
 					
 					if (Std.is(p, ProcessGroup)) {
-						g = p;
+						g = cast p;
 						g.destroyProcesses(true);
 					} else
 						p.destroy();

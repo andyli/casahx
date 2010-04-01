@@ -3,7 +3,12 @@ package test;
 import haxe.unit.TestCase;
 
 import org.casalib.events.LoadEvent;
+import org.casalib.load.AudioLoad;
+import org.casalib.load.CasaLoader;
+import org.casalib.load.DataLoad;
+import org.casalib.load.GroupLoad;
 import org.casalib.load.ImageLoad;
+import org.casalib.load.LoadItem;
 import org.casalib.load.SwfLoad;
 import org.casalib.load.VideoLoad;
 

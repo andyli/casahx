@@ -1,6 +1,6 @@
 /*
 	CASA Framework for ActionScript 3.0
-	Copyright (c) 2009, Contributors of CASA Framework
+	Copyright (c) 2010, Contributors of CASA Framework
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,7 @@ package org.casalib.load;
 		In almost all cases you will want to use {@link ImageLoad} or {@link SwfLoad} instead of this class.
 		
 		@author Aaron Clinger
-		@version 09/06/09
+		@version 02/13/10
 		@example
 			<code>
 				package {
@@ -99,6 +99,8 @@ package org.casalib.load;
 			
 			@param request: A <code>String</code> or an <code>URLRequest</code> reference to the file you wish to load.
 			@param context: An optional LoaderContext object.
+			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
+			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
 		public function new(request:Dynamic, ?context:LoaderContext = null) {
 			super(new Loader(), request);
@@ -111,7 +113,7 @@ package org.casalib.load;
 		/**
 			The Loader being used to load the image or SWF.
 		*/
-		public function getLoader():Loader {
+		private function getLoader():Loader {
 			return cast( this._loadItem, Loader);
 		}
 		
@@ -120,7 +122,7 @@ package org.casalib.load;
 			
 			@throws Error if method is called before the SWF has loaded.
 		*/
-		public function getContent():DisplayObject {
+		private function getContent():DisplayObject {
 			if (!this.loaded)
 				throw 'Cannot access an external asset until the SWF has loaded.';
 			
@@ -130,21 +132,21 @@ package org.casalib.load;
 		/**
 			The LoaderInfo corresponding to the object being loaded.
 		*/
-		public function getLoaderInfo():LoaderInfo {
+		private function getLoaderInfo():LoaderInfo {
 			return this._loadItem.contentLoaderInfo;
 		}
 		
 		/**
 			@exclude
 		*/
-		public override function getBytesTotal():Float {
+		private override function getBytesTotal():Float {
 			return (this._loadItem.contentLoaderInfo.bytesTotal == 0 && this.bytesLoaded != 0) ? Math.POSITIVE_INFINITY : this._loadItem.contentLoaderInfo.bytesTotal;
 		}
 		
 		/**
 			The number of bytes loaded of the requested file.
 		*/
-		public override function getBytesLoaded():UInt {
+		private override function getBytesLoaded():UInt {
 			return this._loadItem.contentLoaderInfo.bytesLoaded;
 		}
 		

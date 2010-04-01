@@ -159,7 +159,7 @@ package org.casalib.load;
 			@throws Error if method is called before the SWF has loaded.
 			@throws Error if method cannot convert content to a MovieClip.
 		*/
-		public function getContentAsMovieClip():MovieClip {
+		private function getContentAsMovieClip():MovieClip {
 			if (this.loaderInfo.contentType != CasaLoader.FLASH_CONTENT_TYPE)
 				throw 'Cannot convert content to a MovieClip.';
 			
@@ -172,7 +172,7 @@ package org.casalib.load;
 			@throws Error if method is called before the SWF has loaded.
 			@throws Error if method cannot convert content to an AVM1Movie.
 		*/
-		public function getContentAsAvm1Movie():AVM1Movie {
+		private function getContentAsAvm1Movie():AVM1Movie {
 			if (this.loaderInfo.contentType != CasaLoader.FLASH_CONTENT_TYPE)
 				throw 'Cannot convert content to an AVM1Movie.';
 			
