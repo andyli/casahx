@@ -241,7 +241,7 @@ package org.casalib.ui;
 					this._checkDownKeys(this._combinations[l]);
 			}
 			
-			this.dispatchEvent(e.clone());
+			this.dispatchEvent(e);
 		}
 		
 		/**
@@ -263,7 +263,7 @@ package org.casalib.ui;
 			
 			this._keysDown.remove(e.keyCode);
 			
-			this.dispatchEvent(e.clone());
+			this.dispatchEvent(e);
 		}
 		
 		function _onDeactivate(e:Event):Void {

@@ -36,7 +36,7 @@ class TestUi extends flash.display.Sprite {
 	}
 	
 	static public function main():Void {
-		neash.Lib.Init("Test UI", 400, 300);
+		neash.Lib.Init("Test", 400, 300);
 		flash.Lib.current.addChild(new TestUi());
 		neash.Lib.Run();
 	}

@@ -37,7 +37,7 @@ package org.casalib.events;
 		@author Aaron Clinger
 		@version 02/11/10
 	*/
-	interface IRemovableEventDispatcher implements IEventDispatcher{
+	interface IRemovableEventDispatcher #if !cpp implements IEventDispatcher #end{
 		
 		/**
 			Removes all events of a specific type.

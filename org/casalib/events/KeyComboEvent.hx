@@ -71,12 +71,14 @@ package org.casalib.events;
 			return keyCombo;
 		}
 		
+		#if flash
 		/**
 			@return A string containing all the properties of the event.
 		*/
 		public override function toString():String {
 			return formatToString('KeyComboEvent', 'type', 'bubbles', 'cancelable', 'keyCombo');
 		}
+		#end
 		
 		/**
 			@return Duplicates an instance of the event.
