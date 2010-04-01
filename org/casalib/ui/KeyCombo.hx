@@ -29,27 +29,58 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.core; 
-	
+package org.casalib.ui; 
+	import org.casalib.core.UInt;
+	import org.casalib.errors.ArrayContentsError;
+	import org.casalib.util.ArrayUtil;
 	
 	/**
-		Interface for objects that are destroyable.
+		Class for storing keyboard key code combinations.
 		
 		@author Aaron Clinger
-		@version 03/16/09
+		@version 10/27/08
 	*/
-	interface IDestroyable {
+	class KeyCombo  {
+		
+		public var keyCodes(getKeyCodes, null) : Array<Int> ;
+		var _keyCodes:Array<Int>;
+		
 		
 		/**
-			Removes any event listeners and stops all internal processes to help allow for prompt garbage collection.
+			Creates and defines a KeyCombo.
 			
-			<strong>Always call <code>destroy()</code> before deleting last object pointer.</strong>
+			@param keyCodes: An Array of <code>uint</code> key codes that define a key combination.
+			@throws ArrayContentsError if <code>keyCodes</code> Array contains a value not of type <code>uint</code> or if the Array contains less than 2 values.
 		*/
-		function destroy():Void;
+		public function new(keyCodes:Array<Int>) {
+			if (keyCodes.length < 2)
+				throw new ArrayContentsError();
+			
+			var l:UInt = keyCodes.length;
+			while (l-- > 0)
+				if (!(Std.is( keyCodes[l], Int)))
+					throw new ArrayContentsError();
+			
+			this._keyCodes = keyCodes.copy();
+		}
 		
 		/**
-			Determines if the object has been destroyed <code>true</code>, or is still available for use <code>false</code>.
+			The key codes that compose this KeyCombo.
 		*/
-		var destroyed(getDestroyed,null):Bool;
-		private function getDestroyed():Bool;
+		public function getKeyCodes():Array<Int> {
+			return this._keyCodes.copy();
+		}
+		
+		/**
+			Determines if the KeyCombo specified in the <code>keyCombo</code> parameter is equal to this KeyCombo.
+			
+			@param keyCombo: The KeyCombo class to compare to this class.
+			@return Returns <code>true</code> if the two KeyCombo classes contain the same key codes in the same order; otherwise <code>false</code>.
+		*/
+		public function equals(keyCombo:KeyCombo):Bool {
+			if (keyCombo == this)
+				return true;
+			
+			return ArrayUtil.equals(this.keyCodes, keyCombo.keyCodes);
+		}
 	}

@@ -52,7 +52,7 @@ package org.casalib.core;
 			_isDestroyed = false;
 		}
 		
-		public function getDestroyed():Bool {
+		private function getDestroyed():Bool {
 			return this._isDestroyed;
 		}
 		

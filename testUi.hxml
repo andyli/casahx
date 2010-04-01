@@ -1,0 +1,6 @@
+-swf test/bin/swf/TestUi.swf
+-swf-version 10
+-main test.TestUi
+-lib neash
+
+-cmd open test/bin/swf/TestUi.swf

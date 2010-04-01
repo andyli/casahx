@@ -3,4 +3,4 @@
 		
 		public function getTotalEventListeners(type:String = null):UInt {
 			return this._listenerManager.getTotalEventListeners(type);
-		}				public function getDestroyed():Bool {			return this._isDestroyed;		}				public function destroy():Void {			this._listenerManager.destroy();						this._isDestroyed = true;		}	}
+		}				private function getDestroyed():Bool {			return this._isDestroyed;		}				public function destroy():Void {			this._listenerManager.destroy();						this._isDestroyed = true;		}	}
