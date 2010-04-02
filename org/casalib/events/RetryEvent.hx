@@ -68,12 +68,14 @@ package org.casalib.events;
 			return amount;
 		}
 		
+		#if flash
 		/**
 			@return A string containing all the properties of the event.
 		*/
 		public override function toString():String {
 			return formatToString('RetryEvent', 'type', 'bubbles', 'cancelable', 'attempts');
 		}
+		#end
 		
 		/**
 			@return Duplicates an instance of the event.

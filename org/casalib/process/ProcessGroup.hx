@@ -138,11 +138,11 @@ package org.casalib.process;
 		/**
 			Instructs the ProcessGroup to {@link #start} automatically if it contains an incomplete {@link Process} or if an incomplete is {@link Process#addProcess added}.
 		*/
-		public function getAutoStart():Bool{
+		private function getAutoStart():Bool{
 			return this._autoStart;
 		}
 		
-		public function setAutoStart(autoStart:Bool):Bool{
+		private function setAutoStart(autoStart:Bool):Bool{
 			this._autoStart = autoStart;
 			
 			if (!this.completed && !this.running)
@@ -264,46 +264,46 @@ package org.casalib.process;
 		/**
 			The processes that compose the group.
 		*/
-		public function getProcesses():Array<Process> {
+		private function getProcesses():Array<Process> {
 			return this._processes.copy();
 		}
 		
 		/**
 			The processes that are neither complete or running.
 		*/
-		public function getQueuedProcesses():Array<Process> {
+		private function getQueuedProcesses():Array<Process> {
 			return ArrayUtil.getItemsByKey(this.incompletedProcesses, 'running', false);
 		}
 		
 		/**
 			The processes that are currently running.
 		*/
-		public function getRunningProcesses():Array<Process> {
+		private function getRunningProcesses():Array<Process> {
 			return ArrayUtil.getItemsByKey(this.processes, 'running', true);
 		}
 		
 		/**
 			The processes that have not completed.
 		*/
-		public function getIncompletedProcesses():Array<Process> {
+		private function getIncompletedProcesses():Array<Process> {
 			return ArrayUtil.getItemsByKey(this.processes, 'completed', false);
 		}
 		
 		/**
 			The processes that have completed.
 		*/
-		public function getCompletedProcesses():Array<Process> {
+		private function getCompletedProcesses():Array<Process> {
 			return ArrayUtil.getItemsByKey(this.processes, 'completed', true);
 		}
 		
 		/**
 			The number of simultaneous processes to run at once.
 		*/
-		public function getThreads():UInt{
+		private function getThreads():UInt{
 			return this._threads;
 		}
 		
-		public function setThreads(threadAmount:UInt):UInt{
+		private function setThreads(threadAmount:UInt):UInt{
 			this._threads = threadAmount;
 			return threadAmount;
 		}

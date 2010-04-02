@@ -9,7 +9,6 @@ class Test extends TestRunner{
 		neash.Lib.Init("Test",400,300);
 		#end
 		var runner = new Test();
-		#if flash runner.add(new TestLoad()); #end
 		runner.add(new TestMath());
 		runner.add(new TestUtil());
 		runner.run();

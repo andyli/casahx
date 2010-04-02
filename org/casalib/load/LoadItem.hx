@@ -30,9 +30,9 @@
 	POSSIBILITY OF SUCH DAMAGE.
 */
 package org.casalib.load; 
-	import flash.errors.IOError;
+	//import flash.errors.IOError;
 	import flash.events.Event;
-	import flash.events.HTTPStatusEvent;
+	#if flash import flash.events.HTTPStatusEvent; #end
 	import flash.events.IEventDispatcher;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
@@ -165,7 +165,7 @@ package org.casalib.load;
 			
 			try{
 				this._loadItem.close();
-			} catch (error:IOError) {}
+			} catch (error:Dynamic) {}
 			
 			this.dispatchEvent(this._createDefinedLoadEvent(LoadEvent.STOP));
 		}
@@ -217,7 +217,7 @@ package org.casalib.load;
 			return this._retries;
 		}
 		
-		public function setRetries(amount:UInt):UInt{
+		private function setRetries(amount:UInt):UInt{
 			this._retries = amount;
 			return amount;
 		}
@@ -352,11 +352,13 @@ package org.casalib.load;
 			this.dispatchEvent(e);
 		}
 		
+		#if flash
 		function _onHttpStatus(e:HTTPStatusEvent):Void {
 			this._httpStatus = e.status;
 			
 			this.dispatchEvent(e);
 		}
+		#end
 		
 		function _onProgress(progress:ProgressEvent):Void {
 			this._calculateLoadProgress();

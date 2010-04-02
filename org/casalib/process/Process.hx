@@ -87,25 +87,25 @@ package org.casalib.process;
 		/**
 			Determines if the process is currently running <code>true</code>, or if it isn't <code>false</code>.
 		*/
-		public function getRunning():Bool {
+		private function getRunning():Bool {
 			return this._isRunning;
 		}
 		
 		/**
 			Determines if the process has completed <code>true</code>, or if it hasn't <code>false</code>.
 		*/
-		public function getCompleted():Bool {
+		private function getCompleted():Bool {
 			return this._hasCompleted;
 		}
 		
 		/**
 			The priority relative to other processes. The higher priority processes will take precedence over lower priority processes in a {@link ProcessGroup}.
 		*/
-		public function getPriority():Int{
+		private function getPriority():Int{
 			return this._priority;
 		}
 		
-		public function setPriority(priority:Int):Int{
+		private function setPriority(priority:Int):Int{
 			this._priority = priority;
 			return priority;
 		}

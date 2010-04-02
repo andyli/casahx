@@ -56,12 +56,14 @@ package org.casalib.events;
 			super(type, bubbles, cancelable);
 		}
 		
+		#if flash
 		/**
 			@return A string containing all the properties of the event.
 		*/
 		public override function toString():String {
 			return formatToString('ProcessEvent', 'type', 'bubbles', 'cancelable');
 		}
+		#end
 		
 		/**
 			@return Duplicates an instance of the event.

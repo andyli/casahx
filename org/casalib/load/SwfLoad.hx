@@ -30,9 +30,9 @@
 	POSSIBILITY OF SUCH DAMAGE.
 */
 package org.casalib.load; 
-	import flash.display.AVM1Movie;
+	#if flash import flash.display.AVM1Movie; #end
 	import flash.display.MovieClip;
-	import flash.system.LoaderContext;
+	#if flash import flash.system.LoaderContext; #end
 	import flash.utils.ByteArray;
 	import org.casalib.load.CasaLoader;
 	import org.casalib.util.ClassUtil;
@@ -136,7 +136,7 @@ package org.casalib.load;
 	*/
 	class SwfLoad extends CasaLoader {
 		
-		public var contentAsAvm1Movie(getContentAsAvm1Movie, null) : AVM1Movie ;
+		#if flash public var contentAsAvm1Movie(getContentAsAvm1Movie, null) : AVM1Movie ; #end
 		public var contentAsMovieClip(getContentAsMovieClip, null) : MovieClip ;
 		var _classRequest:Class<Dynamic>;
 		
@@ -149,8 +149,8 @@ package org.casalib.load;
 			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
 			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
-		public function new(request:Dynamic, ?context:LoaderContext = null) {
-			super(request, context);
+		public function new(request:Dynamic #if flash , ?context:LoaderContext = null #end) {
+			super(request #if flash , context #end);
 		}
 		
 		/**
@@ -166,6 +166,7 @@ package org.casalib.load;
 			return cast this.content;
 		}
 		
+		#if flash
 		/**
 			The data received from the DataLoad data typed as AVM1Movie. Available after load is complete.
 			
@@ -232,12 +233,13 @@ package org.casalib.load;
 			
 			return ClassUtil.construct(null, arguments);
 		}
+		#end
 		
 		override function _load():Void {
 			if (this._classRequest == null)
-				this._loadItem.load(this._request, this._context);
+				this._loadItem.load(this._request #if flash , this._context #end);
 			else
-				this._loadItem.loadBytes(cast( Type.createInstance(this._classRequest,[]) , ByteArray), this._context);
+				this._loadItem.loadBytes(cast( Type.createInstance(this._classRequest,[]) , ByteArray) #if flash , this._context #end);
 		}
 		
 		override function _createRequest(request:Dynamic):Void {

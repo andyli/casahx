@@ -34,10 +34,10 @@ package org.casalib.load;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
-	import flash.events.HTTPStatusEvent;
+	#if flash import flash.events.HTTPStatusEvent; #end
 	import flash.events.IEventDispatcher;
-	import flash.events.SecurityErrorEvent;
-	import flash.system.LoaderContext;
+	#if flash import flash.events.SecurityErrorEvent; #end
+	#if flash import flash.system.LoaderContext; #end
 	import org.casalib.core.UInt;
 	import org.casalib.load.LoadItem;
 	
@@ -91,7 +91,7 @@ package org.casalib.load;
 		inline public static var JPEG_CONTENT_TYPE:String  = 'image/jpeg';
 		inline public static var GIF_CONTENT_TYPE:String   = 'image/gif';
 		inline public static var PNG_CONTENT_TYPE:String   = 'image/png';
-		private var _context:LoaderContext;
+		#if flash private var _context:LoaderContext; #end
 		
 		
 		/**
@@ -102,10 +102,12 @@ package org.casalib.load;
 			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
 			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
-		public function new(request:Dynamic, ?context:LoaderContext = null) {
+		public function new(request:Dynamic #if flash , ?context:LoaderContext = null #end) {
 			super(new Loader(), request);
 			
+			#if flash
 			this._context = context;
+			#end
 			
 			this._initListeners(this.loaderInfo);
 		}
@@ -153,14 +155,16 @@ package org.casalib.load;
 		public override function destroy():Void {
 			this._dispatcher.removeEventListener(Event.INIT, this._dispatchEvent);
 			this._dispatcher.removeEventListener(Event.UNLOAD, this._dispatchEvent);
+			#if flash
 			this._dispatcher.removeEventListener(HTTPStatusEvent.HTTP_STATUS, this._onHttpStatus);
 			this._dispatcher.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, this._dispatchEvent);
+			#end
 			
 			super.destroy();
 		}
 		
 		override function _load():Void {
-			this._loadItem.load(this._request, this._context);
+			this._loadItem.load(this._request #if flash , this._context #end);
 		}
 		
 		/**
@@ -174,7 +178,9 @@ package org.casalib.load;
 			
 			this._dispatcher.addEventListener(Event.INIT, this._dispatchEvent, false, 0, true);
 			this._dispatcher.addEventListener(Event.UNLOAD, this._dispatchEvent, false, 0, true);
+			#if flash 
 			this._dispatcher.addEventListener(HTTPStatusEvent.HTTP_STATUS, this._onHttpStatus, false, 0, true);
 			this._dispatcher.addEventListener(SecurityErrorEvent.SECURITY_ERROR, this._dispatchEvent, false, 0, true);
+			#end
 		}
 	}

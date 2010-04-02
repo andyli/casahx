@@ -1,6 +1,7 @@
 ﻿/*	CASA Lib for ActionScript 3.0	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib	All rights reserved.		Redistribution and use in source and binary forms, with or without	modification, are permitted provided that the following conditions are met:		- Redistributions of source code must retain the above copyright notice,	  this list of conditions and the following disclaimer.		- Redistributions in binary form must reproduce the above copyright notice,	  this list of conditions and the following disclaimer in the documentation	  and/or other materials provided with the distribution.		- Neither the name of the CASA Lib nor the names of its contributors	  may be used to endorse or promote products derived from this software	  without specific prior written permission.		THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"	AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE	IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE	ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE	LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR	CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF	SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS	INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN	CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE	POSSIBILITY OF SUCH DAMAGE.*/package org.casalib.load;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
+	import org.casalib.core.UInt;
 	import org.casalib.errors.ArguementTypeError;	import org.casalib.events.LoadEvent;	import org.casalib.events.ProcessEvent;	import org.casalib.math.Percent;	import org.casalib.process.Process;	import org.casalib.process.ProcessGroup;	import org.casalib.util.ArrayUtil;
 	import org.casalib.util.StringUtil;	import org.casalib.load.LoadItem;	
 	/*[Event(name="ioError", type="flash.events.IOErrorEvent")]*/	/*[Event(name="complete", type="org.casalib.events.LoadEvent")]*/	/*[Event(name="progress", type="org.casalib.events.LoadEvent")]*/		/**		Allows multiple loads to be grouped and treated as one larger load.				@author Aaron Clinger		@version 03/26/10		@example			<code>				package {
@@ -63,7 +64,7 @@
 			}			this._percentMap = new IntHash<Percent>();			this._progress   = new Percent();
 			
 			if (GroupLoad._instanceMap == null) GroupLoad._instanceMap = new Hash<GroupLoad>();
-			GroupLoad._instanceMap.set(id, this);		}				/**			Add a load to the group.
+			GroupLoad._instanceMap.set(_id, this);		}				/**			Add a load to the group.
 			
 			@param load: Load to be added to the group. Can be any class that extends from {@link LoadItem} or another <code>GroupLoad</code> instance.
 			@param percentOfGroup: Defines the percentage of the total group the size of the load item represents; defaults to equal increments.
