@@ -44,8 +44,8 @@ package org.casalib.events;
 		
 		public var buffer(getBuffer, setBuffer) : Percent;
 		public var millisecondsUntilBuffered(getMillisecondsUntilBuffered, setMillisecondsUntilBuffered) : Int;
-		public static var BUFFERED:String = 'buffered';
-		public static var PROGRESS:String = 'progress';
+		inline public static var BUFFERED:String = 'buffered';
+		inline public static var PROGRESS:String = 'progress';
 		var _buffer:Percent ;
 		var _millisecondsUntilBuffered:Int ;
 		
@@ -69,11 +69,11 @@ package org.casalib.events;
 			
 			@usageNote {@link VideoLoad} will report <code>-1</code> milliseconds until two seconds of load time has elapsed.
 		*/
-		public function getMillisecondsUntilBuffered():Int{
+		private function getMillisecondsUntilBuffered():Int{
 			return this._millisecondsUntilBuffered;
 		}
 		
-		public function setMillisecondsUntilBuffered(milliseconds:Int):Int{
+		private function setMillisecondsUntilBuffered(milliseconds:Int):Int{
 			this._millisecondsUntilBuffered = milliseconds;
 			return milliseconds;
 		}
@@ -83,21 +83,23 @@ package org.casalib.events;
 			
 			@usageNote {@link VideoLoad} will report <code>0</code> percent until two seconds of load time has elapsed.
 		*/
-		public function getBuffer():Percent{
+		private function getBuffer():Percent{
 			return this._buffer.clone();
 		}
 		
-		public function setBuffer(percent:Percent):Percent{
+		private function setBuffer(percent:Percent):Percent{
 			this._buffer = percent.clone();
 			return percent;
 		}
 		
+		#if flash
 		/**
 			@return A string containing all the properties of the event.
 		*/
 		public override function toString():String {
 			return this.formatToString('VideoLoadEvent', 'bytesLoaded', 'bytesTotal', 'httpStatus', 'latency', 'millisecondsUntilBuffered');
 		}
+		#end
 		
 		/**
 			@return Duplicates an instance of the event.

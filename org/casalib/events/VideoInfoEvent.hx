@@ -41,8 +41,8 @@ package org.casalib.events;
 	class VideoInfoEvent extends Event {
 		
 		public var infoObject(getInfoObject, setInfoObject) : Dynamic;
-		public static var CUE_POINT:String = 'cuePoint';
-		public static var META_DATA:String = 'metaData';
+		inline public static var CUE_POINT:String = 'cuePoint';
+		inline public static var META_DATA:String = 'metaData';
 		var _infoObject:Dynamic;
 		
 		
@@ -60,21 +60,23 @@ package org.casalib.events;
 		/**
 			The meta data or cue point info object.
 		*/
-		public function getInfoObject():Dynamic{
+		private function getInfoObject():Dynamic{
 			return this._infoObject;
 		}
 		
-		public function setInfoObject(info:Dynamic):Dynamic{
+		private function setInfoObject(info:Dynamic):Dynamic{
 			this._infoObject = info;
 			return info;
 		}
 		
+		#if flash
 		/**
 			@return A string containing all the properties of the event.
 		*/
 		public override function toString():String {
 			return formatToString('VideoInfoEvent', 'type', 'bubbles', 'cancelable', 'infoObject');
 		}
+		#end
 		
 		/**
 			@return Duplicates an instance of the event.
