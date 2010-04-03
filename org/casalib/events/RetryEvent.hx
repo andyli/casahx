@@ -59,11 +59,11 @@ package org.casalib.events;
 		/**
 			The number of times the file has attempted to load.
 		*/
-		inline public function getAttempts():Int{
+		inline private function getAttempts():Int{
 			return this._attempts;
 		}
 		
-		inline public function setAttempts(amount:Int):Int{
+		inline private function setAttempts(amount:Int):Int{
 			this._attempts = amount;
 			return amount;
 		}

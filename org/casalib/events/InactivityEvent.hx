@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -40,10 +40,10 @@ package org.casalib.events;
 	*/
 	class InactivityEvent extends Event {
 		
-		public var milliseconds(getMilliseconds, setMilliseconds) : UInt;
+		public var milliseconds(getMilliseconds, setMilliseconds) : Float;
 		inline public static var INACTIVE:String  = 'inactive';
 		inline public static var ACTIVATED:String = 'activated';
-		var _milliseconds:UInt;
+		var _milliseconds:Float;
 		
 		
 		/**
@@ -60,21 +60,23 @@ package org.casalib.events;
 		/**
 			The length of time an user has been inactive.
 		*/
-		public function getMilliseconds():UInt{
+		private function getMilliseconds():Float{
 			return this._milliseconds;
 		}
 		
-		public function setMilliseconds(time:UInt):UInt{
+		private function setMilliseconds(time:Float):Float{
 			this._milliseconds = time;
 			return time;
 		}
 		
+		#if flash
 		/**
 			@return A string containing all the properties of the event.
 		*/
 		public override function toString():String {
 			return formatToString('InactivityEvent', 'type', 'bubbles', 'cancelable', 'milliseconds');
 		}
+		#end
 		
 		/**
 			@return Duplicates an instance of the event.

@@ -1,5 +1,6 @@
 package org.casalib.events; 
 	import flash.events.Event;
+	import org.casalib.core.UInt;
 	
 	
 	/**
@@ -12,11 +13,11 @@ package org.casalib.events;
 	class SequenceEvent extends Event {
 		
 		public var loops(getLoops, setLoops) : UInt;
-		public static var COMPLETE:String = 'complete';
-		public static var RESUME:String   = 'resume';
-		public static var START:String    = 'start';
-		public static var STOP:String     = 'stop';
-		public static var LOOP:String     = 'loop';
+		inline public static var COMPLETE:String = 'complete';
+		inline public static var RESUME:String   = 'resume';
+		inline public static var START:String    = 'start';
+		inline public static var STOP:String     = 'stop';
+		inline public static var LOOP:String     = 'loop';
 		var _loops:UInt;
 		
 		
@@ -34,21 +35,23 @@ package org.casalib.events;
 		/**
 			The number of times the sequence has run.
 		*/
-		public function getLoops():UInt{
+		private function getLoops():UInt{
 			return this._loops;
 		}
 		
-		public function setLoops(loops:UInt):UInt{
+		private function setLoops(loops:UInt):UInt{
 			this._loops = loops;
 			return loops;
 		}
 		
+		#if flash
 		/**
 			@return A string containing all the properties of the event.
 		*/
 		public override function toString():String {
 			return formatToString('SequenceEvent', 'type', 'bubbles', 'cancelable', 'loops');
 		}
+		#end
 		
 		/**
 			@return Duplicates an instance of the event.

@@ -29,18 +29,29 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.control; 
+package org.casalib.time; 
+	import org.casalib.time.FrameTime;
 	
 	/**
+		Functions exactly like {@link Stopwatch} but uses {@link FrameTime} as the timing mechanism.
+		
 		@author Aaron Clinger
 		@author Mike Creighton
-		@version 10/27/08
+		@version 10/11/08
 	*/
-	interface IResumable #if !cpp implements IRunnable #end{
+	class FrameTimeStopwatch extends Stopwatch {
+		
+		override public var _timer(get_timer, null) : Float ;
 		
 		
 		/**
-			Resumes the process from <code>stop()</code>.
+			Creates a new FrameTimeStopwatch.
 		*/
-		function resume():Void;
+		public function new() {
+			super();
+		}
+		
+		override function get_timer():Float {
+			return FrameTime.getInstance().time;
+		}
 	}

@@ -62,11 +62,11 @@ package org.casalib.events;
 		/**
 			The {@link KeyCombo} that contains the key codes that triggered the event.
 		*/
-		inline public function getKeyCombo():KeyCombo{
+		inline private function getKeyCombo():KeyCombo{
 			return this._keyCombo;
 		}
 		
-		inline public function setKeyCombo(keyCombo:KeyCombo):KeyCombo{
+		inline private function setKeyCombo(keyCombo:KeyCombo):KeyCombo{
 			this._keyCombo = keyCombo;
 			return keyCombo;
 		}

@@ -29,18 +29,52 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.control; 
+package org.casalib.time; 
+	import flash.events.Event;
 	
 	/**
+		Creates a common time which isn't affected by delays caused by code execution; the time is only updated every frame.
+		
 		@author Aaron Clinger
 		@author Mike Creighton
-		@version 10/27/08
+		@version 03/08/08
 	*/
-	interface IResumable #if !cpp implements IRunnable #end{
+	class FrameTime  {
+		
+		public var time(getTime, null) : Float ;
+		static var _frameTimeInstance:FrameTime;
+		var _enterFrame:EnterFrame;
+		var _time:Float;
 		
 		
 		/**
-			Resumes the process from <code>stop()</code>.
+			@return {@link FrameTime} instance.
 		*/
-		function resume():Void;
+		public static function getInstance():FrameTime {
+			if (FrameTime._frameTimeInstance == null)
+				FrameTime._frameTimeInstance = new FrameTime();
+			
+			return FrameTime._frameTimeInstance;
+		}
+		
+		/**
+			@exclude
+		*/
+		private function new() {
+			this._enterFrame = EnterFrame.getInstance();
+			this._enterFrame.addEventListener(Event.ENTER_FRAME, this._updateTime);
+			
+			this._updateTime(new Event(Event.ENTER_FRAME));
+		}
+		
+		/**
+			@return Returns the number of milliseconds from when the SWF started playing to the last <code>enterFrame</code> event.
+		*/
+		private function getTime():Float {
+			return this._time;
+		}
+		
+		function _updateTime(e:Event):Void {
+			this._time = haxe.Timer.stamp();
+		}
 	}
