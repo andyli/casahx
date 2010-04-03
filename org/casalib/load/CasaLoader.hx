@@ -82,7 +82,7 @@ package org.casalib.load;
 	*/
 	class CasaLoader extends LoadItem {
 		
-		public override var bytesLoaded(getBytesLoaded, null) : UInt ;
+		public override var bytesLoaded(getBytesLoaded, null) : Float ;
 		public override var bytesTotal(getBytesTotal, null) : Float ;
 		public var content(getContent, null) : DisplayObject ;
 		public var loader(getLoader, null) : Loader ;

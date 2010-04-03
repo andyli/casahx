@@ -69,7 +69,7 @@ package org.casalib.load;
 		public var errored(getErrored,null):Bool;
 		public var Bps(getBps, null) : Int ;
 		public var attempts(getAttempts, null) : UInt ;
-		public var bytesLoaded(getBytesLoaded, null) : UInt ;
+		public var bytesLoaded(getBytesLoaded, null) : Float ;
 		public var bytesTotal(getBytesTotal, null) : Float ;
 		public var httpStatus(getHttpStatus, null) : UInt ;
 		public var latency(getLatency, null) : UInt ;
@@ -78,7 +78,7 @@ package org.casalib.load;
 		public var preventCache(getPreventCache, setPreventCache) : Bool;
 		public var progress(getProgress, null) : Percent ;
 		public var retries(getRetries, setRetries) : UInt;
-		public var time(getTime, null) : UInt ;
+		public var time(getTime, null) : Float ;
 		public var url(getUrl, null) : String ;
 		public var urlRequest(getUrlRequest, null) : URLRequest ;
 		var _attempts:UInt;
@@ -88,7 +88,7 @@ package org.casalib.load;
 		var _retries:UInt;
 		var _dispatcher:IEventDispatcher;
 		var _Bps:Int;
-		var _time:UInt;
+		var _time:Float;
 		var _latency:UInt;
 		var _httpStatus:UInt;
 		var _loadItem:Dynamic;
@@ -267,7 +267,7 @@ package org.casalib.load;
 		/**
 			The current time duration in milliseconds the load has taken.
 		*/
-		private function getTime():UInt {
+		private function getTime():Float {
 			return this._time;
 		}
 		
@@ -371,7 +371,7 @@ package org.casalib.load;
 			var currentTime:Float = Timer.stamp();
 			
 			this._Bps  = Std.int(LoadUtil.calculateBps(this.bytesLoaded, this._startTime, currentTime));
-			this._time = Std.int(currentTime - this._startTime);
+			this._time = currentTime - this._startTime;
 			
 			this._progress.decimalPercentage = Math.min(this.bytesLoaded / this.bytesTotal, 1);
 			
@@ -392,7 +392,7 @@ package org.casalib.load;
 			loadEvent.attempts      = this.attempts;
 			loadEvent.Bps           = this.Bps;
 			loadEvent.bytesLoaded   = this.bytesLoaded;
-			loadEvent.bytesTotal    = Std.int(this.bytesTotal);
+			loadEvent.bytesTotal    = this.bytesTotal;
 			loadEvent.latency       = this.latency;
 			loadEvent.progress      = this.progress;
 			loadEvent.retries       = this.retries;
@@ -403,8 +403,8 @@ package org.casalib.load;
 		
 		override function _complete():Void {
 			var currentTime:Float            = Timer.stamp();
-			this._Bps                        = Std.int(LoadUtil.calculateBps(Std.int(this.bytesTotal), Std.int(this._startTime), Std.int(currentTime)));
-			this._time                       = Std.int(currentTime - this._startTime);
+			this._Bps                        = Std.int(LoadUtil.calculateBps(this.bytesTotal, this._startTime, currentTime));
+			this._time                       = currentTime - this._startTime;
 			this._loaded                     = true;
 			this._progress.decimalPercentage = 1;
 			

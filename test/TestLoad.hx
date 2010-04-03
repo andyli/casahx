@@ -24,38 +24,22 @@ class TestLoad extends flash.display.Sprite {
 		testSwfLoad();
 		
 		load = new VideoLoad("../assets/android.flv");
+		flash.Lib.current.addChild(cast(load,VideoLoad).video);
+		groupLoad.addLoad(load);
+		#end
 		
-		var onStart = function (e:LoadEvent):Void{
-			trace("video load started");
-			flash.Lib.current.addChild(cast(e.target,VideoLoad).video);
-		}
-		var onStop = function (e:LoadEvent):Void{
-			trace("video stopped");
-		}
-		var onComplete = function (e:LoadEvent):Void{
-			trace("video completed");
-		}
-		var onProgress = function (e:LoadEvent):Void{
-			//trace("video progress");
-		}
-		
-		load.addEventListener(LoadEvent.START,onStart); 
-		load.addEventListener(LoadEvent.STOP,onStop);
-		load.addEventListener(LoadEvent.COMPLETE,onComplete);
-		load.addEventListener(VideoLoadEvent.PROGRESS,onProgress);
-		load.addEventListener(VideoLoadEvent.BUFFERED,function(e:VideoLoadEvent):Void {
-			e.target.netStream.resume();
+		#if !neko
+		load = new ImageLoad("../assets/logo_haxe.gif");
+		load.addEventListener(LoadEvent.COMPLETE,function(e:LoadEvent):Void{
+			trace("image loaded!");
 		});
-		
-		
-		
 		groupLoad.addLoad(load);
 		#end
 		
 		load = new DataLoad("../assets/README");
 		load.addEventListener(LoadEvent.COMPLETE, function(e:LoadEvent):Void {
 			var load:DataLoad = cast e.target;
-			trace(load.dataAsString);
+			trace("text loaded!"+load.dataAsString.substr(0,20)+"...");
 		});
 		groupLoad.addLoad(load);
 		

@@ -30,22 +30,20 @@
 	POSSIBILITY OF SUCH DAMAGE.
 */
 package org.casalib.load; 
-	#if flash import flash.events.AsyncErrorEvent; #end
+	import flash.events.AsyncErrorEvent;
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
-	#if flash import flash.events.NetStatusEvent;
+	import flash.events.NetStatusEvent;
 	import flash.events.SecurityErrorEvent;
-	import flash.net.NetConnection;
-	import flash.net.NetStream; #end
 	import flash.media.Video;
-	import haxe.Timer;
+	import flash.net.NetConnection;
 	import org.casalib.events.VideoInfoEvent;
 	import org.casalib.events.VideoLoadEvent;
 	import org.casalib.load.LoadItem;
 	import org.casalib.math.Percent;
 	import org.casalib.time.EnterFrame;
 	import org.casalib.util.LoadUtil;
-	
+	import flash.net.NetStream;
 	
 	/*[Event(name="cuePoint", type="org.casalib.events.VideoInfoEvent")]*/
 	/*[Event(name="metaData", type="org.casalib.events.VideoInfoEvent")]*/
@@ -104,14 +102,13 @@ package org.casalib.load;
 		public var duration(getDuration, setDuration) : Float;
 		public var metaData(getMetaData, null) : Dynamic ;
 		public var millisecondsUntilBuffered(getMillisecondsUntilBuffered, null) : Int ;
-		#if flash public var netConnection(getNetConnection, null) : NetConnection ;
+		public var netConnection(getNetConnection, null) : NetConnection ;
 		public var netStream(getNetStream, null) : NetStream ;
-		var _netConnection:NetConnection; #end
 		public var pauseStart(getPauseStart, setPauseStart) : Bool;
 		public var video(getVideo, null) : Video ;
 		var _buffered:Bool;
 		var _isOpen:Bool;
-		
+		var _netConnection:NetConnection;
 		var _duration:Float;
 		var _framePulse:EnterFrame;
 		var _pauseStart:Bool;
@@ -181,7 +178,6 @@ package org.casalib.load;
 			return this._video;
 		}
 		
-		#if flash
 		/**
 			The NetConnection class used by the VideoLoad class.
 		*/
@@ -195,7 +191,6 @@ package org.casalib.load;
 		private function getNetStream():NetStream {
 			return cast( this._loadItem, NetStream);
 		}
-		#end
 		
 		/**
 			The time remaining in milliseconds until the video has completely buffered.
@@ -275,7 +270,7 @@ package org.casalib.load;
 			this._dispatcher.addEventListener(NetStatusEvent.NET_STATUS, this._netStatus, false, 0, true);
 			this._netConnection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, this._dispatchEvent, false, 0, true);
 			
-			var customClient:Dynamic = {
+			var customClient = {
 				onCuePoint: this._onCuePoint,
 				onMetaData: this._onMetaData
 			};
@@ -288,10 +283,10 @@ package org.casalib.load;
 			@sends VideoLoadEvent#BUFFERED - Dispatched when video is buffered.
 		*/
 		override function _calculateLoadProgress():Void {
-			var justBuffered:Bool    = false;
-			var currentTime:Float    = Timer.stamp();
+			var justBuffered:Bool = false;
+			var currentTime:Float      = haxe.Timer.stamp();
 			this._Bps                = Std.int(LoadUtil.calculateBps(this.bytesLoaded, this._startTime, currentTime));
-			this._time               = Std.int(currentTime - this._startTime);
+			this._time               = currentTime - this._startTime;
 			
 			this._progress.decimalPercentage = this.bytesLoaded / this.bytesTotal;
 			
@@ -354,7 +349,7 @@ package org.casalib.load;
 			vidLoadEvent.Bps                       = this.Bps;
 			vidLoadEvent.buffer                    = this.buffer;
 			vidLoadEvent.bytesLoaded               = this.bytesLoaded;
-			vidLoadEvent.bytesTotal                = Std.int(this.bytesTotal);
+			vidLoadEvent.bytesTotal                = this.bytesTotal;
 			vidLoadEvent.latency                   = this.latency;
 			vidLoadEvent.millisecondsUntilBuffered = this.millisecondsUntilBuffered;
 			vidLoadEvent.progress                  = this.progress;
@@ -389,7 +384,6 @@ package org.casalib.load;
 			this.dispatchEvent(vidInfoEvent);
 		}
 		
-		#if flash
 		/**
 			@sends NetStatusEvent#NET_STATUS - Dispatched when a NetStream object has reporting its status.
 		*/
@@ -404,7 +398,6 @@ package org.casalib.load;
 			else
 				this.dispatchEvent(e);
 		}
-		#end
 		
 		function _onFrameFire(e:Event):Void {
 			this._calculateLoadProgress();
