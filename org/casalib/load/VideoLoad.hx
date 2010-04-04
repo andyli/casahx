@@ -30,20 +30,23 @@
 	POSSIBILITY OF SUCH DAMAGE.
 */
 package org.casalib.load; 
+	#if flash
 	import flash.events.AsyncErrorEvent;
-	import flash.events.Event;
-	import flash.events.IEventDispatcher;
 	import flash.events.NetStatusEvent;
 	import flash.events.SecurityErrorEvent;
-	import flash.media.Video;
 	import flash.net.NetConnection;
+	import flash.net.NetStream;
+	#end
+	import flash.events.Event;
+	import flash.events.IEventDispatcher;
+	import flash.media.Video;
+	import org.casalib.core.UInt;
 	import org.casalib.events.VideoInfoEvent;
 	import org.casalib.events.VideoLoadEvent;
 	import org.casalib.load.LoadItem;
 	import org.casalib.math.Percent;
 	import org.casalib.time.EnterFrame;
 	import org.casalib.util.LoadUtil;
-	import flash.net.NetStream;
 	
 	/*[Event(name="cuePoint", type="org.casalib.events.VideoInfoEvent")]*/
 	/*[Event(name="metaData", type="org.casalib.events.VideoInfoEvent")]*/
@@ -102,13 +105,15 @@ package org.casalib.load;
 		public var duration(getDuration, setDuration) : Float;
 		public var metaData(getMetaData, null) : Dynamic ;
 		public var millisecondsUntilBuffered(getMillisecondsUntilBuffered, null) : Int ;
+		#if flash
 		public var netConnection(getNetConnection, null) : NetConnection ;
 		public var netStream(getNetStream, null) : NetStream ;
+		var _netConnection:NetConnection;
+		#end
 		public var pauseStart(getPauseStart, setPauseStart) : Bool;
 		public var video(getVideo, null) : Video ;
 		var _buffered:Bool;
 		var _isOpen:Bool;
-		var _netConnection:NetConnection;
 		var _duration:Float;
 		var _framePulse:EnterFrame;
 		var _pauseStart:Bool;
@@ -128,10 +133,12 @@ package org.casalib.load;
 			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
 		public function new(request:Dynamic, ?completeWhenBuffered:Bool = false) {
+			#if flash
 			this._netConnection = new NetConnection();
 			this._netConnection.connect(null);
+			#end
 			
-			super(new NetStream(this._netConnection), request);
+			super(#if flash new NetStream(this._netConnection)#else null #end, request);
 			
 			this._initListeners(this._loadItem);
 			
@@ -142,7 +149,9 @@ package org.casalib.load;
 			this._framePulse                = EnterFrame.getInstance();
 			
 			this._video = new Video();
+			#if flash
 			this._video.attachNetStream(this._loadItem);
+			#end
 		}
 		
 		/**
@@ -178,6 +187,7 @@ package org.casalib.load;
 			return this._video;
 		}
 		
+		#if flash
 		/**
 			The NetConnection class used by the VideoLoad class.
 		*/
@@ -191,6 +201,7 @@ package org.casalib.load;
 		private function getNetStream():NetStream {
 			return cast( this._loadItem, NetStream);
 		}
+		#end
 		
 		/**
 			The time remaining in milliseconds until the video has completely buffered.
@@ -250,9 +261,11 @@ package org.casalib.load;
 			</code>
 		*/
 		public override function destroy():Void {
+			#if flash
 			this._dispatcher.removeEventListener(AsyncErrorEvent.ASYNC_ERROR, this._dispatchEvent);
 			this._dispatcher.removeEventListener(NetStatusEvent.NET_STATUS, this._netStatus);
 			this._netConnection.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, this._dispatchEvent);
+			#end
 			
 			this._loadItem.client = this._loadItem;
 			
@@ -266,9 +279,11 @@ package org.casalib.load;
 		override function _initListeners(dispatcher:IEventDispatcher):Void {
 			this._dispatcher = dispatcher;
 			
+			#if flash
 			this._dispatcher.addEventListener(AsyncErrorEvent.ASYNC_ERROR, this._dispatchEvent, false, 0, true);
 			this._dispatcher.addEventListener(NetStatusEvent.NET_STATUS, this._netStatus, false, 0, true);
 			this._netConnection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, this._dispatchEvent, false, 0, true);
+			#end
 			
 			var customClient = {
 				onCuePoint: this._onCuePoint,
@@ -384,6 +399,7 @@ package org.casalib.load;
 			this.dispatchEvent(vidInfoEvent);
 		}
 		
+		#if flash
 		/**
 			@sends NetStatusEvent#NET_STATUS - Dispatched when a NetStream object has reporting its status.
 		*/
@@ -398,6 +414,7 @@ package org.casalib.load;
 			else
 				this.dispatchEvent(e);
 		}
+		#end
 		
 		function _onFrameFire(e:Event):Void {
 			this._calculateLoadProgress();

@@ -7,6 +7,7 @@ import org.casalib.load.ImageLoad;
 import org.casalib.load.DataLoad;
 import org.casalib.load.GroupLoad;
 import org.casalib.load.LoadItem;
+import org.casalib.util.LoadItemUtil;
 #if flash 
 import org.casalib.load.AudioLoad;
 import org.casalib.load.SwfLoad;
@@ -29,7 +30,7 @@ class TestLoad extends flash.display.Sprite {
 		#end
 		
 		#if !neko
-		load = new ImageLoad("../assets/logo_haxe.gif");
+		load = LoadItemUtil.createLoadItem("../assets/logo_haxe.gif");
 		load.addEventListener(LoadEvent.COMPLETE,function(e:LoadEvent):Void{
 			trace("image loaded!");
 		});

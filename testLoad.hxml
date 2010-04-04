@@ -1,6 +1,6 @@
 -swf test/bin/swf/Test.swf
 -swf-version 10
--main test.TestTime
+-main test.TestLoad
 -lib neash
 
 --next
@@ -8,14 +8,14 @@
 -lib neash
 -lib nme
 --remap flash:neash
--main test.TestTime
+-main test.TestLoad
 
 --next
 -cpp test/bin/cpp
 -lib neash
 -lib nme
 --remap flash:neash
--main test.TestTime
+-main test.TestLoad
 
 --next
 -js test/bin/js/Test.js
@@ -24,13 +24,13 @@
 -cp /Users/andylihahaha/Documents/repo/canvas-nme
 --remap flash:neash
 --remap nme:canvas
--main test.TestTime
+-main test.TestLoad
 
 --next
 -cmd echo "----------------------------------------"
 -cmd echo "Test C++!"
 -cmd cd test/bin/cpp
--cmd ./TestTime
+-cmd ./TestLoad
 -cmd echo "----------------------------------------"
 -cmd echo "Test Neko!"
 -cmd cd ../neko

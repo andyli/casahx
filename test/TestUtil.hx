@@ -33,6 +33,7 @@ import org.casalib.util.SingletonUtil;
 #if !php import org.casalib.util.StageReference; #end
 import org.casalib.util.StringUtil;
 #if !php import org.casalib.util.TextFieldUtil; #end
+#if flash import org.casalib.util.UrlVariablesUtil; #end
 import org.casalib.util.ValidationUtil;
 
 //below modified from AS3's doc
@@ -846,6 +847,16 @@ class TestUtil extends TestCase {
 		TextFieldUtil.removeOverFlow(title);
 		this.assertFalse(TextFieldUtil.hasOverFlow(title));
 		#end
+	}
+	#end
+	
+	#if flash
+	public function testUrlVariablesUtil():Void {
+		var vars = new flash.net.URLVariables();
+		vars.abc = 123;
+		vars.def = 456;
+		vars.acc = 789;
+		this.assertEquals("abc=123&acc=789&def=456",UrlVariablesUtil.alphabetize(vars));
 	}
 	#end
 	
