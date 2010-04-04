@@ -35,3 +35,5 @@ Note
 			Performance should be better than sortOn.
 	-DateUtil
 		added getTimezoneOffset : Same as AS3's Date. If date is not supplied, it use 1970-1-1, which gives best performance.
+	-Inactivity
+		Seems that it is a bug of canvas-nme, it cannot detect the mouse move in JS target.

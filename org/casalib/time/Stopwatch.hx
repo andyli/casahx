@@ -89,7 +89,7 @@ package org.casalib.time;
 		/**
 			Starts stopwatch and resets previous elapsed time.
 		*/
-		inline public function start():Void {
+		public function start():Void {
 			this._elapsedTime = 0;
 			this._startTime   = this._timer;
 			this._isRunning   = true;
@@ -98,7 +98,7 @@ package org.casalib.time;
 		/**
 			Stops stopwatch.
 		*/
-		inline public function stop():Void {
+		public function stop():Void {
 			this._elapsedTime = this.time;
 			this._startTime   = 0;
 			this._isRunning   = false;
@@ -107,7 +107,7 @@ package org.casalib.time;
 		/**
 			Resumes stopwatch from {@link Stopwatch#stop}.
 		*/
-		inline public function resume():Void {
+		public function resume():Void {
 			if (!this.running)
 				this._startTime = this._timer;
 		}
@@ -115,7 +115,7 @@ package org.casalib.time;
 		/**
 			Determines if the stopwatch is currently running <code>true</code>, or if it isn't <code>false</code>.
 		*/
-		inline public function getRunning():Bool {
+		private function getRunning():Bool {
 			return this._isRunning;
 		}
 		
@@ -125,7 +125,7 @@ package org.casalib.time;
 			@return Returns the elapsed time in milliseconds.
 			@usageNote Can be called before or after calling {@link Stopwatch#stop}.
 		*/
-		inline public function getTime():Float {
+		private function getTime():Float {
 			return (this._startTime != 0) ? this._timer - this._startTime + this._elapsedTime : this._elapsedTime;
 		}
 		

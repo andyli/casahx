@@ -125,7 +125,7 @@ package org.casalib.time;
 			if (++this._count >= this._frames) {
 				this._enterFrameInstance.removeEventListener(Event.ENTER_FRAME, this._onEnterFrame);
 				
-				this._callBack.apply(null, this._arguments);
+				Reflect.callMethod(this,_callBack,this._arguments);
 				
 				this._complete();
 			}

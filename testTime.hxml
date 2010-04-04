@@ -32,10 +32,10 @@
 -cmd cd test/bin/cpp
 -cmd ./TestTime
 -cmd echo "----------------------------------------"
--cmd echo "Test Neko!"
--cmd cd ../neko
--cmd neko Test.n
--cmd echo "----------------------------------------"
+#-cmd echo "Test Neko!"
+#-cmd cd ../neko
+#-cmd neko Test.n
+#-cmd echo "----------------------------------------"
 -cmd echo "Clear assets"
 -cmd rm -r /Library/WebServer/Documents/assets
 -cmd echo "Copy assets"

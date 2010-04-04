@@ -147,7 +147,7 @@ package org.casalib.time;
 			@sends InactivityEvent#INACTIVE - Dispatched when the user is inactive.
 		*/
 		function _userInactive():Void {
-			this._interval.stop();
+			if (_interval.running) _interval.stop();
 			
 			var event:InactivityEvent = new InactivityEvent(InactivityEvent.INACTIVE);
 			event.milliseconds        = this._interval.delay;
@@ -170,7 +170,14 @@ package org.casalib.time;
 				this._stopwatch.stop();
 			}
 			
+			#if cpp 
+			if (_interval.running) _interval.stop();
+			#elseif js
+			this._interval.removeEventListeners();
+			this._interval = Interval.setTimeout(this._userInactive, _interval.delay);
+			#else
 			this._interval.reset();
+			#end
 			this._interval.start();
 		}
 	}

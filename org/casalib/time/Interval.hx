@@ -218,6 +218,6 @@ package org.casalib.time;
 		}
 		
 		function _timerHandler(e:TimerEvent):Void {
-			this._callBack.apply(null, this._arguments);
+			Reflect.callMethod(this,_callBack,_arguments);
 		}
 	}
