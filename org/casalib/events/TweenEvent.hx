@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2009, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -44,11 +44,11 @@ package org.casalib.events;
 		
 		public var position(getPosition, setPosition) : Float;
 		public var progress(getProgress, setProgress) : Percent;
-		public static var COMPLETE:String = 'complete';
-		public static var RESUME:String   = 'resume';
-		public static var START:String    = 'start';
-		public static var STOP:String     = 'stop';
-		public static var UPDATE:String   = 'update';
+		inline public static var COMPLETE:String = 'complete';
+		inline public static var RESUME:String   = 'resume';
+		inline public static var START:String    = 'start';
+		inline public static var STOP:String     = 'stop';
+		inline public static var UPDATE:String   = 'update';
 		var _position:Float;
 		var _progress:Percent;
 		
@@ -67,11 +67,11 @@ package org.casalib.events;
 		/**
 			The current position of the tween.
 		*/
-		public function getPosition():Float{
+		private function getPosition():Float{
 			return this._position;
 		}
 		
-		public function setPosition(value:Float):Float{
+		private function setPosition(value:Float):Float{
 			this._position = value;
 			return value;
 		}
@@ -79,21 +79,23 @@ package org.casalib.events;
 		/**
 			The percent completed of the tween's duration.
 		*/
-		public function getProgress():Percent{
+		private function getProgress():Percent{
 			return this._progress.clone();
 		}
 		
-		public function setProgress(percent:Percent):Percent{
+		private function setProgress(percent:Percent):Percent{
 			this._progress = percent.clone();
 			return percent;
 		}
 		
+		#if flash
 		/**
 			@return A string containing all the properties of the event.
 		*/
 		public override function toString():String {
 			return formatToString('TweenEvent', 'type', 'bubbles', 'cancelable', 'position', 'progress');
 		}
+		#end
 		
 		/**
 			@return Duplicates an instance of the event.

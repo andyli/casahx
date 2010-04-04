@@ -132,7 +132,7 @@ package org.casalib.load;
 			
 			this._loaded    = false;
 			this._errrored = false;
-			this._startTime = Timer.stamp();
+			this._startTime = Timer.stamp()*1000;
 			this._attempts  = 0;
 			this._progress  = new Percent();
 			this._Bps       = -1;
@@ -347,7 +347,7 @@ package org.casalib.load;
 			@sends Event#OPEN - Dispatched when a load operation starts.
 		*/
 		function _onOpen(e:Event):Void {
-			this._latency = Std.int(Timer.stamp() - this._startTime);
+			this._latency = Std.int(Timer.stamp()*1000 - this._startTime);
 			
 			this.dispatchEvent(e);
 		}
@@ -368,7 +368,7 @@ package org.casalib.load;
 			@sends LoadEvent#PROGRESS - Dispatched as data is received during the download process.
 		*/
 		function _calculateLoadProgress():Void {
-			var currentTime:Float = Timer.stamp();
+			var currentTime:Float = Timer.stamp()*1000;
 			
 			this._Bps  = Std.int(LoadUtil.calculateBps(this.bytesLoaded, this._startTime, currentTime));
 			this._time = currentTime - this._startTime;
@@ -402,7 +402,7 @@ package org.casalib.load;
 		}
 		
 		override function _complete():Void {
-			var currentTime:Float            = Timer.stamp();
+			var currentTime:Float            = Timer.stamp()*1000;
 			this._Bps                        = Std.int(LoadUtil.calculateBps(this.bytesTotal, this._startTime, currentTime));
 			this._time                       = currentTime - this._startTime;
 			this._loaded                     = true;

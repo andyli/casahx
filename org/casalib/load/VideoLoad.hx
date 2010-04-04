@@ -299,7 +299,7 @@ package org.casalib.load;
 		*/
 		override function _calculateLoadProgress():Void {
 			var justBuffered:Bool = false;
-			var currentTime:Float      = haxe.Timer.stamp();
+			var currentTime:Float      = haxe.Timer.stamp()*1000;
 			this._Bps                = Std.int(LoadUtil.calculateBps(this.bytesLoaded, this._startTime, currentTime));
 			this._time               = currentTime - this._startTime;
 			

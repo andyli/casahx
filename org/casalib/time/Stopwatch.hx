@@ -130,6 +130,6 @@ package org.casalib.time;
 		}
 		
 		function get_timer():Float {
-			return haxe.Timer.stamp();
+			return haxe.Timer.stamp()*1000;
 		}
 	}

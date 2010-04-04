@@ -75,6 +75,6 @@ package org.casalib.time;
 		}
 		
 		function _updateTime(e:Event):Void {
-			this._time = haxe.Timer.stamp();
+			this._time = haxe.Timer.stamp()*1000;
 		}
 	}

@@ -1,0 +1,65 @@
+-swf test/bin/swf/Test.swf
+-swf-version 10
+-main test.TestTransitions
+-lib neash
+-lib feffects
+
+--next
+-neko test/bin/neko/Test.n
+-lib neash
+-lib feffects
+-lib nme
+--remap flash:neash
+-main test.TestTransitions
+
+--next
+-cpp test/bin/cpp
+-lib neash
+-lib feffects
+-lib nme
+--remap flash:neash
+-main test.TestTransitions
+
+--next
+-js test/bin/js/Test.js
+-lib neash
+-lib feffects
+-lib nme
+-cp /Users/andylihahaha/Documents/repo/canvas-nme
+--remap flash:neash
+--remap nme:canvas
+-main test.TestTransitions
+
+--next
+-cmd echo "----------------------------------------"
+-cmd echo "Test C++!"
+-cmd cd test/bin/cpp
+-cmd ./TestTransitions
+-cmd echo "----------------------------------------"
+#-cmd echo "Test Neko!"
+#-cmd cd ../neko
+#-cmd neko Test.n
+#-cmd echo "----------------------------------------"
+-cmd echo "Clear assets"
+-cmd rm -r /Library/WebServer/Documents/assets
+-cmd echo "Copy assets"
+-cmd cp -r ../assets /Library/WebServer/Documents/assets
+-cmd echo "----------------------------------------"
+-cmd echo "Test Flash!"
+-cmd echo "Clear server file..."
+-cmd rm -r /Library/WebServer/Documents/TestSWF
+-cmd echo "Copy compiled files to server..."
+-cmd cp -r ../swf /Library/WebServer/Documents/TestSWF
+-cmd echo "Open in browser..."
+-cmd open http://localhost/TestSWF?q=123
+-cmd echo "Done!"
+-cmd echo "----------------------------------------"
+-cmd echo "Test JS!"
+-cmd echo "Clear server file..."
+-cmd rm -r /Library/WebServer/Documents/TestJS
+-cmd echo "Copy compiled files to server..."
+-cmd cp -r ../js /Library/WebServer/Documents/TestJS
+-cmd echo "Open in browser..."
+-cmd open http://localhost/TestJS?q=123
+-cmd echo "Done!"
+-cmd echo "----------------------------------------"
