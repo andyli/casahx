@@ -22,14 +22,33 @@ class TestTransitions extends flash.display.Sprite {
 			addChild(s);
 			
 			g = new ProcessGroup();
-			t = new PropertyTween(s, "x", Elastic.easeOut,390,1);
+			
+			t = new PropertyTween(s, "x", Elastic.easeOut,290,1);
+			#if js
+			t.addEventListener(TweenEvent.UPDATE, onTweenUpdate);
+			#end
 			g.addProcess(t);
+			
 			t = new PropertyTween(s, "y", Elastic.easeOut,Math.random()*290,1);
+			#if js
+			t.addEventListener(TweenEvent.UPDATE, onTweenUpdate);
+			#end
 			g.addProcess(t);
+			
 			seq.addTask(g.start,1000);
 		}
 		seq.start();
 	}
+	
+	#if js
+	private function onTweenUpdate(e:TweenEvent):Void{
+		var t:PropertyTween = e.target;
+		if (t.property == "x")
+			t.scope.SetX(t.position);
+		else if (t.property == "y")
+			t.scope.SetY(t.position);
+	}
+	#end
 	
 	static public function main():Void {
 		neash.Lib.Init("Test",400,300);
