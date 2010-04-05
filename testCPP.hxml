@@ -1,7 +1,0 @@
--cpp test/bin/cpp
--lib neash
--lib nme
---remap flash:neash
--main test.Test
-
--cmd ./test/bin/cpp/Test

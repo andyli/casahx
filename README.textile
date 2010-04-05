@@ -1,0 +1,71 @@
+h1. Ported from...
+
+"Casalib":http://casalib.org/ (Revision 371)
+"Casalib SVN":http://svn.as3.casalib.org/releases/latest/code/
+
+h1. Note
+
+For targets other than Flash, casahx needs nme, neash and canvas-nme. 
+
+To compile test.hxml, remember to modify the path to canvas-nme and the path to your local test server first.
+
+h2. Cross-target Inconsistancy
+
+All the codes in the repo is maintained to be already tested and is consistant on ALL haXe targets, except:
+
+h3. @NumberUtil.isNumber()@
+
+Due to inconsistence of @Std.parseFloat()@ between targets, some weired expression may fail on some platform. But normal integer/float is ok and consistant(Please check the test cases in @test.TestUtil.testNumberUtil()@).
+
+h3. @LocationUtil@ 
+
+Is not avalible on PHP. Assume JS is running in the web. Assume C++/Neko is not in the web.
+
+h3. @AlignUtil@, @FlashVarUtil@, @FrameUtil@, @LibraryManager@, @UrlVariablesUtil@ , @AudioLoad@, @VideoLoad@, @Distribution@
+
+Only available on Flash target.
+
+h3. All classes that related to @DisplayObject@ and other visual stuff
+
+Not available on PHP target.
+
+h2. Different from the original casalib
+
+h3. @org.casalib.core.UInt@
+
+Added for internal use to make casahx usable in non-Flash targets.
+
+h3. @ArrayUtil@
+
+* added @indexOf()@: Same as AS3's @Array@.
+* added @lastIndexOf()@: Same as AS3's @Array@.
+* added @filter()@: Same as AS3's @Array@.
+* added @sortOn()@: Same as AS3's @Array@.
+** Options are:
+*** @ArrayUtil.SORT_CASEINSENSITIVE@
+*** @ArrayUtil.SORT_DESCENDING@
+*** @ArrayUtil.SORT_UNIQUESORT@
+*** @ArrayUtil.SORT_RETURNINDEXEDARRAY@
+*** @ArrayUtil.SORT_NUMERIC@
+** For @fieldNames@, it must be an @Array@. Even if you use only single field, you need to put it into an @Array@.
+** When using @SORT_RETURNINDEXEDARRAY@ and two elements are the same, instead of return @0@, it returns @[]@;
+* added @sortOnLite()@ and @indicesOfSorted()@: 
+* Same as @sortOn()@ but one is ingoring @ArrayUtil.SORT_RETURNINDEXEDARRAY@ and one is always @ArrayUtil.SORT_RETURNINDEXEDARRAY@. 
+** Good thing is their returns are typed as @inputArray@ and @Array<Int>@. 
+** Performance should be better than @sortOn()@.
+
+h3. @DateUtil@
+
+added @getTimezoneOffset()@ : Same as AS3's @Date@. If date is not supplied, it use 1970-1-1, which gives best performance.
+
+h3. @ListenerManager@
+
+It does not have @getManager@ method in non-Flash targets because of lack of @Dictionary@. Instead, its constuctor is now public (in all targets).
+
+h3. @Inactivity@
+
+Seems that it is a bug of canvas-nme, it cannot detect the mouse move event in JS target.
+
+h3. @ReversibleMovieClip@
+
+Due to a limitation of haXe, @gotoAndPlay()@ / @gotoAndStop()@ is not overridded. You need to call @play()@ / @stop()@ to stop reversing before calling @gotoAndPlay()@ / @gotoAndStop()@.

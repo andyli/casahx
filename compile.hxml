@@ -1,3 +1,5 @@
+#this hxml is for enabling auto-completion of Gedit haXe plug-in.
+
 -swf test/bin/swf/Test.swf
 -swf-version 10
 -main test.Test
