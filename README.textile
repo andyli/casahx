@@ -1,7 +1,6 @@
 h1. Ported from...
 
-"Casalib":http://casalib.org/ (Revision 371)
-"Casalib SVN":http://svn.as3.casalib.org/releases/latest/code/
+"Casalib":http://casalib.org/ ("SVN":http://svn.as3.casalib.org/releases/latest/code/ Revision 371)
 
 h1. Note
 
@@ -56,7 +55,7 @@ h3. @ArrayUtil@
 
 h3. @DateUtil@
 
-added @getTimezoneOffset()@ : Same as AS3's @Date@. If date is not supplied, it use 1970-1-1, which gives best performance.
+Added @getTimezoneOffset()@ : Same as AS3's @Date@. If date is not supplied, it use 1970-1-1, which gives best performance.
 
 h3. @ListenerManager@
 
