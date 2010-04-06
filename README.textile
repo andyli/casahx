@@ -2,6 +2,14 @@ h1. Ported from...
 
 "Casalib":http://casalib.org/ ("SVN":http://svn.as3.casalib.org/releases/latest/code/ Revision 371)
 
+h1. Download and Install
+
+The most easy and proper way is from haxelib:
+
+@haxelib install jsmin@
+
+Or you can download/checkout the source from "github repo":http://github.com/andyli/JSMinHx .
+
 h1. Note
 
 For targets other than Flash, casahx needs nme, neash and canvas-nme. 
