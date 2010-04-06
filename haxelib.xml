@@ -1,6 +1,0 @@
-<project name="casalib" url="http://github.com/andyli/casahx" license="BSD">
-    <user name="andyli"/>
-    <tag v="cross"/>
-    <description>A haxe port of "CASA Lib for ActionScript"(http://casalib.org/). It is a great collection of helpful classes that streamline your coding.</description>
-    <version name="1.3.0">First release. Complete and roughly tested. Ported from Casa Lib 1.3.0 (SVN Revision 371).</version>
-</project>

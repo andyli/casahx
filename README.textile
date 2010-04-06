@@ -10,6 +10,10 @@ The most easy and proper way is from haxelib:
 
 Or you can download/checkout the source from "github repo":http://github.com/andyli/casahx .
 
+h1. Documentation
+
+Please refer to the "CASA Lib for AS3 documentation":http://as3.casalib.org/docs/ . Info specific to this haXe port is expained below.
+
 h1. Note
 
 For targets other than Flash, casahx needs nme, neash and canvas-nme. 
