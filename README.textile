@@ -12,7 +12,7 @@ Or you can download/checkout the source from "github repo":http://github.com/and
 
 h1. Documentation
 
-Please refer to the "CASA Lib for AS3 documentation":http://as3.casalib.org/docs/ . Info specific to this haXe port is expained below.
+Please refer to "CASA Lib for AS3 documentation":http://as3.casalib.org/docs/ . Info specific to this haXe port is expained below.
 
 h1. Note
 
