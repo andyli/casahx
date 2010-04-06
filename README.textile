@@ -6,9 +6,9 @@ h1. Download and Install
 
 The most easy and proper way is from haxelib:
 
-@haxelib install jsmin@
+@haxelib install casalib@
 
-Or you can download/checkout the source from "github repo":http://github.com/andyli/JSMinHx .
+Or you can download/checkout the source from "github repo":http://github.com/andyli/casahx .
 
 h1. Note
 
