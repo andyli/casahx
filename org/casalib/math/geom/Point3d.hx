@@ -41,14 +41,11 @@ package org.casalib.math.geom;
 		@author Mike Creighton
 		@version 09/23/08
 	*/
-	class Point3d  {
+	class Point3d {
 		
-		inline public var x(getX, setX) : Float;
-		inline public var y(getY, setY) : Float;
-		inline public var z(getZ, setZ) : Float;
-		var _x:Float;
-		var _y:Float;
-		var _z:Float;
+		public var x: Float;
+		public var y: Float;
+		public var z: Float;
 		
 		
 		/**
@@ -62,42 +59,6 @@ package org.casalib.math.geom;
 			this.x = x;
 			this.y = y;
 			this.z = z;
-		}
-		
-		/**
-			The horizontal coordinate of the point.
-		*/
-		inline public function getX():Float{
-			return this._x;
-		}
-		
-		inline public function setX(position:Float):Float{
-			this._x = position;
-			return position;
-		}
-		
-		/**
-			The vertical coordinate of the point.
-		*/
-		inline public function getY():Float{
-			return this._y;
-		}
-		
-		inline public function setY(position:Float):Float{
-			this._y = position;
-			return position;
-		}
-		
-		/**
-			The depth coordinate of the point.
-		*/
-		inline public function getZ():Float{
-			return this._z;
-		}
-		
-		inline public function setZ(position:Float):Float{
-			this._z = position;
-			return position;
 		}
 		
 		/**
