@@ -739,7 +739,7 @@ class TestUtil extends TestCase {
 		this.assertEquals(0, StringUtil.contains("12345234","235"));
 		this.assertEquals(0, StringUtil.contains("-14","."));
 		
-		this.assertEquals("ab",StringUtil.getLettersFromString("a123b456"));
+		this.assertEquals("ab",StringUtil.getLettersFromString("a123b456   .?<>"));
 		
 		this.assertEquals("123456",StringUtil.getNumbersFromString("a123b456"));
 		
