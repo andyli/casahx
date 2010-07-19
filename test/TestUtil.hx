@@ -807,6 +807,10 @@ class TestUtil extends TestCase {
 		this.assertEquals("hel  lo  ",StringUtil.trimLeft("  hel  lo  "));
 		
 		this.assertEquals("  hel  lo",StringUtil.trimRight("  hel  lo  "));
+		
+		this.assertEquals('Kevin <b>van</b> <i>Zonneveld</i>', StringUtil.stripTags('<p>Kevin</p> <b>van</b> <i>Zonneveld</i>', '<i><b>'));
+
+		this.assertEquals('<p>Kevin van Zonneveld</p>', StringUtil.stripTags('<p>Kevin <img src="someimage.png" onmouseover="someFunction()">van <i>Zonneveld</i></p>', '<p>'));
 	}
 	
 	#if !php
