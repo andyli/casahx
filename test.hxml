@@ -2,11 +2,11 @@
 -swf-version 10
 -main test.Test
 
-#--next
-#-neko test/bin/neko/Test.n
-#-lib nme
-#--remap flash:nme
-#-main test.Test
+--next
+-neko test/bin/neko/Test.n
+-lib nme
+--remap flash:nme
+-main test.Test
 
 --next
 -cpp test/bin/cpp
@@ -33,10 +33,10 @@
 -cmd cd test/bin/cpp
 -cmd ./test
 -cmd echo "----------------------------------------"
-#-cmd echo "Test Neko!"
-#-cmd cd ../neko
-#-cmd neko Test.n
-#-cmd echo "----------------------------------------"
+-cmd echo "Test Neko!"
+-cmd cd ../neko
+-cmd neko Test.n
+-cmd echo "----------------------------------------"
 -cmd echo "Clear assets"
 -cmd rm -r /Library/WebServer/Documents/assets
 -cmd echo "Copy assets"

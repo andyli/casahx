@@ -5,7 +5,7 @@ import org.casalib.math.Percent;
 
 class Test extends TestRunner{
 	public static function main(){
-		#if cpp
+		#if (cpp || neko)
 		nme.Lib.create(function():Void{
 			var runner = new Test();
 			runner.add(new TestMath());
