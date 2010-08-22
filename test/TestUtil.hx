@@ -9,7 +9,7 @@ import flash.geom.Point;
 import org.casalib.core.UInt;
 import org.casalib.math.Percent;
 
-#if !php import org.casalib.util.AlignUtil; #end
+#if !(php || cpp || neko) import org.casalib.util.AlignUtil; #end
 import org.casalib.util.ArrayUtil;
 import org.casalib.util.ClassUtil;
 import org.casalib.util.ColorUtil;
@@ -813,7 +813,7 @@ class TestUtil extends TestCase {
 		this.assertEquals('<p>Kevin van Zonneveld</p>', StringUtil.stripTags('<p>Kevin <img src="someimage.png" onmouseover="someFunction()">van <i>Zonneveld</i></p>', '<p>'));
 	}
 	
-	#if !php
+	#if !(php || cpp || neko)
 	public function testTextFieldUtil():Void {
 		var title:flash.text.TextField = new flash.text.TextField();
 		title.autoSize      = flash.text.TextFieldAutoSize.LEFT;

@@ -42,9 +42,9 @@ import org.casalib.core.UInt;
 		@author David Nelson
 		@version 02/13/10
 	*/
-	class PropertySetter  {
+	class PropertySetter<T>  {
 		
-		private var _scope:Dynamic;
+		private var _scope:T;
 		private var _property:String;
 		private var _argument:Int;
 		
@@ -57,9 +57,9 @@ import org.casalib.core.UInt;
 			@param argument: The position the value to assign falls in the argument order.
 			@throws Error if the property does not exist or is not available in defined scope.
 		*/
-		public function new(scope:Dynamic, property:String, ?argument:UInt = 0) {
-			if (!Reflect.hasField(scope,property))
-				throw 'Property "' + property + '" does not exist or is not available in defined scope.';
+		public function new(scope:T, property:String, ?argument:UInt = 0) {
+			//if (!Reflect.hasField(scope,property))
+			//	throw 'Property "' + property + '" does not exist or is not available in defined scope.';
 			
 			this._scope    = scope;
 			this._property = property;

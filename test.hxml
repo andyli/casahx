@@ -1,36 +1,29 @@
 -swf test/bin/swf/Test.swf
 -swf-version 10
 -main test.Test
--lib neash
 
---next
--neko test/bin/neko/Test.n
--lib neash
--lib nme
---remap flash:neash
--main test.Test
+#--next
+#-neko test/bin/neko/Test.n
+#-lib nme
+#--remap flash:nme
+#-main test.Test
 
 --next
 -cpp test/bin/cpp
--lib neash
 -lib nme
---remap flash:neash
+--remap flash:nme
 -main test.Test
 
 --next
 -js test/bin/js/Test.js
--lib neash
--lib nme
--cp /Users/andylihahaha/Documents/repo/canvas-nme
---remap flash:neash
---remap nme:canvas
+-cp /Users/andylihahaha/Documents/repo/jeash
+--remap flash:jeash
 -main test.Test
 
 --next
 -php test/bin/php
--lib neash
 -lib nme
---remap flash:neash
+--remap flash:nme
 -main test.Test
 
 
@@ -40,10 +33,10 @@
 -cmd cd test/bin/cpp
 -cmd ./test
 -cmd echo "----------------------------------------"
--cmd echo "Test Neko!"
--cmd cd ../neko
--cmd neko Test.n
--cmd echo "----------------------------------------"
+#-cmd echo "Test Neko!"
+#-cmd cd ../neko
+#-cmd neko Test.n
+#-cmd echo "----------------------------------------"
 -cmd echo "Clear assets"
 -cmd rm -r /Library/WebServer/Documents/assets
 -cmd echo "Copy assets"

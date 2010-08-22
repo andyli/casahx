@@ -1,10 +1,6 @@
 #this hxml is for enabling auto-completion of Gedit haXe plug-in.
 
--swf test/bin/swf/Test.swf
--swf-version 10
+-cpp test/bin/cpp
+-lib nme
+--remap flash:nme
 -main test.Test
--lib neash
--lib feffects
-
--cmd cd test/bin/swf
--cmd open Test.swf
