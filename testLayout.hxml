@@ -1,7 +1,6 @@
 -swf test/bin/swf/Test.swf
 -swf-version 10
 -main test.TestLayout
--lib neash
 
 -cmd cd test/bin/swf
 -cmd open Test.swf

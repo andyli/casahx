@@ -1,37 +1,33 @@
 -swf test/bin/swf/Test.swf
 -swf-version 10
 -main test.TestTime
--lib neash
 
---next
--neko test/bin/neko/Test.n
--lib neash
--lib nme
---remap flash:neash
--main test.TestTime
+#--next
+#-neko test/bin/neko/Test.n
+#-lib hxcpp
+#-lib nme
+#--remap flash:nme
+#-main test.TestTime
 
---next
--cpp test/bin/cpp
--lib neash
--lib nme
---remap flash:neash
--main test.TestTime
+#--next
+#-cpp test/bin/cpp
+#-lib hxcpp
+#-lib nme
+#--remap flash:nme
+#-main test.TestTime
 
 --next
 -js test/bin/js/Test.js
--lib neash
--lib nme
--cp /Users/andylihahaha/Documents/repo/canvas-nme
---remap flash:neash
---remap nme:canvas
+-cp /Users/andylihahaha/Documents/repo/jeash
+--remap flash:jeash
 -main test.TestTime
 
 --next
--cmd echo "----------------------------------------"
--cmd echo "Test C++!"
+#-cmd echo "----------------------------------------"
+#-cmd echo "Test C++!"
 -cmd cd test/bin/cpp
--cmd ./TestTime
--cmd echo "----------------------------------------"
+#-cmd ./TestTime
+#-cmd echo "----------------------------------------"
 #-cmd echo "Test Neko!"
 #-cmd cd ../neko
 #-cmd neko Test.n
