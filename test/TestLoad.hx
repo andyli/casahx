@@ -80,8 +80,14 @@ class TestLoad extends flash.display.Sprite {
 	#end
 	
 	static public function main():Void {
-		neash.Lib.Init("Test",400,300);
-		flash.Lib.current.addChild(new TestLoad());
-		neash.Lib.Run();
+		var init = function(){
+			flash.Lib.current.addChild(new TestLoad());
+		}
+
+		#if (cpp || neko)
+		nme.Lib.create(init,400,300,25,0xFFFFFF,nme.Lib.RESIZABLE);
+		#else
+		init();
+		#end
 	}
 }

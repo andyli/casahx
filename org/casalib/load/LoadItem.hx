@@ -32,10 +32,12 @@
 package org.casalib.load; 
 	//import flash.errors.IOError;
 	import flash.events.Event;
-	#if flash import flash.events.HTTPStatusEvent; #end
+	#if flash 
+	import flash.events.HTTPStatusEvent; 
+	import flash.events.ProgressEvent;
+	#end
 	import flash.events.IEventDispatcher;
 	import flash.events.IOErrorEvent;
-	import flash.events.ProgressEvent;
 	import flash.net.URLRequest;
 	import haxe.Timer;
 	import org.casalib.core.UInt;
@@ -140,8 +142,9 @@ package org.casalib.load;
 			
 			if (this._preventCache) {
 				var cache:String = 'casaCache=' + Std.int(1000 * Math.random());
-				
+				#if flash
 				this._request.url = (this._request.url.indexOf('?') == -1) ? this._request.url + '?' + cache : this._request.url + '&' + cache;
+				#end
 			}
 			
 			this._load();
@@ -289,7 +292,9 @@ package org.casalib.load;
 			this._dispatcher.removeEventListener(Event.COMPLETE, this._onComplete);
 			this._dispatcher.removeEventListener(Event.OPEN, this._onOpen);
 			this._dispatcher.removeEventListener(IOErrorEvent.IO_ERROR, this._onLoadError);
+			#if flash
 			this._dispatcher.removeEventListener(ProgressEvent.PROGRESS, this._onProgress);
+			#end
 			
 			super.destroy();
 		}
@@ -300,7 +305,9 @@ package org.casalib.load;
 			this._dispatcher.addEventListener(Event.COMPLETE, this._onComplete, false, 0, true);
 			this._dispatcher.addEventListener(Event.OPEN, this._onOpen, false, 0, true);
 			this._dispatcher.addEventListener(IOErrorEvent.IO_ERROR, this._onLoadError, false, 0, true);
+			#if flash
 			this._dispatcher.addEventListener(ProgressEvent.PROGRESS, this._onProgress, false, 0, true);
+			#end
 		}
 		
 		function _load():Void {
@@ -358,11 +365,11 @@ package org.casalib.load;
 			
 			this.dispatchEvent(e);
 		}
-		#end
 		
 		function _onProgress(progress:ProgressEvent):Void {
 			this._calculateLoadProgress();
 		}
+		#end
 		
 		/**
 			@sends LoadEvent#PROGRESS - Dispatched as data is received during the download process.

@@ -1,30 +1,26 @@
 -swf test/bin/swf/Test.swf
 -swf-version 10
 -main test.TestLoad
--lib neash
 
 --next
 -neko test/bin/neko/Test.n
--lib neash
+-lib hxcpp
 -lib nme
---remap flash:neash
+--remap flash:nme
 -main test.TestLoad
 
 --next
 -cpp test/bin/cpp
--lib neash
+-lib hxcpp
 -lib nme
---remap flash:neash
+--remap flash:nme
 -main test.TestLoad
 
---next
--js test/bin/js/Test.js
--lib neash
--lib nme
--cp /Users/andylihahaha/Documents/repo/canvas-nme
---remap flash:neash
---remap nme:canvas
--main test.TestLoad
+#--next
+#-js test/bin/js/Test.js
+#-cp /Users/andylihahaha/Documents/repo/jeash
+#--remap flash:jeash
+#-main test.TestLoad
 
 --next
 -cmd echo "----------------------------------------"
@@ -50,12 +46,12 @@
 -cmd open http://localhost/TestSWF?q=123
 -cmd echo "Done!"
 -cmd echo "----------------------------------------"
--cmd echo "Test JS!"
--cmd echo "Clear server file..."
--cmd rm -r /Library/WebServer/Documents/TestJS
--cmd echo "Copy compiled files to server..."
--cmd cp -r ../js /Library/WebServer/Documents/TestJS
--cmd echo "Open in browser..."
--cmd open http://localhost/TestJS?q=123
--cmd echo "Done!"
--cmd echo "----------------------------------------"
+#-cmd echo "Test JS!"
+#-cmd echo "Clear server file..."
+#-cmd rm -r /Library/WebServer/Documents/TestJS
+#-cmd echo "Copy compiled files to server..."
+#-cmd cp -r ../js /Library/WebServer/Documents/TestJS
+#-cmd echo "Open in browser..."
+#-cmd open http://localhost/TestJS?q=123
+#-cmd echo "Done!"
+#-cmd echo "----------------------------------------"

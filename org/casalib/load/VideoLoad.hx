@@ -36,10 +36,10 @@ package org.casalib.load;
 	import flash.events.SecurityErrorEvent;
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
+	import flash.media.Video;
 	#end
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
-	import flash.media.Video;
 	import org.casalib.core.UInt;
 	import org.casalib.events.VideoInfoEvent;
 	import org.casalib.events.VideoLoadEvent;
@@ -109,9 +109,10 @@ package org.casalib.load;
 		public var netConnection(getNetConnection, null) : NetConnection ;
 		public var netStream(getNetStream, null) : NetStream ;
 		var _netConnection:NetConnection;
+		public var video(getVideo, null) : Video ;
+		var _video:Video;
 		#end
 		public var pauseStart(getPauseStart, setPauseStart) : Bool;
-		public var video(getVideo, null) : Video ;
 		var _buffered:Bool;
 		var _isOpen:Bool;
 		var _duration:Float;
@@ -119,7 +120,6 @@ package org.casalib.load;
 		var _pauseStart:Bool;
 		var _buffer:Percent;
 		var _millisecondsUntilBuffered:Int;
-		var _video:Video;
 		var _metaData:Dynamic;
 		var _completeWhenBuffered:Bool;
 		
@@ -148,8 +148,8 @@ package org.casalib.load;
 			this._millisecondsUntilBuffered = -1;
 			this._framePulse                = EnterFrame.getInstance();
 			
-			this._video = new Video();
 			#if flash
+			this._video = new Video();
 			this._video.attachNetStream(this._loadItem);
 			#end
 		}
@@ -180,6 +180,7 @@ package org.casalib.load;
 			return shouldPause;
 		}
 		
+		#if flash
 		/**
 			A Video class with attached NetStream.
 		*/
@@ -187,7 +188,6 @@ package org.casalib.load;
 			return this._video;
 		}
 		
-		#if flash
 		/**
 			The NetConnection class used by the VideoLoad class.
 		*/

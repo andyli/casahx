@@ -33,7 +33,9 @@ package org.casalib.load;
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.events.IOErrorEvent;
+	#if flash
 	import flash.events.ProgressEvent;
+	#end
 	import flash.media.Sound;
 	import flash.media.SoundLoaderContext;
 	import org.casalib.load.LoadItem;
@@ -114,7 +116,9 @@ package org.casalib.load;
 				this._dispatcher.removeEventListener(Event.COMPLETE, this._onComplete);
 				this._dispatcher.removeEventListener(Event.OPEN, this._onOpen);
 				this._dispatcher.removeEventListener(IOErrorEvent.IO_ERROR, this._onLoadError);
+				#if flash
 				this._dispatcher.removeEventListener(ProgressEvent.PROGRESS, this._onProgress);
+				#end
 				this._dispatcher.removeEventListener(Event.ID3, this._dispatchEvent);
 				
 				this._loadItem = new Sound();
