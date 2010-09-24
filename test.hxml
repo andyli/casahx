@@ -10,6 +10,7 @@
 
 --next
 -cpp test/bin/cpp
+-lib hxcpp
 -lib nme
 --remap flash:nme
 -main test.Test

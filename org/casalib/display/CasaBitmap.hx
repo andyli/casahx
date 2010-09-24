@@ -82,7 +82,7 @@ package org.casalib.display;
 		/**
 			@exclude
 		*/
-		#if flash
+		#if (flash || cpp || neko)
 		public override function addEventListener(type:String, listener:Dynamic->Void, ?useCapture:Bool = false, ?priority:Int = 0, ?useWeakReference:Bool = false):Void {
 			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 			this._listenerManager.addEventListener(type, listener, useCapture, priority, useWeakReference);
@@ -98,7 +98,7 @@ package org.casalib.display;
 		/**
 			@exclude
 		*/
-		public override function removeEventListener(type:String, listener:Dynamic->Void, ?useCapture:Bool #if flash = false #end):Void {
+		public override function removeEventListener(type:String, listener:Dynamic->Void, ?useCapture:Bool #if (flash || cpp || neko) = false #end):Void {
 			super.removeEventListener(type, listener, useCapture);
 			this._listenerManager.removeEventListener(type, listener, useCapture);
 		}

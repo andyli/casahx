@@ -9,7 +9,9 @@ import org.casalib.display.CasaSimpleButton;
 #end
 import org.casalib.display.CasaSprite;
 import org.casalib.display.CasaTextField;
-import org.casalib.display.ReversibleMovieClip;
+#if (flash || js || neko)
+import org.casalib.display.ReversibleMovieClip; //TO-DO for cpp
+#end
 
 class TestDisplay extends Sprite{
 	public function new() {
@@ -23,12 +25,20 @@ class TestDisplay extends Sprite{
 		#end
 		new CasaSprite();
 		new CasaTextField();
+		#if (flash || js)
 		new ReversibleMovieClip();
+		#end
 	}
 
 	static public function main():Void {
-		neash.Lib.Init("Test",400,300);
-		flash.Lib.current.addChild(new TestDisplay());
-		neash.Lib.Run();
+		var init = function(){
+			flash.Lib.current.addChild(new TestDisplay());
+		}
+
+		#if (cpp || neko)
+		nme.Lib.create(init,400,300,25,0xFFFFFF,nme.Lib.RESIZABLE);
+		#else
+		init();
+		#end
 	}
 }
