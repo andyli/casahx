@@ -61,7 +61,7 @@ h3. @ArrayUtil@
 ** For @fieldNames@, it must be an @Array@. Even if you use only single field, you need to put it into an @Array@.
 ** When using @SORT_RETURNINDEXEDARRAY@ and two elements are the same, instead of return @0@, it returns @[]@;
 * added @sortOnLite()@ and @indicesOfSorted()@: 
-* Same as @sortOn()@ but one is ingoring @ArrayUtil.SORT_RETURNINDEXEDARRAY@ and one is always @ArrayUtil.SORT_RETURNINDEXEDARRAY@. 
+** Same as @sortOn()@ but one is ingoring @ArrayUtil.SORT_RETURNINDEXEDARRAY@ and one is always @ArrayUtil.SORT_RETURNINDEXEDARRAY@. 
 ** Good thing is their returns are typed as @inputArray@ and @Array<Int>@. 
 ** Performance should be better than @sortOn()@.
 
