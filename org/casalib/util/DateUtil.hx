@@ -240,7 +240,7 @@ package org.casalib.util;
 			var l:UInt = formatString.length;
 			var t:Float;
 			
-			while (++i < l) {
+			while (++i < untyped l) {
 				char = formatString.substr(i, 1);
 				
 				if (char == '^')

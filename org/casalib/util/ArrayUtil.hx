@@ -459,9 +459,9 @@
 			}
 			
 			return k;
-		}				/**			Determines if two Arrays contain the same elements at the same index.						@param first: First Array to compare to the <code>second</code>.			@param second: Second Array to compare to the <code>first</code>.			@return Returns <code>true</code> if Arrays are the same; otherwise <code>false</code>.		*/		inline public static function equals<T>(first:Array<T>, second:Array<T>):Bool {			var i:UInt = first.length;
+		}				/**			Determines if two Arrays contain the same elements at the same index.						@param first: First Array to compare to the <code>second</code>.			@param second: Second Array to compare to the <code>first</code>.			@return Returns <code>true</code> if Arrays are the same; otherwise <code>false</code>.		*/		public static function equals<T>(first:Array<T>, second:Array<T>):Bool {			var i:UInt = first.length;
 			var result:Bool = true;
-						if (i != second.length) {
+						if (i != untyped second.length) {
 				result = false;
 			} else {
 				while (i-- > 0) {

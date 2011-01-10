@@ -334,7 +334,7 @@ package org.casalib.load;
 			@sends IOErrorEvent#IO_ERROR - Dispatched if requested file cannot be loaded and the download terminates.
 		*/
 		function _onLoadError(error:Event):Void {
-			if (++this._attempts <= this._retries) {
+			if (++this._attempts <= untyped this._retries) {
 				var retry:RetryEvent = new RetryEvent(RetryEvent.RETRY);
 				retry.attempts       = this._attempts;
 				
