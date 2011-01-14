@@ -16,9 +16,9 @@ Please refer to "CASA Lib for AS3 documentation":http://as3.casalib.org/docs/ . 
 
 h1. Note
 
-For targets other than Flash, casahx needs nme, neash and canvas-nme. 
+For targets other than Flash, some of the casahx classes needs "nme":http://code.google.com/p/nekonme/(cpp/neko), "jeash":http://haxe.org/com/libs/jeash(js). 
 
-To compile test.hxml, remember to modify the path to canvas-nme and the path to your local test server first.
+To compile test.hxml, remember to modify the path to jeash and the path to your local test server first.
 
 h2. Cross-target Inconsistancy
 
@@ -75,7 +75,7 @@ It does not have @getManager@ method in non-Flash targets because of lack of @Di
 
 h3. @Inactivity@
 
-Seems that it is a bug of canvas-nme, it cannot detect the mouse move event in JS target.
+Seems that it is a bug of jeash, it cannot detect the mouse move event in JS target.
 
 h3. @ReversibleMovieClip@
 
