@@ -275,10 +275,10 @@ package org.casalib.util;
 							returnString += dateToFormat.getDay();
 						// The day of the year (starting from 0)
 						case 'z' :
-							returnString += NumberUtil.addLeadingZero(DateUtil.getDayOfTheYear(dateToFormat)).toString();
+							returnString += NumberUtil.addLeadingZero(DateUtil.getDayOfTheYear(dateToFormat));
 						// ISO-8601 week number of year, weeks starting on Monday 
 						case 'W' :
-							returnString += NumberUtil.addLeadingZero(DateUtil.getWeekOfTheYear(dateToFormat)).toString();
+							returnString += NumberUtil.addLeadingZero(DateUtil.getWeekOfTheYear(dateToFormat));
 						// A full textual representation of a month, such as January or March
 						case 'F' :
 							returnString += DateUtil.getMonthAsString(dateToFormat.getMonth());

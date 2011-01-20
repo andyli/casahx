@@ -4,3 +4,6 @@
 -lib nme
 --remap flash:nme
 -main test.Test
+
+-cmd cd test/bin/cpp
+-cmd Test

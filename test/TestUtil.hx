@@ -801,6 +801,7 @@ class TestUtil extends TestCase {
 		this.assertEquals("1234",StringUtil.replaceAt("1254",2,"3"));
 		
 		this.assertEquals("I Am Title", StringUtil.toTitleCase("i am title"));
+		this.assertEquals("I Am Title O—K", StringUtil.toTitleCase("i am title o—k"));
 		
 		this.assertEquals("hel  lo",StringUtil.trim("  hel  lo  "));
 		
