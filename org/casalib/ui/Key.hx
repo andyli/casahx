@@ -203,7 +203,7 @@ package org.casalib.ui;
 			
 			this._combinations.splice(i, 1);
 			
-			if (keyCombo.keyCodes.length == this._longestCombo) {
+			if (keyCombo.keyCodes.length == untyped this._longestCombo) {
 				var size:UInt = 0;
 				
 				l = this._combinations.length;
@@ -230,7 +230,7 @@ package org.casalib.ui;
 			
 			this._keysTyped.push(e.keyCode);
 			
-			if (this._keysTyped.length > this._longestCombo)
+			if (this._keysTyped.length > untyped this._longestCombo)
 				this._keysTyped.splice(0, 1);
 			
 			var l:UInt = this._combinations.length;
