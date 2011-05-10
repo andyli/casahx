@@ -1,0 +1,14 @@
+-swf test/bin/swf/Test.swf
+-swf-version 10
+-main test.Test
+
+-cmd echo "----------------------------------------"
+-cmd echo "Test Flash!"
+-cmd echo "Clear server file..."
+-cmd rm -rf ~/Sites/TestSWF
+-cmd echo "Copy compiled files to server..."
+-cmd cp -r test/bin/swf ~/Sites/TestSWF
+-cmd echo "Open in browser..."
+-cmd open http://localhost/~$USER/TestSWF?q=123
+-cmd echo "Done!"
+-cmd echo "----------------------------------------"

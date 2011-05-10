@@ -1,9 +1,6 @@
 #this hxml is for enabling auto-completion of Gedit haXe plug-in.
 
--cpp test/bin/cpp
+-neko test/bin/neko/Test.n
 -lib nme
 --remap flash:nme
 -main test.Test
-
--cmd cd test/bin/cpp
--cmd Test

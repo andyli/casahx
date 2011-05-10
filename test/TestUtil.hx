@@ -70,6 +70,23 @@ class TestUtil extends TestCase {
 	}
 	#end
 
+	function dumpAry(ary:Array<Dynamic>,?field:String):String {
+		var str:String = "[";
+		for (i in 0...ary.length){
+			str += field == null || ObjectUtil.isEmpty(ary[i]) ? ary[i] : Reflect.field(ary[i],field);
+			str += i == ary.length-1?"":",";
+		}
+		return str + "]";
+	}
+
+	function dumpUsers(users:Array<Dynamic>):String {
+		var ary:Array<String> = [];
+		for (user in users) {
+			ary.push(user.toString());
+		}
+		return ary.join(",");
+	}
+
 	public function testArrayUtil():Void {
 		var a1:Array<Int> = [1,6,3,3,8];
 		
@@ -138,8 +155,8 @@ class TestUtil extends TestCase {
 		a1 = [1,2,3,4,5];
 		this.assertEquals(1, ArrayUtil.contains(a1,ArrayUtil.random(a1)));
 		
-		var ta:Array<Dynamic> = [{name: "Aaron", sex: "Male", hair: "Brown"}, {name: "Linda", sex: "Female", hair: "Blonde"}, {name: "Katie", sex: "Female", hair: "Brown"}, {name: "Nikki", sex: "Female", hair: "Blonde"}];
-		
+		var ta = [{name: "Aaron", sex: "Male", hair: "Brown"}, {name: "Linda", sex: "Female", hair: "Blonde"}, {name: "Katie", sex: "Female", hair: "Brown"}, {name: "Nikki", sex: "Female", hair: "Blonde"}];
+
 		this.assertEquals("Katie", ArrayUtil.getItemByKeys(ta ,{sex: "Female", hair: "Brown"}).name);
 		
 		var tb:Array<Dynamic> = ArrayUtil.getItemsByKeys(ta,{sex: "Female", hair: "Blonde"});
@@ -155,14 +172,6 @@ class TestUtil extends TestCase {
 		
 		//////////Test sortOn...//////////
 		var ary:Array<{a:String}> = [{a:"A"},{a:"a"},{a:"z"},{a:"Z"}];
-		var dumpAry = function (ary:Array<Dynamic>,?field:String):String {
-			var str:String = "[";
-			for (i in 0...ary.length){
-				str += field == null || ObjectUtil.isEmpty(ary[i]) ? ary[i] : Reflect.field(ary[i],field);
-				str += i == ary.length-1?"":",";
-			}
-			return str + "]";
-		}
 		var str0:String;
 		var str1:String;
 		
@@ -234,14 +243,6 @@ class TestUtil extends TestCase {
 		users.push(new User("barb", 35));
 		users.push(new User("abcd", 4));
 		users.push(new User("catchy", 5));
-		
-		var dumpUsers = function (users:Array<Dynamic>):String {
-			var ary:Array<String> = [];
-			for (user in users) {
-				ary.push(user.toString());
-			}
-			return ary.join(",");
-		}
 
 		this.assertEquals("Bob:3,abcd:4,barb:35,catchy:5",dumpUsers(ArrayUtil.sortOn(users,["name"])));
 		

@@ -2,6 +2,11 @@ package test;
 
 import haxe.unit.TestRunner;
 import org.casalib.math.Percent;
+#if cpp
+import cpp.Sys;
+#elseif neko
+import neko.Sys;
+#end
 
 class Test extends TestRunner{
 	public static function main(){
@@ -11,6 +16,8 @@ class Test extends TestRunner{
 				runner.add(new TestMath());
 				runner.add(new TestUtil());
 				runner.run();
+
+				Sys.exit(0);
 			},400,300,24,0xFFFFFF,nme.Lib.RESIZABLE);
 		#else
 			var runner = new Test();

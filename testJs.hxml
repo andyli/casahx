@@ -1,0 +1,15 @@
+-js test/bin/js/Test.js
+-cp ../../repo/jeash
+--remap flash:jeash
+-main test.Test
+
+-cmd echo "----------------------------------------"
+-cmd echo "Test JS!"
+-cmd echo "Clear server file..."
+-cmd rm -rf ~/Sites/TestJS
+-cmd echo "Copy compiled files to server..."
+-cmd cp -r test/bin/js ~/Sites/TestJS
+-cmd echo "Open in browser..."
+-cmd open http://localhost/~$USER/TestJS?q=123
+-cmd echo "Done!"
+-cmd echo "----------------------------------------"

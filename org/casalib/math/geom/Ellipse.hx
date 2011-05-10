@@ -161,7 +161,7 @@ package org.casalib.math.geom;
 			@return A Point object.
 			@usageNote <code>degree</code> can be over 360 or even negitive numbers; minding <code>0 = 360 = 720</code>, <code>540 = 180</code>, <code>-90 = 270</code>, etc.
 		*/
-		inline public function getPointOfDegree(degree:Float):Point {
+		public function getPointOfDegree(degree:Float):Point {
 			var radian:Float  = (degree - 90) * (Math.PI / 180);
 			var xRadius:Float = this.width * 0.5;
 			var yRadius:Float = this.height * 0.5;
@@ -175,7 +175,7 @@ package org.casalib.math.geom;
 			@param point: A Point object.
 			@return Returns <code>true</code> if shape's area contains point; otherwise <code>false</code>.
 		*/
-		inline public function containsPoint(point:Point):Bool {
+		public function containsPoint(point:Point):Bool {
 			var xRadius:Float = this.width * 0.5;
 			var yRadius:Float = this.height * 0.5;
 			var xTar:Float    = point.x - this.x - xRadius;
@@ -190,14 +190,14 @@ package org.casalib.math.geom;
 			@param ellipse: An Ellipse object.
 			@return Returns <code>true</code> if object is equal to this Ellipse; otherwise <code>false</code>.
 		*/
-		inline public function equals(ellipse:Ellipse):Bool {
+		public function equals(ellipse:Ellipse):Bool {
 			return this.x == ellipse.x && this.y == ellipse.y && this.width == ellipse.width && this.height == ellipse.height;
 		}
 		
 		/**
 			@return A new Ellipse object with the same values as this Ellipse.
 		*/
-		inline public function clone():Ellipse {
+		public function clone():Ellipse {
 			return new Ellipse(this.x, this.y, this.width, this.height);
 		}
 	}
