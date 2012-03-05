@@ -1,16 +1,14 @@
 package test;
 
-import haxe.unit.TestRunner;
-import org.casalib.math.Percent;
 #if cpp
 import cpp.Sys;
 #elseif neko
 import neko.Sys;
 #end
 
-class Test extends TestRunner{
+class Test extends haxe.unit.TestRunner{
 	public static function main(){
-		#if (cpp || neko)
+		#if cpp
 			nme.Lib.create(function():Void{
 				var runner = new Test();
 				runner.add(new TestMath());
@@ -19,6 +17,13 @@ class Test extends TestRunner{
 
 				Sys.exit(0);
 			},400,300,24,0xFFFFFF,nme.Lib.RESIZABLE);
+		#elseif neko
+			var runner = new Test();
+			runner.add(new TestMath());
+			//runner.add(new TestUtil()); need fixing...
+			runner.run();
+
+			Sys.exit(0);
 		#else
 			var runner = new Test();
 			runner.add(new TestMath());
