@@ -12,17 +12,17 @@ Or you can download/checkout the source from "github repo":http://github.com/and
 
 h1. Documentation
 
-Please refer to "CASA Lib for AS3 documentation":http://as3.casalib.org/docs/ . Info specific to this haXe port is expained below.
+Please refer to "CASA Lib for AS3 documentation":http://as3.casalib.org/docs/ . Info specific to this Haxe port is expained below.
 
 h1. Note
 
-For targets other than Flash, some of the casahx classes needs "nme":http://code.google.com/p/nekonme/(cpp/neko), "jeash":http://haxe.org/com/libs/jeash(js). 
+For targets other than Flash, some of the casahx classes needs "nme":http://www.haxenme.org/. 
 
-To compile test.hxml, remember to modify the path to jeash and the path to your local test server first.
+To compile test.hxml, remember to modify the path to your local test server first.
 
 h2. Cross-target Inconsistancy
 
-All the codes in the repo is maintained to be already tested and is consistant on ALL haXe targets, except:
+All the codes in the repo is maintained to be already tested and is consistant on ALL Haxe targets, except:
 
 h3. @NumberUtil.isNumber()@
 
@@ -75,11 +75,11 @@ It does not have @getManager@ method in non-Flash targets because of lack of @Di
 
 h3. @Inactivity@
 
-Seems that it is a bug of jeash, it cannot detect the mouse move event in JS target.
+Seems that it is a bug of NME, it cannot detect the mouse move event in JS target.
 
 h3. @ReversibleMovieClip@
 
-Due to a limitation of haXe, @gotoAndPlay()@ / @gotoAndStop()@ is not overridded. You need to call @play()@ / @stop()@ to stop reversing before calling @gotoAndPlay()@ / @gotoAndStop()@.
+Due to a limitation of Haxe, @gotoAndPlay()@ / @gotoAndStop()@ is not overridded. You need to call @play()@ / @stop()@ to stop reversing before calling @gotoAndPlay()@ / @gotoAndStop()@.
 
 h3. @StringUtil@
 
