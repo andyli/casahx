@@ -97,7 +97,7 @@ package org.casalib.display;
 		/**
 			@exclude
 		*/
-		public #if (flash || js) override #end function play():Void {
+		public override function play():Void {
 			this._stopReversing();
 			
 			super.play();
@@ -106,7 +106,7 @@ package org.casalib.display;
 		/**
 			@exclude
 		*/
-		public #if (flash || js) override #end function stop():Void {
+		public override function stop():Void {
 			this._stopReversing();
 			
 			super.stop();

@@ -83,23 +83,15 @@ package org.casalib.display;
 		/**
 			@exclude
 		*/
-		#if flash
-		public override function addEventListener(type:String, listener:Dynamic->Void, ?useCapture:Bool = false, ?priority:Int = 0, ?useWeakReference:Bool = false):Void {
+		public override function addEventListener(type:String, listener:Dynamic->Void, useCapture:Bool = false, priority:Int = 0, useWeakReference:Bool = false):Void {
 			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 			this._listenerManager.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
-		#else
-		public override function addEventListener(type:String, listener:Dynamic->Void, ?useCapture:Bool, ?priority:Int, ?useWeakReference:Bool):Int {
-			var val = super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-			this._listenerManager.addEventListener(type, listener, useCapture, priority, useWeakReference);
-			return val;
-		}
-		#end
 		
 		/**
 			@exclude
 		*/
-		public override function removeEventListener(type:String, listener:Dynamic->Void, ?useCapture:Bool #if flash = false #end):Void {
+		public override function removeEventListener(type:String, listener:Dynamic->Void, useCapture:Bool = false):Void {
 			super.removeEventListener(type, listener, useCapture);
 			this._listenerManager.removeEventListener(type, listener, useCapture);
 		}
