@@ -1,12 +1,14 @@
 -swf test/bin/swf/Test.swf
 -swf-version 10
 -main test.TestUi
+-cp src
 -lib neash
 
 --next
 -neko test/bin/neko/Test.n
 -lib neash
 -lib nme
+-cp src
 --remap flash:neash
 -main test.TestUi
 
@@ -14,6 +16,7 @@
 -cpp test/bin/cpp
 -lib neash
 -lib nme
+-cp src
 --remap flash:neash
 -main test.TestUi
 
@@ -21,9 +24,8 @@
 -js test/bin/js/Test.js
 -lib neash
 -lib nme
--cp /Users/andylihahaha/Documents/repo/canvas-nme
---remap flash:neash
---remap nme:canvas
+-cp src
+--remap flash:jeash
 -main test.TestUi
 
 --next

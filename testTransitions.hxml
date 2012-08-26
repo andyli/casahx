@@ -1,14 +1,16 @@
 -swf test/bin/swf/Test.swf
 -swf-version 10
--main test.TestTransitions
 -lib neash
 -lib feffects
+-cp src
+-main test.TestTransitions
 
 --next
 -neko test/bin/neko/Test.n
 -lib neash
 -lib feffects
 -lib nme
+-cp src
 --remap flash:neash
 -main test.TestTransitions
 
@@ -17,6 +19,7 @@
 -lib neash
 -lib feffects
 -lib nme
+-cp src
 --remap flash:neash
 -main test.TestTransitions
 
@@ -25,9 +28,8 @@
 -lib neash
 -lib feffects
 -lib nme
--cp /Users/andylihahaha/Documents/repo/canvas-nme
---remap flash:neash
---remap nme:canvas
+-cp src
+--remap flash:jeash
 -main test.TestTransitions
 
 --next

@@ -1,5 +1,6 @@
 -swf test/bin/swf/Test.swf
 -swf-version 10
+-cp src
 -main test.TestTime
 
 #--next
@@ -18,7 +19,8 @@
 
 --next
 -js test/bin/js/Test.js
--cp /Users/andylihahaha/Documents/repo/jeash
+-lib nme
+-cp src
 --remap flash:jeash
 -main test.TestTime
 

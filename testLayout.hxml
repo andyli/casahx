@@ -1,5 +1,6 @@
 -swf test/bin/swf/Test.swf
 -swf-version 10
+-cp src
 -main test.TestLayout
 
 -cmd cd test/bin/swf

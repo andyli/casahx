@@ -1,5 +1,6 @@
 -js test/bin/js/Test.js
--cp ../../repo/jeash
+-lib nme
+-cp src
 --remap flash:jeash
 -main test.Test
 

@@ -1,11 +1,13 @@
 -swf test/bin/swf/Test.swf
 -swf-version 10
+-cp src
 -main test.TestLoad
 
 --next
 -neko test/bin/neko/Test.n
 -lib hxcpp
 -lib nme
+-cp src
 --remap flash:nme
 -main test.TestLoad
 
@@ -13,6 +15,7 @@
 -cpp test/bin/cpp
 -lib hxcpp
 -lib nme
+-cp src
 --remap flash:nme
 -main test.TestLoad
 

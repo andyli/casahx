@@ -1,6 +1,7 @@
 -cpp test/bin/cpp
 -lib hxcpp
 -lib nme
+-cp src
 --remap flash:nme
 -main test.Test
 

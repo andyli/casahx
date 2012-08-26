@@ -1,4 +1,4 @@
 -swf bin/swf/Test.swf
 -swf-version 10
--main test.Test
 -cp src
+-main test.Test
