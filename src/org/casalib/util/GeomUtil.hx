@@ -68,6 +68,57 @@ package org.casalib.util;
 		inline public static function angle(first:Point, second:Point):Float {
 			return Math.atan2(second.y - first.y, second.x - first.x) / (Math.PI / 180);
 		}
+         
+        /**
+            Places a <code>Point</code> randomly within a defined area.
+             
+            @param area: The area in which to randomly place the <code>Point</code>.
+            @param snapToPixel: If the <code>Point</code> should only be placed on whole pixels <code>true</code>, or allow placement on sub-pixels <code>false</code>; defaults to <code>true</code>.
+            @return A randomly placed <code>Point</code> within the defined bounds.
+        */
+        inline public static function randomlyPlacePoint(area:Rectangle, snapToPixel:Bool = true):Point {
+            if (snapToPixel)
+                return new Point(NumberUtil.randomIntegerWithinRange(Math.ceil(area.x), Math.floor(area.right)), NumberUtil.randomIntegerWithinRange(Math.ceil(area.y), Math.floor(area.bottom)));
+            else
+            	return new Point(NumberUtil.randomWithinRange(area.x, area.right), NumberUtil.randomWithinRange(area.y, area.bottom));
+        }
+		
+        /**
+            Places a <code>Rectangle</code> randomly within a defined area.
+             
+            @param area: The area in which to randomly place the <code>Rectangle</code>.
+            @param rect: The <code>Rectangle</code> to randomly place within the bounds.
+            @param snapToPixel: If the <code>Rectangle</code> should only be placed on whole pixels <code>true</code>, or allow placement on sub-pixels <code>false</code>; defaults to <code>true</code>.
+            @return A new randomly placed <code>Rectangle</code> within the defined bounds.
+            @throws <code>Error</code> if the area is too small to contain the <code>Rectangle</code>.
+        */
+        public static function randomlyPlaceRectangle(area:Rectangle, rect:Rectangle, snapToPixel:Bool = true):Rectangle {
+            var zone:Rectangle = area.clone();
+            var size:Rectangle = rect.clone();
+            size.x               = area.x;
+            size.y               = area.y;
+             
+            if ( ! zone.containsRect(size))
+                throw 'Area needs to be large enough to contain the rectangle.';
+                 
+            zone.right  -= size.width;
+            zone.bottom -= size.height;
+             
+            var point:Point = GeomUtil.randomlyPlacePoint(zone, snapToPixel);
+             
+            return new Rectangle(point.x, point.y, rect.width, rect.height);
+        }
+         
+        /**
+            Takes the provided <code>Rectangle</code> and returns a new <code>Rectangle</code> that is flipped (width becomes height, height becomes width).
+             
+            @param rect: The <code>Rectangle</code> to flip.
+            @return A new <code>Rectangle</code> that is flipped.
+            @usageNote The <code>Rectangle</code>'s X and Y are unaffected.
+        */
+        inline public static function flipRectangle(rect:Rectangle):Rectangle {
+            return new Rectangle(rect.x, rect.y, rect.height, rect.width);
+        }
 		
 		/**
 			Calculates the perimeter of a rectangle.
@@ -77,4 +128,46 @@ package org.casalib.util;
 		inline public static function getRectanglePerimeter(rect:Rectangle):Float {
 			return rect.width * 2 + rect.height * 2;
 		}
+		
+		/**
+            Takes any degree value and returns the normalized 0-360 degree equivalent.
+             
+            @param degree: The degree to normalize.
+            @return Returns a degree value between <code>0 </code> and <code>360</code>.
+            @example
+                <code>
+                    trace(GeomUtil.normalizeDegree(-90)); // Traces "270"
+                    trace(GeomUtil.normalizeDegree(1080)); // Traces "0"
+                </code>
+        */
+        inline public static function normalizeDegree(degree:Float):Float {
+            degree %= 360;
+             
+            return (degree < 0) ? degree + 360 : degree;
+        }
+         
+        /**
+            Determines the shortest distance and direction between two degrees.
+             
+            @param startDegree: The first degree.
+            @param endDegree: The second degree.
+            @return Returns a degree value between <code>-180</code> and <code>180</code>.
+            @example
+                <code>
+                    trace(GeomUtil.distanceBetweenDegrees(45, 100)); // Traces "55"
+                    trace(GeomUtil.distanceBetweenDegrees(270, 10)); // Traces "100"
+                    trace(GeomUtil.distanceBetweenDegrees(0, 190)); // Traces "-170"
+                </code>
+        */
+        public static function distanceBetweenDegrees(startDegree:Float, endDegree:Float):Float {
+            var start:Float = GeomUtil.normalizeDegree(startDegree);
+            var end:Float   = GeomUtil.normalizeDegree(endDegree);
+            var dif:Float   = Math.abs(start - end);
+            var dis:Float   = (dif > 180) ? 360 - dif : dif;
+             
+            if (end != GeomUtil.normalizeDegree(start + dis))
+                dis *= -1;
+             
+            return dis;
+        }
 	}
