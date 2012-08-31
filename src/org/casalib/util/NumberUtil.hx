@@ -73,6 +73,7 @@ package org.casalib.util;
 					trace(NumberUtil.min(5, 13)); // Traces 5
 				</code>
 		*/
+		@:noUsing
 		public static function min(val1:Dynamic, val2:Dynamic):Float {
 			if (val1 == Math.NaN && val2 == Math.NaN || val1 == null && val2 == null)
 				return Math.NaN;
@@ -102,6 +103,7 @@ package org.casalib.util;
 					trace(NumberUtil.max(-5, -13)); // Traces -5
 				</code>
 		*/
+		@:noUsing
 		public static function max(val1:Dynamic, val2:Dynamic):Float {
 			if (val1 == Math.NaN && val2 == Math.NaN || val1 == null && val2 == null)
 				return Math.NaN;
