@@ -625,13 +625,13 @@ class TestUtil extends TestCase {
 		
 		this.assertTrue(0.25 == NumberUtil.normalize(8, 4, 20).decimalPercentage);
 		
-		for (i in new IntIter(0,10)) {
+		for (i in 0...10) {
 			var randomI = NumberUtil.randomIntegerWithinRange(0,1);
 			this.assertTrue(NumberUtil.isInteger(randomI));
 			this.assertTrue(NumberUtil.isBetween(randomI,0,1));
 		}
 		
-		for (i in new IntIter(0,10)) {
+		for (i in 0...10) {
 			var random = NumberUtil.randomWithinRange(0,1);
 			this.assertTrue(NumberUtil.isBetween(random,0,1));
 		}

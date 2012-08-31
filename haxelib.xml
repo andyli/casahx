@@ -1,6 +1,6 @@
 <project name="casalib" url="http://github.com/andyli/casahx" license="BSD">
     <user name="andyli"/>
     <tag v="cross"/>
-    <description>A haXe port of "CASA Lib for ActionScript"(http://casalib.org/). It is a great collection of helpful classes that streamline your coding. Non-Flash-only parts are also usable on JS/PHP/Neko/C++ targets.</description>
-    <version name="1.3.0.3">Fixed some haxe 2.07 issues.</version>
+    <description>A Haxe port of "CASA Lib for ActionScript", a great collection of helpful classes that streamline your coding.</description>
+    <version name="1.4.1.0">Updated to sync with CASA Lib for AS3 v1.4.1 (r421).</version>
 </project>
