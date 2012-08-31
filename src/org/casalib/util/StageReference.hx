@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -35,10 +35,10 @@ package org.casalib.util;
 	
 	
 	/**
-		Stores a reference to Stage for classes that cannot easily access it. This class allows you to stored multiple references by ID to different <code>Stage</code>'s which is helpful in an AIR environment.
+		Stores a reference to Stage for classes that cannot easily access it. This class allows you to store multiple references by ID to different <code>Stage</code>'s which is helpful in an AIR environment.
 		
 		@author Aaron Clinger
-		@version 03/26/10
+		@version 05/04/11
 		@usageNote You must first initialize the class by setting a reference to Stage. See example below:
 		@example
 			<code>
@@ -74,7 +74,7 @@ package org.casalib.util;
 			
 			@param id: The identifier for the Stage instance.
 			@return The Stage instance.
-			@throws Error if you try to get a Stage that has not been defined.
+			@throws <code>Error</code> if you try to get a Stage that has not been defined.
 		*/
 		public static function getStage(?id:String = 'stageDefault'):Stage {
 			if (!StageReference._getMap().exists(id))
@@ -109,7 +109,7 @@ package org.casalib.util;
 		}
 		
 		/**
-			Finds all the Stage reference ids.
+			Finds all the Stage reference IDs.
 			
 			@return An Array comprised of all the Stage reference identifiers.
 		*/

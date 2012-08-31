@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -30,13 +30,14 @@
 	POSSIBILITY OF SUCH DAMAGE.
 */
 package org.casalib.util; 
+	import org.casalib.core.UInt;
 	import org.casalib.util.ArrayUtil;
 	
 	/**
 		Utilities for validating common string formats.
 		
 		@author Aaron Clinger
-		@version 08/30/08
+		@version 05/06/11
 	*/
 	class ValidationUtil  {
 		
@@ -65,6 +66,36 @@ package org.casalib.util;
 		}
 		
 		/**
+			Determines if the date provided is equal to or greater than a certain age.
+			
+			@param age: The age to validate.
+			@param yearBorn: The year of birth.
+			@param monthBorn: The month of birth, <code>0 </code> for January to <code>11</code> for December.
+			@param dateBorn: The day of the month of birth, from <code>1</code> to <code>31</code>.
+			@return Returns <code>true</code> if the date provided is equal to or greater than the age; otherwise <code>false</code>.
+		*/
+		public static function isAge(age:UInt, yearBorn:Int, monthBorn:Int = 0, dateBorn:Int = 1):Bool {
+			var currentDate:Date = Date.now();
+			
+			if (yearBorn > currentDate.getFullYear() - age)
+				return false;
+			
+			if (yearBorn < currentDate.getFullYear() - age)
+				return true;
+			
+			if (monthBorn > currentDate.getMonth())
+				return false;
+			
+			if (monthBorn < currentDate.getMonth())
+				return true;
+			
+			if (dateBorn <= currentDate.getDate())
+				return true;
+			
+			return false;
+		}
+				
+		/**
 			Determines if credit card is valid using the Luhn formula.
 			
 			@param cardNumber: The credit card number.
@@ -74,11 +105,11 @@ package org.casalib.util;
 			if (cardNumber.length < 7 || cardNumber.length > 19 || Std.parseFloat(cardNumber) < 1000000)
 				return false;
 			
-			var pre:Float;
 			var sum:Float  = 0;
-			var alt:Bool = true;
+			var alt:Bool   = true;
+			var i:Int      = cardNumber.length;
+			var pre:Float;
 			
-			var i:Int = cardNumber.length;
 			while (--i > -1) {
 				if (alt)
 					sum += Std.parseFloat(cardNumber.substr(i, 1));

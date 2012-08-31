@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -125,7 +125,7 @@ package org.casalib.collection;
 			@param item: {@inheritDoc}
 			@param index: {@inheritDoc}
 			@return {@inheritDoc}
-			@throws Error if you try to set an item that is already contained in the list.
+			@throws <code>Error</code> if you try to set an item that is already contained in the list.
 		*/
 		public override function setItem(item:T, index:Int):T {
 			if (this.contains(item))

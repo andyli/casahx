@@ -1,6 +1,6 @@
 /*
 	CASA Framework for ActionScript 3.0
-	Copyright (c) 2010, Contributors of CASA Framework
+	Copyright (c) 2011, Contributors of CASA Framework
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -32,13 +32,14 @@
 package org.casalib.util;
 	
 	/**
-		Provides utility functions for creating and managing singletons.
+		Provides utility functions for creating and managing singletons and multitons.
 		
 		@author Aaron Clinger
-		@version 01/19/09
+		@version 05/04/11
 	*/
 	class SingletonUtil {
 		static var _singletonMap:Hash<Dynamic>;
+		static var _multitonMap:Hash<Hash<Dynamic>>;
 		
 		/**
 			Creates a singleton out of a class without adapting or extending the class itself.
@@ -62,5 +63,32 @@ package org.casalib.util;
 				SingletonUtil._singletonMap.set(name,ins);
 			}
 			return SingletonUtil._singletonMap.get(name);
+		}
+		
+		/**
+			Creates a multiton out of a class without adapting or extending the class itself.
+			
+			@param type: The class you want a to created a multiton from.
+			@param id: An unique name per <code>Class</code> <code>type</code>.
+			@return The multiton instance of the class.
+			@example
+				<code>
+					var stopwatch:Stopwatch = SingletonUtil.multiton(Stopwatch, "MyUniqueWatchId");
+					stopwatch.start();
+				</code>
+		*/
+		public static function multiton<T>(type:Class<T>, id:String):T {
+			if (SingletonUtil._multitonMap == null)
+				SingletonUtil._multitonMap = new Hash<Hash<Dynamic>>();
+			
+			var typeName = Type.getClassName(type);
+			
+			if (!SingletonUtil._multitonMap.exists(typeName))
+				SingletonUtil._multitonMap.set(typeName, new Hash<Dynamic>());
+			
+			if (!SingletonUtil._multitonMap.get(typeName).exists(id))
+				SingletonUtil._multitonMap.get(typeName).set(id, Type.createInstance(type, []));
+			
+			return SingletonUtil._multitonMap.get(typeName).get(id);
 		}
 	}

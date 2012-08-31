@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -87,7 +87,7 @@ package org.casalib.load;
 			@param request: A <code>String</code> or an <code>URLRequest</code> reference to the file you wish to load.
 			@param context: An optional SoundLoaderContext object.
 			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
-			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
+			@throws <code>Error</code> if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
 		public function new(request:Dynamic, ?context:SoundLoaderContext = null) {
 			super(new Sound(), request);

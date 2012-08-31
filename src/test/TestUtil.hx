@@ -310,8 +310,7 @@ class TestUtil extends TestCase {
 		this.assertEquals(0x00,myRGB.g);
 		this.assertEquals(0x11,myRGB.b);
 
-		var hex:UInt = 0xCCFF0011;
-		this.assertEquals(hex,ColorUtil.getColor(myRGB.r,myRGB.g,myRGB.b,myRGB.a));
+		this.assertEquals(0xCCFF0011,ColorUtil.getColor(myRGB.r,myRGB.g,myRGB.b,myRGB.a));
 		
 		this.assertEquals("CCFF0011",ColorUtil.getHexStringFromARGB(myRGB.a,myRGB.r,myRGB.g,myRGB.b));
 		
@@ -434,14 +433,14 @@ class TestUtil extends TestCase {
 		this.assertEquals(11,d.numChildren);
 		this.assertEquals(10,e.numChildren);
 		
-		DisplayObjectUtil.removeChildren(d);
+		DisplayObjectUtil.removeAllChildren(d);
 		this.assertEquals(0,d.numChildren);
 		this.assertEquals(10,e.numChildren);
 		
 		d.addChild(e);
 		this.assertEquals(1,d.numChildren);
 		
-		DisplayObjectUtil.removeChildren(d,false,true);
+		DisplayObjectUtil.removeAllChildren(d,false,true);
 		this.assertEquals(0,d.numChildren);
 		this.assertEquals(0,e.numChildren);
 	}
@@ -583,7 +582,7 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals("10 20 30 40",NumberUtil.createStepsBetween(0,50,4).join(' '));
 		
-		this.assertEquals("01,234,567",NumberUtil.format(1234567, 8, ","));
+		this.assertEquals("01,234,567",NumberUtil.format(1234567, ",", 8));
 		
 		this.assertEquals("32nd",32 + NumberUtil.getOrdinalSuffix(32));
 		

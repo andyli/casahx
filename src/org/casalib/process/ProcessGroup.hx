@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -155,7 +155,7 @@ package org.casalib.process;
 			
 			@param process: The process to be added and run by the group.
 			@usageNote You can add a different instance of ProcessGroup to another ProcessGroup.
-			@throws Error if you try add the same Process to itself.
+			@throws <code>Error</code> if you try add the same Process to itself.
 		*/
 		public function addProcess(process:Process):Void {
 			if (process == this)

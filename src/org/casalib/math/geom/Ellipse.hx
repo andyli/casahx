@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -141,10 +141,10 @@ package org.casalib.math.geom;
 		/**
 			The circumference of the ellipse.
 			
-			@usageNote Calculating the circumference of an ellipse is difficult; this is an approximation but should be fine for most cases.
+			@usageNote Calculating the circumference of an ellipse is difficult; this is an approximation but should be accurate for most cases.
 		*/
 		inline public function getPerimeter():Float {
-			return (Math.sqrt(.5 * (Math.pow(this.width, 2) + Math.pow(this.height, 2))) * Math.PI * 2) * 0.5;
+			return (Math.sqrt(0.5 * (Math.pow(this.width, 2) + Math.pow(this.height, 2))) * Math.PI * 2) * 0.5;
 		}
 		
 		/**
@@ -170,7 +170,7 @@ package org.casalib.math.geom;
 		}
 		
 		/**
-			Finds if point is contained inside the ellipse perimeter.
+			Finds if a point is contained inside of the ellipse perimeter.
 			
 			@param point: A Point object.
 			@return Returns <code>true</code> if shape's area contains point; otherwise <code>false</code>.

@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,6 @@ package org.casalib.display;
 	import org.casalib.core.UInt;
 	import org.casalib.events.IRemovableEventDispatcher;
 	import org.casalib.events.ListenerManager;
-	import org.casalib.util.DisplayObjectUtil;
 	import org.casalib.util.StageReference;
 	
 	
@@ -45,7 +44,7 @@ package org.casalib.display;
 		A base Shape that implements {@link IRemovableEventDispatcher} and {@link IDestroyable}.
 		
 		@author Aaron Clinger
-		@version 03/26/10
+		@version 05/04/11
 	*/
 	class CasaShape extends Shape, implements IRemovableEventDispatcher, implements IDestroyable {
 		
@@ -56,7 +55,7 @@ package org.casalib.display;
 		
 		
 		/**
-			Creates a new CasaShape.
+			Creates a new <code>CasaShape</code>.
 		*/
 		public function new() {
 			super();
@@ -118,27 +117,6 @@ package org.casalib.display;
 			
 			return super.stage;
 		}*/
-		
-		/**
-			Removes and optionally destroys children of the CasaSprite.
-			
-			@param destroyChildren: If a child implements {@link IDestroyable} call its {@link IDestroyable#destroy destroy} method <code>true</code>, or don't destroy <code>false</code>; defaults to <code>false</code>.
-			@param recursive: Call this method with the same arguments on all of the children's children (all the way down the display list) <code>true</code>, or leave the children's children <code>false</code>; defaults to <code>false</code>.
-		*/
-		public function removeChildren(?destroyChildren:Bool = false, ?recursive:Bool = false):Void {
-			DisplayObjectUtil.removeChildren(this, destroyChildren, recursive);
-		}
-		
-		/**
-			Removes and optionally destroys children of the CasaSprite then destroys itself.
-			
-			@param destroyChildren: If a child implements {@link IDestroyable} call its {@link IDestroyable#destroy destroy} method <code>true</code>, or don't destroy <code>false</code>; defaults to <code>false</code>.
-			@param recursive: Call this method with the same arguments on all of the children's children (all the way down the display list) <code>true</code>, or leave the children's children <code>false</code>; defaults to <code>false</code>.
-		*/
-		public function removeChildrenAndDestroy(?destroyChildren:Bool = false, ?recursive:Bool = false):Void {
-			this.removeChildren(destroyChildren, recursive);
-			this.destroy();
-		}
 		
 		private function getDestroyed():Bool {
 			return this._isDestroyed;

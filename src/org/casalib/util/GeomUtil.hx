@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -33,21 +33,22 @@ package org.casalib.util;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import org.casalib.util.ConversionUtil;
+	import org.casalib.util.NumberUtil;
 	
 	/**
-		Utilities for positioning, calculating and manipulating geometeric shapes.
+		Utilities for positioning, calculating and manipulating geometeric shapes and points.
 		
 		@author Aaron Clinger
 		@author Jon Adams
-		@version 02/19/08
+		@version 05/11/11
 	*/
 	class GeomUtil  {
 		/**
-			Rotates a Point around another Point by the specified angle.
+			Rotates a <code>Point</code> around another <code>Point</code> by the specified angle.
 			
-			@param point: The Point to rotate.
-			@param centerPoint: The Point to rotate this Point around.
-			@param angle: The angle (in degrees) to rotate this point.
+			@param point: The <code>Point</code> to rotate.
+			@param centerPoint: The <code>Point</code> to rotate the <code>Point</code> around.
+			@param angle: The angle (in degrees) to rotate the <code>Point</code>.
 		*/
 		inline public static function rotatePoint(point:Point, centerPoint:Point, angle:Float):Void {
 			var radians:Float = ConversionUtil.degreesToRadians(angle);
@@ -59,10 +60,10 @@ package org.casalib.util;
 		}
 		
 		/**
-			Determines the angle/degree between the first and second point.
+			Determines the angle/degree between the first and second <code>Point</code>.
 			
-			@param first: The first Point.
-			@param second: The second Point.
+			@param first: The first <code>Point</code>.
+			@param second: The second <code>Point</code>.
 			@return The degree between the two points.
 		*/
 		inline public static function angle(first:Point, second:Point):Float {

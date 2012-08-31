@@ -1,6 +1,6 @@
 /*
 	CASA Framework for ActionScript 3.0
-	Copyright (c) 2010, Contributors of CASA Framework
+	Copyright (c) 2011, Contributors of CASA Framework
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ package org.casalib.util;
 			@param request: A <code>String</code> or an <code>URLRequest</code> reference to the file you wish to load.
 			@return The base <code>LoadItem</code> class being used to load the requested file. Can be cast as a specific load class.
 			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
-			@throws Error if unable to determine the file type by its extention.
+			@throws <code>Error</code> if unable to determine the file type by its extention.
 			@example
 				<code>
 					this._groupLoad = new GroupLoad();

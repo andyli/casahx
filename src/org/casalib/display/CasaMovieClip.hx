@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,7 @@ package org.casalib.display;
 		
 		@author Aaron Clinger
 		@author Mike Creighton
-		@version 02/11/10
+		@version 10/09/11
 	*/
 	class CasaMovieClip extends MovieClip, implements IRemovableEventDispatcher, implements IDestroyable, implements Dynamic<Dynamic> {
 		
@@ -57,7 +57,7 @@ package org.casalib.display;
 		
 		
 		/**
-			Creates a new CasaMovieClip.
+			Creates a new <code>CasaMovieClip</code>.
 		*/
 		public function new() {
 			super();
@@ -126,18 +126,18 @@ package org.casalib.display;
 			@param destroyChildren: If a child implements {@link IDestroyable} call its {@link IDestroyable#destroy destroy} method <code>true</code>, or don't destroy <code>false</code>; defaults to <code>false</code>.
 			@param recursive: Call this method with the same arguments on all of the children's children (all the way down the display list) <code>true</code>, or leave the children's children <code>false</code>; defaults to <code>false</code>.
 		*/
-		public function removeChildren(?destroyChildren:Bool = false, ?recursive:Bool = false):Void {
-			DisplayObjectUtil.removeChildren(this, destroyChildren, recursive);
+		public function removeAllChildren(?destroyChildren:Bool = false, ?recursive:Bool = false):Void {
+			DisplayObjectUtil.removeAllChildren(this, destroyChildren, recursive);
 		}
 		
 		/**
-			Removes and optionally destroys children of the CasaMovieClip then destroys itself.
+			Removes and optionally destroys children of the <code>CasaMovieClip</code> then destroys itself.
 			
 			@param destroyChildren: If a child implements {@link IDestroyable} call its {@link IDestroyable#destroy destroy} method <code>true</code>, or don't destroy <code>false</code>; defaults to <code>false</code>.
 			@param recursive: Call this method with the same arguments on all of the children's children (all the way down the display list) <code>true</code>, or leave the children's children <code>false</code>; defaults to <code>false</code>.
 		*/
-		public function removeChildrenAndDestroy(?destroyChildren:Bool = false, ?recursive:Bool = false):Void {
-			this.removeChildren(destroyChildren, recursive);
+		public function removeAllChildrenAndDestroy(?destroyChildren:Bool = false, ?recursive:Bool = false):Void {
+			this.removeAllChildren(destroyChildren, recursive);
 			this.destroy();
 		}
 		

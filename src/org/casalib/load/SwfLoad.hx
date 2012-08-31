@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -147,7 +147,7 @@ package org.casalib.load;
 			@param request: A <code>String</code> or an <code>URLRequest</code> reference to the SWF you wish to load or the <code>Class</code> of the embeded SWF.
 			@param context: An optional LoaderContext object.
 			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
-			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
+			@throws <code>Error</code> if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
 		public function new(request:Dynamic #if flash , ?context:LoaderContext = null #end) {
 			super(request #if flash , context #end);
@@ -156,8 +156,8 @@ package org.casalib.load;
 		/**
 			The data received from the DataLoad data typed as MovieClip. Available after load is complete.
 			
-			@throws Error if method is called before the SWF has loaded.
-			@throws Error if method cannot convert content to a MovieClip.
+			@throws <code>Error</code> if method is called before the SWF has loaded.
+			@throws <code>Error</code> if method cannot convert content to a MovieClip.
 		*/
 		private function getContentAsMovieClip():MovieClip {
 			if (this.loaderInfo.contentType != CasaLoader.FLASH_CONTENT_TYPE)
@@ -170,8 +170,8 @@ package org.casalib.load;
 		/**
 			The data received from the DataLoad data typed as AVM1Movie. Available after load is complete.
 			
-			@throws Error if method is called before the SWF has loaded.
-			@throws Error if method cannot convert content to an AVM1Movie.
+			@throws <code>Error</code> if method is called before the SWF has loaded.
+			@throws <code>Error</code> if method cannot convert content to an AVM1Movie.
 		*/
 		private function getContentAsAvm1Movie():AVM1Movie {
 			if (this.loaderInfo.contentType != CasaLoader.FLASH_CONTENT_TYPE)
@@ -185,7 +185,7 @@ package org.casalib.load;
 			
 			@param name: The name of the definition.
 			@return The object associated with the definition.
-			@throws Error if method is called before the SWF has loaded.
+			@throws <code>Error</code> if method is called before the SWF has loaded.
 		*/
 		public function getDefinition(name:String):Dynamic {
 			if (!this.loaded)
@@ -199,7 +199,7 @@ package org.casalib.load;
 			
 			@param name: The name of the definition.
 			@return Returns <code>true</code> if the specified definition exists; otherwise <code>false</code>.
-			@throws Error if method is called before the SWF has loaded.
+			@throws <code>Error</code> if method is called before the SWF has loaded.
 		*/
 		public function hasDefinition(name:String):Bool {
 			if (!this.loaded)
@@ -213,7 +213,7 @@ package org.casalib.load;
 			
 			@param className: The full name of the class you wish to receive from the loaded SWF.
 			@return A Class reference.
-			@throws Error if method is called before the SWF has loaded.
+			@throws <code>Error</code> if method is called before the SWF has loaded.
 		*/
 		public function getClassByName(className:String):Class<Dynamic> {
 			return cast this.getDefinition(className);
@@ -225,7 +225,7 @@ package org.casalib.load;
 			@param className: The full name of the class you wish to instantiate from the loaded SWF.
 			@param arguments: The optional parameters to be passed to the class constructor.
 			@return A reference to the newly instantiated class.
-			@throws Error if method is called before the SWF has loaded.
+			@throws <code>Error</code> if method is called before the SWF has loaded.
 		*/
 		public function createClassByName(className:String, ?arguments:Array<Dynamic>):Dynamic {
 			if (arguments == null) arguments = [];

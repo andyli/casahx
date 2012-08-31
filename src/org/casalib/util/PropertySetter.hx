@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -55,7 +55,7 @@ import org.casalib.core.UInt;
 			@param scope: An object that contains the property specified by <code>property</code>.
 			@param property: Name of the property you want to assign the value of.
 			@param argument: The position the value to assign falls in the argument order.
-			@throws Error if the property does not exist or is not available in defined scope.
+			@throws <code>Error</code> if the property does not exist or is not available in defined scope.
 		*/
 		public function new(scope:T, property:String, ?argument:UInt = 0) {
 			//if (!Reflect.hasField(scope,property))
@@ -70,6 +70,6 @@ import org.casalib.core.UInt;
 			Defines property with the value of the targeted argument.
 		*/
 		public function defineProperty(arguments:Array<Dynamic>) : Void {
-			Reflect.setField(_scope,_property,arguments[this._argument]);
+			Reflect.setProperty(_scope,_property,arguments[this._argument]);
 		}
 	}

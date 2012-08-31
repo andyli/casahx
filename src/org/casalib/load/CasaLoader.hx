@@ -1,6 +1,6 @@
 /*
 	CASA Framework for ActionScript 3.0
-	Copyright (c) 2010, Contributors of CASA Framework
+	Copyright (c) 2011, Contributors of CASA Framework
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -98,7 +98,7 @@ package org.casalib.load;
 			@param request: A <code>String</code> or an <code>URLRequest</code> reference to the file you wish to load.
 			@param context: An optional LoaderContext object.
 			@throws ArguementTypeError if you pass a type other than a <code>String</code> or an <code>URLRequest</code> to parameter <code>request</code>.
-			@throws Error if you try to load an empty <code>String</code> or <code>URLRequest</code>.
+			@throws <code>Error</code> if you try to load an empty <code>String</code> or <code>URLRequest</code>.
 		*/
 		public function new(request:Dynamic #if flash , ?context:LoaderContext = null #end) {
 			super(new Loader(), request);
@@ -120,7 +120,7 @@ package org.casalib.load;
 		/**
 			The content received from the CasaLoader. Available after load is complete.
 			
-			@throws Error if method is called before the SWF has loaded.
+			@throws <code>Error</code> if method is called before the SWF has loaded.
 		*/
 		private function getContent():DisplayObject {
 			if (!this.loaded)
@@ -144,7 +144,7 @@ package org.casalib.load;
 		}
 		
 		/**
-			The number of bytes loaded of the requested file.
+			@exclude
 		*/
 		private override function getBytesLoaded():UInt {
 			return this._loadItem.contentLoaderInfo.bytesLoaded;

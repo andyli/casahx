@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -63,7 +63,7 @@ package org.casalib.util;
 				throw new ArguementTypeError('request');
 			
 			var ur = cast(request,URLRequest);
-			var data = Reflect.field(ur,"data");
+			var data = Reflect.getProperty(ur,"data");
 			if (window == NavigateUtil.WINDOW_BLANK && !LocationUtil.isIde() && data == null)
 				if (NavigateUtil.openWindow(ur.url, window))
 					return;

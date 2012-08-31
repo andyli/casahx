@@ -1,6 +1,6 @@
 /*
 	CASA Lib for ActionScript 3.0
-	Copyright (c) 2010, Aaron Clinger & Contributors of CASA Lib
+	Copyright (c) 2011, Aaron Clinger & Contributors of CASA Lib
 	All rights reserved.
 	
 	Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,7 @@ package org.casalib.time;
 		
 		@author Aaron Clinger
 		@author Mike Creighton
-		@version 09/06/09
+		@version 05/04/11
 		@usageNote You must first initialize {@link StageReference} before using this class.
 		@example
 			<code>
@@ -118,6 +118,9 @@ package org.casalib.time;
 			StageReference.getStage().addEventListener(KeyboardEvent.KEY_UP, this._userInput, false, 0, true);
 			StageReference.getStage().addEventListener(MouseEvent.MOUSE_DOWN, this._userInput, false, 0, true);
 			StageReference.getStage().addEventListener(MouseEvent.MOUSE_MOVE, this._userInput, false, 0, true);
+			StageReference.getStage().addEventListener(MouseEvent.MOUSE_WHEEL, this._userInput, false, 0, true);
+			StageReference.getStage().addEventListener(MouseEvent.MOUSE_DOWN, this._userInput, false, 0, true);
+			StageReference.getStage().addEventListener(MouseEvent.MOUSE_UP, this._userInput, false, 0, true);
 			
 			this._stopwatch.start();
 			this._interval.start();
@@ -134,10 +137,14 @@ package org.casalib.time;
 			StageReference.getStage().removeEventListener(KeyboardEvent.KEY_UP, this._userInput);
 			StageReference.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, this._userInput);
 			StageReference.getStage().removeEventListener(MouseEvent.MOUSE_MOVE, this._userInput);
+			StageReference.getStage().removeEventListener(MouseEvent.MOUSE_WHEEL, this._userInput);
+			StageReference.getStage().removeEventListener(MouseEvent.MOUSE_DOWN, this._userInput);
+			StageReference.getStage().removeEventListener(MouseEvent.MOUSE_UP, this._userInput);
 		}
 		
 		public override function destroy():Void {
 			this.stop();
+			
 			this._interval.destroy();
 			
 			super.destroy();
