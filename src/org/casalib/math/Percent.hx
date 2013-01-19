@@ -42,8 +42,8 @@ package org.casalib.math;
 	*/
 	class Percent  {
 		
-		inline public var decimalPercentage(getDecimalPercentage, setDecimalPercentage) : Float;
-		inline public var percentage(getPercentage, setPercentage) : Float;
+		public var decimalPercentage(get_decimalPercentage, set_decimalPercentage) : Float;
+		public var percentage(get_percentage, set_percentage) : Float;
 		var _percent:Float;
 		
 		
@@ -64,11 +64,11 @@ package org.casalib.math;
 		/**
 			The percent expressed as a regular percentage. 37.5% would be expressed as <code>37.5</code>.
 		*/
-		inline public function getPercentage():Float{
+		inline public function get_percentage():Float{
 			return 100 * this._percent;
 		}
 		
-		inline public function setPercentage(percent:Float):Float{
+		inline public function set_percentage(percent:Float):Float{
 			this._percent = percent * .01;
 			return percent;
 		}
@@ -76,11 +76,11 @@ package org.casalib.math;
 		/**
 			The percent expressed as a decimal percentage. 37.5% would be expressed as <code>0.375</code>.
 		*/
-		inline public function getDecimalPercentage():Float{
+		inline public function get_decimalPercentage():Float{
 			return this._percent;
 		}
 		
-		inline public function setDecimalPercentage(percent:Float):Float{
+		inline public function set_decimalPercentage(percent:Float):Float{
 			this._percent = percent;
 			return percent;
 		}
