@@ -136,8 +136,8 @@ package org.casalib.load;
 	*/
 	class SwfLoad extends CasaLoader {
 		
-		#if flash public var contentAsAvm1Movie(getContentAsAvm1Movie, null) : AVM1Movie ; #end
-		public var contentAsMovieClip(getContentAsMovieClip, null) : MovieClip ;
+		#if flash public var contentAsAvm1Movie(get_contentAsAvm1Movie, null) : AVM1Movie ; #end
+		public var contentAsMovieClip(get_contentAsMovieClip, null) : MovieClip ;
 		var _classRequest:Class<Dynamic>;
 		
 		
@@ -159,7 +159,7 @@ package org.casalib.load;
 			@throws <code>Error</code> if method is called before the SWF has loaded.
 			@throws <code>Error</code> if method cannot convert content to a MovieClip.
 		*/
-		private function getContentAsMovieClip():MovieClip {
+		private function get_contentAsMovieClip():MovieClip {
 			if (this.loaderInfo.contentType != CasaLoader.FLASH_CONTENT_TYPE)
 				throw 'Cannot convert content to a MovieClip.';
 			
@@ -173,7 +173,7 @@ package org.casalib.load;
 			@throws <code>Error</code> if method is called before the SWF has loaded.
 			@throws <code>Error</code> if method cannot convert content to an AVM1Movie.
 		*/
-		private function getContentAsAvm1Movie():AVM1Movie {
+		private function get_contentAsAvm1Movie():AVM1Movie {
 			if (this.loaderInfo.contentType != CasaLoader.FLASH_CONTENT_TYPE)
 				throw 'Cannot convert content to an AVM1Movie.';
 			

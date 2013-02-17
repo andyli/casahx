@@ -41,14 +41,14 @@ package org.casalib.math.geom;
 	*/
 	class Ellipse  {
 		
-		inline public var area(getArea, null) : Float ;
-		inline public var center(getCenter, setCenter) : Point;
-		inline public var height(getHeight, setHeight) : Float;
-		inline public var perimeter(getPerimeter, null) : Float ;
-		inline public var size(getSize, null) : Point ;
-		inline public var width(getWidth, setWidth) : Float;
-		inline public var x(getX, setX) : Float;
-		inline public var y(getY, setY) : Float;
+		public var area(get_area, null) : Float ;
+		public var center(get_center, set_center) : Point;
+		public var height(get_height, set_height) : Float;
+		public var perimeter(get_perimeter, null) : Float ;
+		public var size(get_size, null) : Point ;
+		public var width(get_width, set_width) : Float;
+		public var x(get_x, set_x) : Float;
+		public var y(get_y, set_y) : Float;
 		var _x:Float;
 		var _y:Float;
 		var _width:Float;
@@ -73,59 +73,55 @@ package org.casalib.math.geom;
 		/**
 			The horizontal coordinate of the point.
 		*/
-		inline public function getX():Float{
+		inline public function get_x():Float{
 			return this._x;
 		}
 		
-		inline public function setX(xPos:Float):Float{
-			this._x = xPos;
-			return xPos;
+		inline public function set_x(xPos:Float):Float{
+			return this._x = xPos;
 		}
 		
 		/**
 			The vertical coordinate of the point.
 		*/
-		inline public function getY():Float{
+		inline public function get_y():Float{
 			return this._y;
 		}
 		
-		inline public function setY(yPos:Float):Float{
-			this._y = yPos;
-			return yPos;
+		inline public function set_y(yPos:Float):Float{
+			return this._y = yPos;
 		}
 		
 		/**
 		 	The width of the ellipse.
 		*/
-		inline public function getWidth():Float{
+		inline public function get_width():Float{
 			return this._width;
 		}
 		
-		inline public function setWidth(width:Float):Float{
-			this._width = width;
-			return width;
+		inline public function set_width(width:Float):Float{
+			return this._width = width;
 		}
 		
 		/**
 		 	The height of the rectangle.
 		*/
-		inline public function getHeight():Float{
+		inline public function get_height():Float{
 			return this._height;
 		}
 		
-		inline public function setHeight(height:Float):Float{
-			this._height = height;
-			return height;
+		inline public function set_height(height:Float):Float{
+			return this._height = height;
 		}
 		
 		/**
 			The center of the ellipse.
 		*/
-		inline public function getCenter():Point{
+		inline public function get_center():Point{
 			return new Point(this.x + this.width * 0.5, this.y + this.height * 0.5);
 		}
 		
-		inline public function setCenter(c:Point):Point{
+		inline public function set_center(c:Point):Point{
 			this.x = c.x - this.width * 0.5;
 			this.y = c.y - this.height * 0.5;
 			return c;
@@ -134,7 +130,7 @@ package org.casalib.math.geom;
 		/**
 			The size of the ellipse, expressed as a Point object with the values of the width and height properties.
 		*/
-		inline public function getSize():Point {
+		inline public function get_size():Point {
 			return new Point(this.width, this.height);
 		}
 		
@@ -143,14 +139,14 @@ package org.casalib.math.geom;
 			
 			@usageNote Calculating the circumference of an ellipse is difficult; this is an approximation but should be accurate for most cases.
 		*/
-		inline public function getPerimeter():Float {
+		inline public function get_perimeter():Float {
 			return (Math.sqrt(0.5 * (Math.pow(this.width, 2) + Math.pow(this.height, 2))) * Math.PI * 2) * 0.5;
 		}
 		
 		/**
 			The area of the ellipse.
 		*/
-		inline public function getArea():Float {
+		inline public function get_area():Float {
 			return Math.PI * (this.width * 0.5) * (this.height * 0.5);
 		}
 		

@@ -87,7 +87,7 @@ package org.casalib.util;
 	*/
 	class LibraryManager  {
 		inline public static var GROUP_DEFAULT:String = 'groupDefault';
-		static var _groupMap:Hash<Array<SwfLoad>>;
+		static var _groupMap:Map<String, Array<SwfLoad>>;
 		
 		
 		/**
@@ -257,7 +257,7 @@ package org.casalib.util;
 		}
 		
 		static function _initGroup():Void {
-			if (LibraryManager._groupMap == null) LibraryManager._groupMap = new Hash<Array<SwfLoad>>();
+			if (LibraryManager._groupMap == null) LibraryManager._groupMap = new Map<String, Array<SwfLoad>>();
 		}
 		
 		static function _hasGroup(groupId:String):Bool {

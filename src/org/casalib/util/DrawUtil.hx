@@ -60,7 +60,7 @@ package org.casalib.util;
 				</code>
 		*/
 		inline public static function drawPath(graphics:Graphics, points:Array<Point>):Void {
-			var i:UInt = points.length;
+			var i = points.length;
 			
 			if (points.length < 2)
 				throw 'At least three Points are needed to draw a shape.';

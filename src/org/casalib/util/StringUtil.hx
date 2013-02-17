@@ -45,7 +45,7 @@ package org.casalib.util;
 	class StringUtil  {
 	
 		inline public static var WHITESPACE:String = " \t\n\r"; /**< Whitespace characters (space, tab, new line and return). */
-		inline public static var SMALL_WORDS:Array<String> = ["a", "an", "and", "as", "at", "but", "by", "en", "for", "if", "is", "in", "of", "on", "or", "the", "to", "v", "via", "vs"]; /**< The default list of small/short words to be used with {@link #toTitleCase}. */
+		public static var SMALL_WORDS:Array<String> = ["a", "an", "and", "as", "at", "but", "by", "en", "for", "if", "is", "in", "of", "on", "or", "the", "to", "v", "via", "vs"]; /**< The default list of small/short words to be used with {@link #toTitleCase}. */
 		
 		/**
 			Determines if the singular or plural versions of a noun should be used given a number.

@@ -100,7 +100,7 @@ package org.casalib.util;
 			var baseUrl:String = location.loaderInfo.url.split('://')[1].split('/')[0];
 			return (baseUrl.substr(0, 4) == 'www.') ? baseUrl.substr(4) : baseUrl;
 			#elseif js
-			var baseUrl:String = js.Lib.document.domain;
+			var baseUrl:String = js.Browser.document.domain;
 			return (baseUrl.substr(0, 4) == 'www.') ? baseUrl.substr(4) : baseUrl;
 			#else
 			return "";

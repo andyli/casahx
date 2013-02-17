@@ -38,8 +38,8 @@ package org.casalib.util;
 		@version 05/04/11
 	*/
 	class SingletonUtil {
-		static var _singletonMap:Hash<Dynamic>;
-		static var _multitonMap:Hash<Hash<Dynamic>>;
+		static var _singletonMap:Map<String, Dynamic>;
+		static var _multitonMap:Map<String, Map<String, Dynamic>>;
 		
 		/**
 			Creates a singleton out of a class without adapting or extending the class itself.
@@ -54,7 +54,7 @@ package org.casalib.util;
 		*/
 		public static function singleton<T>(c:Class<T>):T {
 			if (SingletonUtil._singletonMap == null)
-				SingletonUtil._singletonMap = new Hash<Dynamic>();
+				SingletonUtil._singletonMap = new Map<String, Dynamic>();
 			
 			var name = Type.getClassName(c);
 			
@@ -79,12 +79,12 @@ package org.casalib.util;
 		*/
 		public static function multiton<T>(type:Class<T>, id:String):T {
 			if (SingletonUtil._multitonMap == null)
-				SingletonUtil._multitonMap = new Hash<Hash<Dynamic>>();
+				SingletonUtil._multitonMap = new Map<String, Map<String, Dynamic>>();
 			
 			var typeName = Type.getClassName(type);
 			
 			if (!SingletonUtil._multitonMap.exists(typeName))
-				SingletonUtil._multitonMap.set(typeName, new Hash<Dynamic>());
+				SingletonUtil._multitonMap.set(typeName, new Map<String, Dynamic>());
 			
 			if (!SingletonUtil._multitonMap.get(typeName).exists(id))
 				SingletonUtil._multitonMap.get(typeName).set(id, Type.createInstance(type, []));

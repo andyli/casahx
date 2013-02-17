@@ -41,7 +41,7 @@ package org.casalib.core;
 	*/
 	class Destroyable implements IDestroyable {
 		
-		public var destroyed(getDestroyed, null) : Bool ;
+		public var destroyed(get_destroyed, null) : Bool ;
 		var _isDestroyed:Bool;
 		
 		
@@ -52,7 +52,7 @@ package org.casalib.core;
 			_isDestroyed = false;
 		}
 		
-		private function getDestroyed():Bool {
+		private function get_destroyed():Bool {
 			return this._isDestroyed;
 		}
 		

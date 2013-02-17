@@ -82,9 +82,9 @@ package org.casalib.load;
 	*/
 	class CasaLoader extends LoadItem {
 		
-		public var content(getContent, null) : DisplayObject ;
-		public var loader(getLoader, null) : Loader ;
-		public var loaderInfo(getLoaderInfo, null) : LoaderInfo ;
+		public var content(get_content, null) : DisplayObject ;
+		public var loader(get_loader, null) : Loader ;
+		public var loaderInfo(get_loaderInfo, null) : LoaderInfo ;
 		inline public static var FLASH_CONTENT_TYPE:String = 'application/x-shockwave-flash';
 		inline public static var JPEG_CONTENT_TYPE:String  = 'image/jpeg';
 		inline public static var GIF_CONTENT_TYPE:String   = 'image/gif';
@@ -113,7 +113,7 @@ package org.casalib.load;
 		/**
 			The Loader being used to load the image or SWF.
 		*/
-		private function getLoader():Loader {
+		private function get_loader():Loader {
 			return cast( this._loadItem, Loader);
 		}
 		
@@ -122,7 +122,7 @@ package org.casalib.load;
 			
 			@throws <code>Error</code> if method is called before the SWF has loaded.
 		*/
-		private function getContent():DisplayObject {
+		private function get_content():DisplayObject {
 			if (!this.loaded)
 				throw 'Cannot access an external asset until the SWF has loaded.';
 			
@@ -132,21 +132,21 @@ package org.casalib.load;
 		/**
 			The LoaderInfo corresponding to the object being loaded.
 		*/
-		private function getLoaderInfo():LoaderInfo {
+		private function get_loaderInfo():LoaderInfo {
 			return this._loadItem.contentLoaderInfo;
 		}
 		
 		/**
 			@exclude
 		*/
-		private override function getBytesTotal():Float {
+		private override function get_bytesTotal():Float {
 			return (this._loadItem.contentLoaderInfo.bytesTotal == 0 && this.bytesLoaded != 0) ? Math.POSITIVE_INFINITY : this._loadItem.contentLoaderInfo.bytesTotal;
 		}
 		
 		/**
 			@exclude
 		*/
-		private override function getBytesLoaded():UInt {
+		private override function get_bytesLoaded():UInt {
 			return this._loadItem.contentLoaderInfo.bytesLoaded;
 		}
 		

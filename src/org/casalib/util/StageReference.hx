@@ -62,12 +62,9 @@ package org.casalib.util;
 			</code>
 	*/
 	class StageReference  {
-		inline public static var STAGE_DEFAULT(_STAGE_DEFAULT,null):String;
-		inline private static function _STAGE_DEFAULT():String {
-			return 'stageDefault';
-		}
+		inline public static var STAGE_DEFAULT:String = "stageDefault";
 		
-		static var _stageMap:Hash<Stage>;
+		static var _stageMap:Map<String, Stage>;
 		
 		/**
 			Returns a reference to Stage.
@@ -136,9 +133,9 @@ package org.casalib.util;
 			return null;
 		}
 		
-		private static function _getMap():Hash<Stage> {
+		private static function _getMap():Map<String, Stage> {
 			if (StageReference._stageMap == null)
-				StageReference._stageMap = new Hash<Stage>();
+				StageReference._stageMap = new Map<String, Stage>();
 			
 			return StageReference._stageMap;
 		}

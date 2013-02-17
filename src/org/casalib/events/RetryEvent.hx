@@ -40,7 +40,7 @@ package org.casalib.events;
 	*/
 	class RetryEvent extends Event {
 		
-		public var attempts(getAttempts, setAttempts) : Int;
+		public var attempts(get_attempts, set_attempts) : Int;
 		inline public static var RETRY:String = 'retry';
 		var _attempts:Int;
 		
@@ -59,13 +59,12 @@ package org.casalib.events;
 		/**
 			The number of times the file has attempted to load.
 		*/
-		inline private function getAttempts():Int{
+		inline private function get_attempts():Int{
 			return this._attempts;
 		}
 		
-		inline private function setAttempts(amount:Int):Int{
-			this._attempts = amount;
-			return amount;
+		inline private function set_attempts(amount:Int):Int{
+			return this._attempts = amount;
 		}
 		
 		#if flash

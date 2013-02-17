@@ -39,15 +39,15 @@ package org.casalib.util;
 	*/
 	class QueryStringUtil  {
 		
-		public static var queryString(getQueryString, null) : String ;
+		public static var queryString(get_queryString, null) : String ;
 		private static var _query:String;
 		private static var _hasRequested:Bool;
-		private static var _pairMap:Hash<String>;
+		private static var _pairMap:Map<String, Dynamic>;
 		
 		/**
 			The field/value pairs of the browser URL.
 		*/
-		private static function getQueryString():String {
+		private static function get_queryString():String {
 			if (!QueryStringUtil._hasRequested) {
 				QueryStringUtil._hasRequested = true;
 				
@@ -59,7 +59,7 @@ package org.casalib.util;
 					} catch (e:Dynamic){}
 				}
 				#elseif js
-				query = js.Lib.window.location.search;
+				query = js.Browser.window.location.search;
 				#elseif neko
 				query = neko.Web.getParamsString();
 				#elseif php
@@ -73,7 +73,7 @@ package org.casalib.util;
 					var i:Int = -1;
 					var pair:Array<String>;
 					
-					QueryStringUtil._pairMap = new Hash<String>();
+					QueryStringUtil._pairMap = new Map<String, String>();
 					
 					while (++i < pairs.length) {
 						pair = pairs[i].split('=');

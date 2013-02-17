@@ -1,11 +1,5 @@
 package test;
 
-#if cpp
-import cpp.Sys;
-#elseif neko
-import neko.Sys;
-#end
-
 class Test extends haxe.unit.TestRunner{
 	public static function main(){
 		#if cpp

@@ -142,7 +142,8 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(3,ArrayUtil.removeItem(array,5));
 		
-		this.assertEquals(3,ArrayUtil.removeItem([1,2,3,4,5,5,[],5,9,0,11,{a:0},13],5));
+		var arrayDyna:Array<Dynamic> = [1,2,3,4,5,5,[],5,9,0,11,{a:0},13];
+		this.assertEquals(3,ArrayUtil.removeItem(arrayDyna,5));
 		
 		ArrayUtil.removeItems(array,[1,11]);
 		this.assertEquals(8,array.length);

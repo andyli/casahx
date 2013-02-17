@@ -91,11 +91,9 @@ package org.casalib.util;
 			} catch (e:Dynamic){}
 			return false;
 			#elseif js
-			return js.Lib.window.open(url,window,features) != null;
-			#elseif neko
-			return neko.Sys.command("open",[url]) == 0 || neko.Sys.command("start",[url]) == 0;
-			#elseif cpp
-			return cpp.Sys.command("open",[url]) == 0 || cpp.Sys.command("start",[url]) == 0;
+			return js.Browser.window.open(url,window,features) != null;
+			#else
+			return Sys.command("open",[url]) == 0 || Sys.command("start",[url]) == 0;
 			#end
 		}
 	}

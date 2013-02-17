@@ -74,7 +74,7 @@ package org.casalib.util;
 			@param dateBorn: The day of the month of birth, from <code>1</code> to <code>31</code>.
 			@return Returns <code>true</code> if the date provided is equal to or greater than the age; otherwise <code>false</code>.
 		*/
-		public static function isAge(age:UInt, yearBorn:Int, monthBorn:Int = 0, dateBorn:Int = 1):Bool {
+		public static function isAge(age:Int, yearBorn:Int, monthBorn:Int = 0, dateBorn:Int = 1):Bool {
 			var currentDate:Date = Date.now();
 			
 			if (yearBorn > currentDate.getFullYear() - age)

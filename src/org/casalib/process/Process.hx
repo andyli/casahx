@@ -45,11 +45,11 @@ package org.casalib.process;
 		@author Aaron Clinger
 		@version 02/11/10
 	*/
-	class Process extends RemovableEventDispatcher, implements IRunnable {
+	class Process extends RemovableEventDispatcher implements IRunnable {
 		
-		public var completed(getCompleted, null) : Bool ;
-		public var priority(getPriority, setPriority) : Int;
-		public var running(getRunning, null) : Bool ;
+		public var completed(get_completed, null) : Bool ;
+		public var priority(get_priority, set_priority) : Int;
+		public var running(get_running, null) : Bool ;
 		public static var NORM_PRIORITY:Int = 0; /**< The default priority for all Process instances. */
 		var _priority:UInt;
 		var _isRunning:Bool;
@@ -87,27 +87,26 @@ package org.casalib.process;
 		/**
 			Determines if the process is currently running <code>true</code>, or if it isn't <code>false</code>.
 		*/
-		private function getRunning():Bool {
+		private function get_running():Bool {
 			return this._isRunning;
 		}
 		
 		/**
 			Determines if the process has completed <code>true</code>, or if it hasn't <code>false</code>.
 		*/
-		private function getCompleted():Bool {
+		private function get_completed():Bool {
 			return this._hasCompleted;
 		}
 		
 		/**
 			The priority relative to other processes. The higher priority processes will take precedence over lower priority processes in a {@link ProcessGroup}.
 		*/
-		private function getPriority():Int{
+		private function get_priority():Int{
 			return this._priority;
 		}
 		
-		private function setPriority(priority:Int):Int{
-			this._priority = priority;
-			return priority;
+		private function set_priority(priority:Int):Int{
+			return this._priority = priority;
 		}
 		
 		public override function destroy():Void {

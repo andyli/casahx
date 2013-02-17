@@ -42,15 +42,15 @@ package org.casalib.events;
 	*/
 	class LoadEvent extends Event {
 		
-		public var bytesLoaded(getBytesLoaded,setBytesLoaded) : Float;
-		public var bytesTotal(getBytesTotal,setBytesTotal): Float;
-		public var Bps(getBps, setBps) : Int;
-		public var attempts(getAttempts, setAttempts) : UInt;
-		public var httpStatus(getHttpStatus, setHttpStatus) : UInt;
-		public var latency(getLatency, setLatency) : UInt;
-		public var progress(getProgress, setProgress) : Percent;
-		public var retries(getRetries, setRetries) : UInt;
-		public var time(getTime, setTime) : Float;
+		public var bytesLoaded(get_bytesLoaded,set_bytesLoaded) : Float;
+		public var bytesTotal(get_bytesTotal,set_bytesTotal): Float;
+		public var Bps(get_Bps, set_Bps) : Int;
+		public var attempts(get_attempts, set_attempts) : UInt;
+		public var httpStatus(get_httpStatus, set_httpStatus) : UInt;
+		public var latency(get_latency, set_latency) : UInt;
+		public var progress(get_progress, set_progress) : Percent;
+		public var retries(get_retries, set_retries) : UInt;
+		public var time(get_time, set_time) : Float;
 		inline public static var COMPLETE:String = 'complete';
 		inline public static var PROGRESS:String = 'progress';
 		inline public static var START:String    = 'start';
@@ -80,11 +80,11 @@ package org.casalib.events;
 		/**
 			The percent that the requested file has loaded.
 		*/
-		private function getProgress():Percent{
+		private function get_progress():Percent{
 			return this._progress.clone();
 		}
 		
-		private function setProgress(per:Percent):Percent{
+		private function set_progress(per:Percent):Percent{
 			this._progress = per.clone();
 			return per;
 		}
@@ -92,97 +92,89 @@ package org.casalib.events;
 		/**
 			The number of additional times the file has attempted to load.
 		*/
-		private function getAttempts():UInt{
+		private function get_attempts():UInt{
 			return this._attempts;
 		}
 		
-		private function setAttempts(a:UInt):UInt{
-			this._attempts = a;
-			return a;
+		private function set_attempts(a:UInt):UInt{
+			return this._attempts = a;
 		}
 		
 		/**
 			The number of additional load retries the class will attempt before failing.
 		*/
-		private function getRetries():UInt{
+		private function get_retries():UInt{
 			return this._retries;
 		}
 		
-		private function setRetries(r:UInt):UInt{
-			this._retries = r;
-			return r;
+		private function set_retries(r:UInt):UInt{
+			return this._retries = r;
 		}
 		
 		/**
 			The current download speed of the requested file in bytes per second.
 		*/
-		private function getBps():Int{
+		private function get_Bps():Int{
 			return this._Bps;
 		}
 		
-		private function setBps(bytes:Int):Int{
-			this._Bps = bytes;
-			return bytes;
+		private function set_Bps(bytes:Int):Int{
+			return this._Bps = bytes;
 		}
 		
 		/**
 			The number of bytes loaded when the listener processed the event.
 		*/
-		private function getBytesLoaded():Float {
+		private function get_bytesLoaded():Float {
 			return this._bytesLoaded;
 		}
 		
-		private function setBytesLoaded(bytes:Float):Float {
-			this._bytesLoaded = bytes;
-			return bytes;
+		private function set_bytesLoaded(bytes:Float):Float {
+			return this._bytesLoaded = bytes;
 		}
 		
 		/**
 			The total number of bytes that will be loaded if the loading process succeeds.
 		*/
-		private function getBytesTotal():Float {
+		private function get_bytesTotal():Float {
 			return this._bytesTotal;
 		}
 		
-		private function setBytesTotal(bytes:Float):Float {
-			this._bytesTotal = bytes;
-			return bytes;
+		private function set_bytesTotal(bytes:Float):Float {
+			return this._bytesTotal = bytes;
 		}
 		
 		/**
 			The current time duration in milliseconds the load has taken.
 		*/
-		private function getTime():Float{
+		private function get_time():Float{
 			return this._time;
 		}
 		
-		private function setTime(milliseconds:Float):Float{
-			this._time = milliseconds;
-			return milliseconds;
+		private function set_time(milliseconds:Float):Float{
+			return this._time = milliseconds;
 		}
 		
 		/**
 			The time in milliseconds that the server took to respond.
 		*/
-		private function getLatency():UInt{
+		private function get_latency():UInt{
 			return this._latency;
 		}
 		
-		private function setLatency(l:UInt):UInt{
-			this._latency = l;
-			return l;
+		private function set_latency(l:UInt):UInt{
+			return this._latency = l;
 		}
 		
 		/**
 			The HTTP status code returned by the server; or <code>0</code> if no status has/can been received or the load is a stream.
 		*/
-		private function getHttpStatus():UInt{
+		private function get_httpStatus():UInt{
 			return this._httpStatus;
 		}
 		
-		private function setHttpStatus(status:UInt):UInt{
-			this._httpStatus = status;
-			return status;
+		private function set_httpStatus(status:UInt):UInt{
+			return this._httpStatus = status;
 		}
 		
 		#if flash

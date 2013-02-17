@@ -29,8 +29,7 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-package org.casalib.util; 
-	import haxe.Int32;
+package org.casalib.util;
 	import flash.geom.ColorTransform;
 	import org.casalib.math.Percent;
 	import org.casalib.util.NumberUtil;
