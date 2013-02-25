@@ -2,5 +2,5 @@
     <user name="andyli"/>
     <tag v="cross"/>
     <description>A Haxe port of "CASA Lib for ActionScript", a great collection of helpful classes that streamline your coding.</description>
-    <version name="1.4.1.0">Updated to sync with CASA Lib for AS3 v1.4.1 (r421).</version>
+    <version name="1.4.1.1">Haxe 3.0 support. Not compatable with Haxe 2.x.</version>
 </project>
