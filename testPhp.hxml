@@ -1,7 +1,7 @@
 -php test/bin/php
 -lib nme
 -cp src
---remap flash:nme
+--remap flash:native
 -main test.Test
 
 -cmd echo "----------------------------------------"

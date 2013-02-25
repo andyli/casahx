@@ -46,9 +46,9 @@ package org.casalib.display;
 		@author Aaron Clinger
 		@version 05/04/11
 	*/
-	class CasaShape extends Shape, implements IRemovableEventDispatcher, implements IDestroyable {
+	class CasaShape extends Shape implements IRemovableEventDispatcher implements IDestroyable {
 		
-		public var destroyed(getDestroyed, null) : Bool ;
+		public var destroyed(get_destroyed, null) : Bool ;
 		//public var stage(getStage, null) : Stage ;
 		var _listenerManager:ListenerManager;
 		var _isDestroyed:Bool;
@@ -118,7 +118,7 @@ package org.casalib.display;
 			return super.stage;
 		}*/
 		
-		private function getDestroyed():Bool {
+		private function get_destroyed():Bool {
 			return this._isDestroyed;
 		}
 		

@@ -42,8 +42,8 @@ package org.casalib.events;
 	*/
 	class VideoLoadEvent extends LoadEvent {
 		
-		public var buffer(getBuffer, setBuffer) : Percent;
-		public var millisecondsUntilBuffered(getMillisecondsUntilBuffered, setMillisecondsUntilBuffered) : Int;
+		public var buffer(get_buffer, set_buffer) : Percent;
+		public var millisecondsUntilBuffered(get_millisecondsUntilBuffered, set_millisecondsUntilBuffered) : Int;
 		inline public static var BUFFERED:String = 'buffered';
 		inline public static var PROGRESS:String = 'progress';
 		var _buffer:Percent ;
@@ -69,13 +69,12 @@ package org.casalib.events;
 			
 			@usageNote {@link VideoLoad} will report <code>-1</code> milliseconds until two seconds of load time has elapsed.
 		*/
-		private function getMillisecondsUntilBuffered():Int{
+		private function get_millisecondsUntilBuffered():Int{
 			return this._millisecondsUntilBuffered;
 		}
 		
-		private function setMillisecondsUntilBuffered(milliseconds:Int):Int{
-			this._millisecondsUntilBuffered = milliseconds;
-			return milliseconds;
+		private function set_millisecondsUntilBuffered(milliseconds:Int):Int{
+			return this._millisecondsUntilBuffered = milliseconds;
 		}
 		
 		/**
@@ -83,11 +82,11 @@ package org.casalib.events;
 			
 			@usageNote {@link VideoLoad} will report <code>0</code> percent until two seconds of load time has elapsed.
 		*/
-		private function getBuffer():Percent{
+		private function get_buffer():Percent{
 			return this._buffer.clone();
 		}
 		
-		private function setBuffer(percent:Percent):Percent{
+		private function set_buffer(percent:Percent):Percent{
 			this._buffer = percent.clone();
 			return percent;
 		}

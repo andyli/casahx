@@ -88,12 +88,12 @@ package org.casalib.layout;
 	*/
 	class Distribution extends CasaSprite {
 		
-		public var marginBottom(getMarginBottom, setMarginBottom) : Float ;
-		public var marginLeft(getMarginLeft, setMarginLeft) : Float ;
-		public var marginRight(getMarginRight, setMarginRight) : Float ;
-		public var marginTop(getMarginTop, setMarginTop) : Float ;
-		public var size(getSize, setSize) : Float ;
-		public var vertical(getVertical, setVertical) : Bool ;
+		public var marginBottom(get_marginBottom, set_marginBottom) : Float ;
+		public var marginLeft(get_marginLeft, set_marginLeft) : Float ;
+		public var marginRight(get_marginRight, set_marginRight) : Float ;
+		public var marginTop(get_marginTop, set_marginTop) : Float ;
+		public var size(get_size, set_size) : Float ;
+		public var vertical(get_vertical, set_vertical) : Bool ;
 		var _dimensions:Array<DisplayObjectPointLink>;
 		var _marginTop:Float;
 		var _marginRight:Float;
@@ -165,72 +165,66 @@ package org.casalib.layout;
 		/**
 			The top spacing of the children.
 		*/
-		private function setMarginTop(top:Float):Float {
-			this._marginTop = top;
-			return top;
+		private function set_marginTop(top:Float):Float {
+			return this._marginTop = top;
 		}
 		
-		private function getMarginTop():Float {
+		private function get_marginTop():Float {
 			return this._marginTop;
 		}
 		
 		/**
 			The right spacing of the children.
 		*/
-		private function setMarginRight(right:Float):Float {
-			this._marginRight = right;
-			return right;
+		private function set_marginRight(right:Float):Float {
+			return this._marginRight = right;
 		}
 		
-		private function getMarginRight():Float {
+		private function get_marginRight():Float {
 			return this._marginRight;
 		}
 		
 		/**
 			The bottom spacing of the children.
 		*/
-		private function setMarginBottom(bottom:Float):Float {
-			this._marginBottom = bottom;
-			return bottom;
+		private function set_marginBottom(bottom:Float):Float {
+			return this._marginBottom = bottom;
 		}
 		
-		private function getMarginBottom():Float {
+		private function get_marginBottom():Float {
 			return this._marginBottom;
 		}
 		
 		/**
 			The left spacing of the children.
 		*/
-		private function setMarginLeft(left:Float):Float {
-			this._marginLeft = left;
-			return left;
+		private function set_marginLeft(left:Float):Float {
+			return this._marginLeft = left;
 		}
 		
-		private function getMarginLeft():Float {
+		private function get_marginLeft():Float {
 			return this._marginLeft;
 		}
 		
 		/**
 			The maximum width or height of the distribution. If {@link #vertical} is <code>false</code> you are setting the width of the distribution before wrapping, if <code>true</code> you're setting the height before wrapping.
 		*/
-		private function setSize(s:Float):Float {
-			this._size = s;
-			return s;
+		private function set_size(s:Float):Float {
+			return this._size = s;
 		}
 		
-		private function getSize():Float {
+		private function get_size():Float {
 			return this._size;
 		}
 		
 		/**
 			Indicates to position children left-to-right top-to-bottom <code>false</code>, or to position children top-to-bottom left-to-right <code>true</code>.
 		*/
-		private function setVertical(isVertical:Bool):Bool {
-			this._isVert = isVertical;
-			return isVertical;
+		private function set_vertical(isVertical:Bool):Bool {
+			return this._isVert = isVertical;
 		}
 		
-		private function getVertical():Bool {
+		private function get_vertical():Bool {
 			return this._isVert;
 		}
 		

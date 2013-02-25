@@ -91,13 +91,13 @@ package org.casalib.process;
 	*/
 	class ProcessGroup extends Process {
 		
-		public var autoStart(getAutoStart, setAutoStart) : Bool;
-		public var completedProcesses(getCompletedProcesses, null) : Array<Process> ;
-		public var incompletedProcesses(getIncompletedProcesses, null) : Array<Process> ;
-		public var processes(getProcesses, null) : Array<Process> ;
-		public var queuedProcesses(getQueuedProcesses, null) : Array<Process> ;
-		public var runningProcesses(getRunningProcesses, null) : Array<Process> ;
-		public var threads(getThreads, setThreads) : UInt;
+		public var autoStart(get_autoStart, set_autoStart) : Bool;
+		public var completedProcesses(get_completedProcesses, null) : Array<Process> ;
+		public var incompletedProcesses(get_incompletedProcesses, null) : Array<Process> ;
+		public var processes(get_processes, null) : Array<Process> ;
+		public var queuedProcesses(get_queuedProcesses, null) : Array<Process> ;
+		public var runningProcesses(get_runningProcesses, null) : Array<Process> ;
+		public var threads(get_threads, set_threads) : UInt;
 		public static var NORM_THREADS:UInt  = 1; /**< The default amount of threads for all ProcessGroup instances. */
 		inline public static var MAX_THREADS:UInt = 2147483647;  /**< The maximum amount of threads for a ProcessGroup instance. Use this value if you wish to disable threading. */
 		var _threads:UInt;
@@ -138,11 +138,11 @@ package org.casalib.process;
 		/**
 			Instructs the ProcessGroup to {@link #start} automatically if it contains an incomplete {@link Process} or if an incomplete is {@link Process#addProcess added}.
 		*/
-		private function getAutoStart():Bool{
+		private function get_autoStart():Bool{
 			return this._autoStart;
 		}
 		
-		private function setAutoStart(autoStart:Bool):Bool{
+		private function set_autoStart(autoStart:Bool):Bool{
 			this._autoStart = autoStart;
 			
 			if (!this.completed && !this.running)
@@ -264,46 +264,46 @@ package org.casalib.process;
 		/**
 			The processes that compose the group.
 		*/
-		private function getProcesses():Array<Process> {
+		private function get_processes():Array<Process> {
 			return this._processes.copy();
 		}
 		
 		/**
 			The processes that are neither complete or running.
 		*/
-		private function getQueuedProcesses():Array<Process> {
+		private function get_queuedProcesses():Array<Process> {
 			return ArrayUtil.getItemsByKey(this.incompletedProcesses, 'running', false);
 		}
 		
 		/**
 			The processes that are currently running.
 		*/
-		private function getRunningProcesses():Array<Process> {
+		private function get_runningProcesses():Array<Process> {
 			return ArrayUtil.getItemsByKey(this.processes, 'running', true);
 		}
 		
 		/**
 			The processes that have not completed.
 		*/
-		private function getIncompletedProcesses():Array<Process> {
+		private function get_incompletedProcesses():Array<Process> {
 			return ArrayUtil.getItemsByKey(this.processes, 'completed', false);
 		}
 		
 		/**
 			The processes that have completed.
 		*/
-		private function getCompletedProcesses():Array<Process> {
+		private function get_completedProcesses():Array<Process> {
 			return ArrayUtil.getItemsByKey(this.processes, 'completed', true);
 		}
 		
 		/**
 			The number of simultaneous processes to run at once.
 		*/
-		private function getThreads():UInt{
+		private function get_threads():UInt{
 			return this._threads;
 		}
 		
-		private function setThreads(threadAmount:UInt):UInt{
+		private function set_threads(threadAmount:UInt):UInt{
 			this._threads = threadAmount;
 			return threadAmount;
 		}

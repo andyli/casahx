@@ -40,7 +40,7 @@ package org.casalib.events;
 	*/
 	class VideoInfoEvent extends Event {
 		
-		public var infoObject(getInfoObject, setInfoObject) : Dynamic;
+		public var infoObject(get_infoObject, set_infoObject) : Dynamic;
 		inline public static var CUE_POINT:String = 'cuePoint';
 		inline public static var META_DATA:String = 'metaData';
 		var _infoObject:Dynamic;
@@ -60,11 +60,11 @@ package org.casalib.events;
 		/**
 			The meta data or cue point info object.
 		*/
-		private function getInfoObject():Dynamic{
+		private function get_infoObject():Dynamic{
 			return this._infoObject;
 		}
 		
-		private function setInfoObject(info:Dynamic):Dynamic{
+		private function set_infoObject(info:Dynamic):Dynamic{
 			this._infoObject = info;
 			return info;
 		}

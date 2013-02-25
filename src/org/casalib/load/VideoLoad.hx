@@ -100,19 +100,19 @@ package org.casalib.load;
 	*/
 	class VideoLoad extends LoadItem {
 		
-		public var buffer(getBuffer, null) : Percent ;
-		public var buffered(getBuffered, null) : Bool ;
-		public var duration(getDuration, setDuration) : Float;
-		public var metaData(getMetaData, null) : Dynamic ;
-		public var millisecondsUntilBuffered(getMillisecondsUntilBuffered, null) : Int ;
+		public var buffer(get_buffer, null) : Percent ;
+		public var buffered(get_buffered, null) : Bool ;
+		public var duration(get_duration, set_duration) : Float;
+		public var metaData(get_metaData, null) : Dynamic ;
+		public var millisecondsUntilBuffered(get_millisecondsUntilBuffered, null) : Int ;
 		#if flash
-		public var netConnection(getNetConnection, null) : NetConnection ;
-		public var netStream(getNetStream, null) : NetStream ;
+		public var netConnection(get_netConnection, null) : NetConnection ;
+		public var netStream(get_netStream, null) : NetStream ;
 		var _netConnection:NetConnection;
-		public var video(getVideo, null) : Video ;
+		public var video(get_video, null) : Video ;
 		var _video:Video;
 		#end
-		public var pauseStart(getPauseStart, setPauseStart) : Bool;
+		public var pauseStart(get_pauseStart, set_pauseStart) : Bool;
 		var _buffered:Bool;
 		var _isOpen:Bool;
 		var _duration:Float;
@@ -159,46 +159,44 @@ package org.casalib.load;
 			
 			@usageNote Setting this value will override the length (provided by the video metadata) that is used to calculate buffer.
 		*/
-		private function getDuration():Float{
+		private function get_duration():Float{
 			return this._duration;
 		}
 		
-		private function setDuration(seconds:Float):Float{
-			this._duration = seconds;
-			return seconds;
+		private function set_duration(seconds:Float):Float{
+			return this._duration = seconds;
 		}
 		
 		/**
 			Indicates to pause video at start <code>true</code>, or to let the video automatically play <code>false</code>; defaults to <code>false</code>.
 		*/
-		private function getPauseStart():Bool{
+		private function get_pauseStart():Bool{
 			return this._pauseStart;
 		}
 		
-		private function setPauseStart(shouldPause:Bool):Bool{
-			this._pauseStart = shouldPause;
-			return shouldPause;
+		private function set_pauseStart(shouldPause:Bool):Bool{
+			return this._pauseStart = shouldPause;
 		}
 		
 		#if flash
 		/**
 			A Video class with attached NetStream.
 		*/
-		private function getVideo():Video {
+		private function get_video():Video {
 			return this._video;
 		}
 		
 		/**
 			The NetConnection class used by the VideoLoad class.
 		*/
-		private function getNetConnection():NetConnection {
+		private function get_netConnection():NetConnection {
 			return this._netConnection;
 		}
 		
 		/**
 			The NetStream class used by the VideoLoad class.
 		*/
-		private function getNetStream():NetStream {
+		private function get_netStream():NetStream {
 			return cast( this._loadItem, NetStream);
 		}
 		#end
@@ -208,7 +206,7 @@ package org.casalib.load;
 			
 			@usageNote {@link VideoLoad} will report <code>-1</code> milliseconds until two seconds of load time has elapsed.
 		*/
-		private function getMillisecondsUntilBuffered():Int {
+		private function get_millisecondsUntilBuffered():Int {
 			return this._millisecondsUntilBuffered;
 		}
 		
@@ -217,21 +215,21 @@ package org.casalib.load;
 			
 			@usageNote {@link VideoLoad} will report <code>0</code> percent until two seconds of load time has elapsed.
 		*/
-		private function getBuffer():Percent {
+		private function get_buffer():Percent {
 			return this._buffer.clone();
 		}
 		
 		/**
 			Determines if the requested video has buffered <code>true</code>, or hasn't finished buffering <code>false</code>.
 		*/
-		private function getBuffered():Bool {
+		private function get_buffered():Bool {
 			return this._buffered;
 		}
 		
 		/**
 			The meta data information embedded in the video being loaded.
 		*/
-		private function getMetaData():Dynamic {
+		private function get_metaData():Dynamic {
 			return this._metaData;
 		}
 		
@@ -299,9 +297,9 @@ package org.casalib.load;
 		*/
 		override function _calculateLoadProgress():Void {
 			var justBuffered:Bool    = false;
-			var currentTime:Int      = getTimer();
+			var currentTime:Int      = Std.int(haxe.Timer.stamp() * 1000);
 			var loadComplete:Bool    = this.bytesLoaded >= this.bytesTotal;
-			this._Bps                = LoadUtil.calculateBps(this.bytesLoaded, this._startTime, currentTime);
+			this._Bps                = Std.int(LoadUtil.calculateBps(this.bytesLoaded, this._startTime, currentTime));
 			this._time               = currentTime - this._startTime;
 			
 			this._progress.decimalPercentage = this.bytesLoaded / this.bytesTotal;

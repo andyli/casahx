@@ -42,7 +42,9 @@ package org.casalib.load;
 	import org.casalib.util.ArrayUtil;
 	import org.casalib.util.StringUtil;
 	import org.casalib.load.LoadItem;
+	#if flash
 	import flash.events.NetStatusEvent;
+	#end
 	
 	/**
 		Allows multiple loads to be grouped and treated as one larger load.
@@ -112,28 +114,28 @@ package org.casalib.load;
 			</code>
 	*/
 	class GroupLoad extends ProcessGroup {
-		private static var _instanceMap:Hash<GroupLoad>;
-		public var id(getId, null): String;
-		public var Bps(getBps, null) : Int;
-		public var completedLoads(getCompletedLoads, null) : Array<LoadItem>;
-		public var incompletedLoads(getIncompletedLoads, null) : Array<LoadItem>;
-		public var loaded(getLoaded, null) : Bool;
-		public var loading(getLoading, null) : Bool;
-		public var loadingLoads(getLoadingLoads, null) : Array<LoadItem>;
-		public var loads(getLoads, null) : Array<LoadItem>;
-		public var preventCache(getPreventCache, setPreventCache) : Bool;
-		public var progress(getProgress, null) : Percent;
-		public var queuedLoads(getQueuedLoads, null) : Array<LoadItem>;
-		public var erroredLoads(getErroredLoads, null) : Array<LoadItem>;
-		public var loadingAndCompletedLoads(getLoadingAndCompletedLoads, null) : Array<LoadItem>;
-		public var errored(getErrored, null):Bool;
-		public var bytesLoaded(getBytesLoaded, null):Float;
-		public var bytesTotal(getBytesTotal, null):Float;
+		private static var _instanceMap:Map<String, GroupLoad>;
+		public var id(get_id, null): String;
+		public var Bps(get_Bps, null) : Int;
+		public var completedLoads(get_completedLoads, null) : Array<LoadItem>;
+		public var incompletedLoads(get_incompletedLoads, null) : Array<LoadItem>;
+		public var loaded(get_loaded, null) : Bool;
+		public var loading(get_loading, null) : Bool;
+		public var loadingLoads(get_loadingLoads, null) : Array<LoadItem>;
+		public var loads(get_loads, null) : Array<LoadItem>;
+		public var preventCache(get_preventCache, set_preventCache) : Bool;
+		public var progress(get_progress, null) : Percent;
+		public var queuedLoads(get_queuedLoads, null) : Array<LoadItem>;
+		public var erroredLoads(get_erroredLoads, null) : Array<LoadItem>;
+		public var loadingAndCompletedLoads(get_loadingAndCompletedLoads, null) : Array<LoadItem>;
+		public var errored(get_errored, null):Bool;
+		public var bytesLoaded(get_bytesLoaded, null):Float;
+		public var bytesTotal(get_bytesTotal, null):Float;
 		var _preventCacheSet:Bool;
 		var _preventCache:Bool;
 		var _progress:Percent;
 		var _Bps:Int;
-		var _percentMap:IntHash<Percent>;
+		var _percentMap:Map<Int, Percent>;
 		var _id:String;
 		
 		/**
@@ -185,10 +187,10 @@ package org.casalib.load;
 			} else {
 				this._id = id;
 			}
-			this._percentMap = new IntHash<Percent>();
+			this._percentMap = new Map<Int, Percent>();
 			this._progress   = new Percent();
 			
-			if (GroupLoad._instanceMap == null) GroupLoad._instanceMap = new Hash<GroupLoad>();
+			if (GroupLoad._instanceMap == null) GroupLoad._instanceMap = new Map<String, GroupLoad>();
 			GroupLoad._instanceMap.set(_id, this);
 		}
 		
@@ -316,56 +318,56 @@ package org.casalib.load;
 		/**
 			The identifier name for this instance of GroupLoad, if specified.
 		*/
-		private function getId():String {
+		private function get_id():String {
 			return this._id;
 		}
 		
 		/**
 			The loads that compose the group.
 		*/
-		private function getLoads():Array<LoadItem> {
+		private function get_loads():Array<LoadItem> {
 			return cast this.processes;
 		}
 		
 		/**
 			The loads that are neither complete nor loading.
 		*/
-		private function getQueuedLoads():Array<LoadItem> {
+		private function get_queuedLoads():Array<LoadItem> {
 			return cast this.queuedProcesses;
 		}
 		
 		/**
 			The loads that are currently loading.
 		*/
-		private function getLoadingLoads():Array<LoadItem> {
+		private function get_loadingLoads():Array<LoadItem> {
 			return cast this.runningProcesses;
 		}
 		
 		/**
 			The loads that have not completed.
 		*/
-		private function getIncompletedLoads():Array<LoadItem> {
+		private function get_incompletedLoads():Array<LoadItem> {
 			return cast this.incompletedProcesses;
 		}
 		
 		/**
 			The loads that could not complete because of an error.
 		*/
-		private function getErroredLoads():Array<LoadItem> {
+		private function get_erroredLoads():Array<LoadItem> {
 			return cast ArrayUtil.getItemsByKey(this.processes, 'errored', true);
 		}
 		
 		/**
 			The loads that are either currently loading or that have completed.
 		*/
-		private function getLoadingAndCompletedLoads():Array<LoadItem> {
+		private function get_loadingAndCompletedLoads():Array<LoadItem> {
 			return this.loadingLoads.concat(this.completedLoads);
 		}
 		
 		/**
 			The loads that have completed.
 		*/
-		private function getCompletedLoads():Array<LoadItem> {
+		private function get_completedLoads():Array<LoadItem> {
 			return cast this.completedProcesses;
 		}
 		
@@ -374,11 +376,11 @@ package org.casalib.load;
 			
 			@see LoadItem#preventCache
 		*/
-		private function getPreventCache():Bool{
+		private function get_preventCache():Bool{
 			return this._preventCache;
 		}
 		
-		private function setPreventCache(cache:Bool):Bool{
+		private function set_preventCache(cache:Bool):Bool{
 			this._preventCacheSet = true;
 			this._preventCache    = cache;
 			
@@ -393,42 +395,42 @@ package org.casalib.load;
 		/**
 			The percent that the group is loaded.
 		*/
-		private function getProgress():Percent {
+		private function get_progress():Percent {
 			return this._progress.clone();
 		}
 		
 		/**
 			Determines if the group is loading <code>true</code>, or if it isn't currently loading <code>false</code>.
 		*/
-		private function getLoading():Bool {
+		private function get_loading():Bool {
 			return this.running;
 		}
 		
 		/**
 			Determines if all loads in the group are loaded <code>true</code>, or if the group hasn't finished loading <code>false</code>.
 		*/
-		private function getLoaded():Bool {
+		private function get_loaded():Bool {
 			return this.completed;
 		}
 		
 		/**
 			Determines if the GroupLoad could not complete because of an error <code>true</code>, or hasn't encountered an error <code>false</code>.
 		*/
-		public function getErrored():Bool {
+		public function get_errored():Bool {
 			return this.erroredLoads.length > 0;
 		}
 		
 		/**
 			The current download speed of the group in bytes per second.
 		*/
-		private function getBps():Int {
+		private function get_Bps():Int {
 			return this._Bps;
 		}
 		
 		/**	
 			The number of bytes loaded.
 		*/
-		public function getBytesLoaded():Float {
+		public function get_bytesLoaded():Float {
 			return ArrayUtil.sum(ArrayUtil.getValuesByKey(this.loadingAndCompletedLoads, 'bytesLoaded'));
 		}
 		
@@ -437,7 +439,7 @@ package org.casalib.load;
 			
 			@usageNote Will return <code>Infinity</code> until all loads in group have started loading.
 		*/
-		public function getBytesTotal():Float {
+		public function get_bytesTotal():Float {
 			var total = this.loads.length;
 			var l = this.loadingAndCompletedLoads;
 			
@@ -475,7 +477,7 @@ package org.casalib.load;
 			@exclude
 		*/
 		override public function destroyProcesses(recursive:Bool = true):Void {
-			this._percentMap = new IntHash<Percent>();
+			this._percentMap = new Map<Int, Percent>();
 			
 			super.destroyProcesses(recursive);
 		}
@@ -516,7 +518,9 @@ package org.casalib.load;
 			process.addEventListener(LoadEvent.PROGRESS, this._onProgress, false, 0, true);
 			process.addEventListener(ProcessEvent.STOP, this._onProcessStopped, false, 0, true);
 			process.addEventListener(IOErrorEvent.IO_ERROR, this._onLoadError, false, 0, true);
+			#if flash
 			process.addEventListener(NetStatusEvent.NET_STATUS, this._onNetStatus, false, 0, true);
+			#end
 			process.addEventListener(LoadEvent.COMPLETE, this._onLoadCompleted, false, 0, true);
 		}
 		
@@ -524,7 +528,9 @@ package org.casalib.load;
 			process.removeEventListener(LoadEvent.PROGRESS, this._onProgress);
 			process.removeEventListener(ProcessEvent.STOP, this._onProcessStopped);
 			process.removeEventListener(IOErrorEvent.IO_ERROR, this._onLoadError);
+			#if flash
 			process.removeEventListener(NetStatusEvent.NET_STATUS, this._onNetStatus);
+			#end
 			process.removeEventListener(LoadEvent.COMPLETE, this._onLoadCompleted);
 		}
 		
@@ -569,16 +575,18 @@ package org.casalib.load;
 			this._checkThreads();
 		}
 		
+		#if flash
 		/**
 			@sends NetStatusEvent#NET_STATUS - Dispatched if a requested load cannot be loaded and the download terminates.
 		*/
-		protected function _onNetStatus(e:NetStatusEvent):Void {
+		function _onNetStatus(e:NetStatusEvent):Void {
 			if (e.info.level == 'error' && !this.loaded) {
 				this.dispatchEvent(e);
 				
 				this._checkThreads();
 			}
 		}
+		#end
 		
 		function _onLoadCompleted(e:LoadEvent):Void {
 			this._checkThreads();

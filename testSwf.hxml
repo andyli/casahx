@@ -2,3 +2,4 @@
 -swf-version 10
 -cp src
 -main test.Test
+-cmd open bin/swf/Test.swf

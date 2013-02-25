@@ -48,9 +48,9 @@ package org.casalib.display;
 		@author Mike Creighton
 		@version 10/09/11
 	*/
-	class CasaMovieClip extends MovieClip, implements IRemovableEventDispatcher, implements IDestroyable, implements Dynamic<Dynamic> {
+	class CasaMovieClip extends MovieClip implements IRemovableEventDispatcher implements IDestroyable implements Dynamic<Dynamic> {
 		
-		public var destroyed(getDestroyed, null) : Bool ;
+		public var destroyed(get_destroyed, null) : Bool ;
 		//public var stage(getStage, null) : Stage ;
 		var _listenerManager:ListenerManager;
 		var _isDestroyed:Bool;
@@ -141,7 +141,7 @@ package org.casalib.display;
 			this.destroy();
 		}
 		
-		private function getDestroyed():Bool {
+		private function get_destroyed():Bool {
 			return this._isDestroyed;
 		}
 		

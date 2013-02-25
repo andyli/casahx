@@ -42,7 +42,7 @@ package org.casalib.display;
 	*/
 	class ReversibleMovieClip extends CasaMovieClip {
 		
-		public var reversing(getReversing, null) : Bool ;
+		public var reversing(get_reversing, null) : Bool ;
 		var _isReversing:Bool;
 		var _reverseController:EnterFrame;
 		
@@ -115,7 +115,7 @@ package org.casalib.display;
 		/**
 			Determines if the MovieClip is currently reversing <code>true</code>, or is stopped or playing <code>false</code>.
 		*/
-		private function getReversing():Bool {
+		private function get_reversing():Bool {
 			return this._isReversing;
 		}
 		

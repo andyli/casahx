@@ -69,8 +69,8 @@ package org.casalib.load;
 			</code>
 	*/
 	class ImageLoad extends CasaLoader {
-		public var contentAsBitmap(getContentAsBitmap, null) : Bitmap ;
-		public var contentAsBitmapData(getContentAsBitmapData, null) : BitmapData ;
+		public var contentAsBitmap(get_contentAsBitmap, null) : Bitmap ;
+		public var contentAsBitmapData(get_contentAsBitmapData, null) : BitmapData ;
 		
 		
 		/**
@@ -91,7 +91,7 @@ package org.casalib.load;
 			@throws <code>Error</code> if method is called before the SWF has loaded.
 			@throws <code>Error</code> if method cannot convert content to a Bitmap.
 		*/
-		private function getContentAsBitmap():Bitmap {
+		private function get_contentAsBitmap():Bitmap {
 			if (!this.loaded || this.loaderInfo.contentType == CasaLoader.FLASH_CONTENT_TYPE)
 				throw 'Cannot convert content to a Bitmap.';
 			
@@ -104,7 +104,7 @@ package org.casalib.load;
 			@throws <code>Error</code> if method is called before the SWF has loaded.
 			@throws <code>Error</code> if method cannot convert content to BitmapData.
 		*/
-		private function getContentAsBitmapData():BitmapData {
+		private function get_contentAsBitmapData():BitmapData {
 			if (!this.loaded || this.loaderInfo.contentType == CasaLoader.FLASH_CONTENT_TYPE)
 				throw 'Cannot convert content to BitmapData.';
 			

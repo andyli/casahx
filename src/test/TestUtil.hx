@@ -310,8 +310,10 @@ class TestUtil extends TestCase {
 		this.assertEquals(0xFF,myRGB.r);
 		this.assertEquals(0x00,myRGB.g);
 		this.assertEquals(0x11,myRGB.b);
-
-		this.assertEquals(0xCCFF0011,ColorUtil.getColor(myRGB.r,myRGB.g,myRGB.b,myRGB.a));
+		
+		var color:UInt = ColorUtil.getColor(myRGB.r,myRGB.g,myRGB.b,myRGB.a);
+		var expColor:UInt = 0xCCFF0011;
+		this.assertEquals(expColor,color);
 		
 		this.assertEquals("CCFF0011",ColorUtil.getHexStringFromARGB(myRGB.a,myRGB.r,myRGB.g,myRGB.b));
 		

@@ -51,12 +51,12 @@ package org.casalib.util;
 		@version 02/12/10
 	*/
 	class LoadItemUtil  {
-		inline public static var AUDIO_EXTENSIONS:Array<String>  = ['f4a', 'f4b', 'mp3']; /**< The default list of audio file extensions. */
-		inline public static var BINARY_EXTENSIONS:Array<String> = ['3ds', 'md2', 'zip']; /**< The default list of binary file extensions. */
-		inline public static var IMAGE_EXTENSIONS:Array<String>  = ['gif', 'jpg', 'jpeg', 'png']; /**< The default list of image file extensions. */
-		inline public static var SWF_EXTENSIONS:Array<String>    = ['swf']; /**< The default list of SWF file extensions. */
-		inline public static var TEXT_EXTENSIONS:Array<String>   = ['asp', 'aspx', 'css', 'dae', 'html', 'js', 'jsp', 'php', 'py', 'txt', 'xhtml', 'xml']; /**< The default list of text file extensions. */
-		inline public static var VIDEO_EXTENSIONS:Array<String>  = ['f4p', 'f4v', 'flv', 'mov', 'mp4']; /**< The default list of video file extensions. */
+		public static var AUDIO_EXTENSIONS(default, never):Array<String>  = ['f4a', 'f4b', 'mp3']; /**< The default list of audio file extensions. */
+		public static var BINARY_EXTENSIONS(default, never):Array<String> = ['3ds', 'md2', 'zip']; /**< The default list of binary file extensions. */
+		public static var IMAGE_EXTENSIONS(default, never):Array<String>  = ['gif', 'jpg', 'jpeg', 'png']; /**< The default list of image file extensions. */
+		public static var SWF_EXTENSIONS(default, never):Array<String>    = ['swf']; /**< The default list of SWF file extensions. */
+		public static var TEXT_EXTENSIONS(default, never):Array<String>   = ['asp', 'aspx', 'css', 'dae', 'html', 'js', 'jsp', 'php', 'py', 'txt', 'xhtml', 'xml']; /**< The default list of text file extensions. */
+		public static var VIDEO_EXTENSIONS(default, never):Array<String>  = ['f4p', 'f4v', 'flv', 'mov', 'mp4']; /**< The default list of video file extensions. */
 		
 		
 		/**

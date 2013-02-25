@@ -76,7 +76,7 @@ package org.casalib.load;
 	*/
 	class AudioLoad extends LoadItem {
 		
-		public var sound(getSound, null) : Sound ;
+		public var sound(get_sound, null) : Sound ;
 		var _context:SoundLoaderContext;
 		var _isFirstLoad:Bool;
 		
@@ -101,7 +101,7 @@ package org.casalib.load;
 		/**
 			The Sound object.
 		*/
-		private function getSound():Sound {
+		private function get_sound():Sound {
 			return cast( this._loadItem, Sound);
 		}
 		

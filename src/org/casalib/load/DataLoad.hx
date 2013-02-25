@@ -75,13 +75,13 @@ package org.casalib.load;
 			</code>
 	*/
 	class DataLoad extends LoadItem {
-		public var data(getData, null) : Dynamic ;
-		public var dataAsByteArray(getDataAsByteArray, null) : ByteArray ;
-		public var dataAsString(getDataAsString, null) : String ;
-		#if flash public var dataAsUrlVariables(getDataAsUrlVariables, null) : URLVariables ; #end
-		public var dataAsXml(getDataAsXml, null) : Xml ;
-		public var dataFormat(getDataFormat, null) : URLLoaderDataFormat ;
-		public var urlLoader(getUrlLoader, null) : URLLoader ;
+		public var data(get_data, null) : Dynamic ;
+		public var dataAsByteArray(get_dataAsByteArray, null) : ByteArray ;
+		public var dataAsString(get_dataAsString, null) : String ;
+		#if flash public var dataAsUrlVariables(get_dataAsUrlVariables, null) : URLVariables ; #end
+		public var dataAsXml(get_dataAsXml, null) : Xml ;
+		public var dataFormat(get_dataFormat, null) : URLLoaderDataFormat ;
+		public var urlLoader(get_urlLoader, null) : URLLoader ;
 		
 		
 		/**
@@ -104,7 +104,7 @@ package org.casalib.load;
 		/**
 			The URLLoader being used to download the data.
 		*/
-		private function getUrlLoader():URLLoader {
+		private function get_urlLoader():URLLoader {
 			return cast this._loadItem;
 		}
 		
@@ -113,7 +113,7 @@ package org.casalib.load;
 			
 			@throws <code>Error</code> if method is called before the file has loaded.
 		*/
-		private function getData():Dynamic {
+		private function get_data():Dynamic {
 			if (!this.loaded)
 				throw 'Cannot access an external data until the file has loaded.';
 			
@@ -123,7 +123,7 @@ package org.casalib.load;
 		/**
 			The data type that DataLoad is receiving.
 		*/
-		private function getDataFormat():URLLoaderDataFormat {
+		private function get_dataFormat():URLLoaderDataFormat {
 			return this._loadItem.dataFormat;
 		}
 		
@@ -133,7 +133,7 @@ package org.casalib.load;
 			@throws <code>Error</code> if method is called before the file has loaded.
 			@throws <code>Error</code> if method cannot convert data to a String.
 		*/
-		private function getDataAsString():String {
+		private function get_dataAsString():String {
 			if (this.dataFormat == URLLoaderDataFormat.BINARY)
 				throw 'Cannot convert data to a String.';
 			
@@ -149,7 +149,7 @@ package org.casalib.load;
 			@throws <code>Error</code> if method is called before the file has loaded.
 			@throws <code>Error</code> if method cannot convert data to XML.
 		*/
-		private function getDataAsXml():Xml {
+		private function get_dataAsXml():Xml {
 			if (this.dataFormat != URLLoaderDataFormat.TEXT)
 				throw 'Cannot convert data to XML.';
 			
@@ -163,7 +163,7 @@ package org.casalib.load;
 			@throws <code>Error</code> if method is called before the file has loaded.
 			@throws <code>Error</code> if method cannot convert data to URLVariables.
 		*/
-		private function getDataAsUrlVariables():URLVariables {
+		private function get_dataAsUrlVariables():URLVariables {
 			if (this.dataFormat == URLLoaderDataFormat.BINARY)
 				throw 'Cannot convert data to URLVariables.';
 			
@@ -180,7 +180,7 @@ package org.casalib.load;
 			@throws <code>Error</code> if method is called before the file has loaded.
 			@throws <code>Error</code> if method cannot convert data to a ByteArray.
 		*/
-		private function getDataAsByteArray():ByteArray {
+		private function get_dataAsByteArray():ByteArray {
 			if (this.dataFormat != URLLoaderDataFormat.BINARY)
 				throw 'Cannot convert data to a ByteArray.';
 			
