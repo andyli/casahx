@@ -43,7 +43,7 @@ package org.casalib.events;
 	*/
 	class SequenceEvent extends Event {
 		
-		public var loops(getLoops, setLoops) : UInt;
+		public var loops(get_loops, set_loops) : UInt;
 		inline public static var COMPLETE:String = 'complete';
 		inline public static var RESUME:String   = 'resume';
 		inline public static var START:String    = 'start';
@@ -66,13 +66,12 @@ package org.casalib.events;
 		/**
 			The number of times the sequence has run.
 		*/
-		private function getLoops():UInt{
+		private function get_loops():UInt{
 			return this._loops;
 		}
 		
-		private function setLoops(loops:UInt):UInt{
-			this._loops = loops;
-			return loops;
+		private function set_loops(loops:UInt):UInt{
+			return this._loops = loops;
 		}
 		
 		#if flash

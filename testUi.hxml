@@ -9,7 +9,7 @@
 -lib neash
 -lib nme
 -cp src
---remap flash:neash
+--remap flash:nme
 -main test.TestUi
 
 --next
@@ -17,7 +17,7 @@
 -lib neash
 -lib nme
 -cp src
---remap flash:neash
+--remap flash:nme
 -main test.TestUi
 
 --next
@@ -25,7 +25,7 @@
 -lib neash
 -lib nme
 -cp src
---remap flash:jeash
+--remap flash:nme
 -main test.TestUi
 
 --next

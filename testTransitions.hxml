@@ -11,7 +11,7 @@
 -lib feffects
 -lib nme
 -cp src
---remap flash:neash
+--remap flash:nme
 -main test.TestTransitions
 
 --next
@@ -20,7 +20,7 @@
 -lib feffects
 -lib nme
 -cp src
---remap flash:neash
+--remap flash:nme
 -main test.TestTransitions
 
 --next
@@ -29,7 +29,7 @@
 -lib feffects
 -lib nme
 -cp src
---remap flash:jeash
+--remap flash:nme
 -main test.TestTransitions
 
 --next

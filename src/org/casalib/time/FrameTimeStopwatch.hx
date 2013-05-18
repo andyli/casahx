@@ -40,10 +40,6 @@ package org.casalib.time;
 		@version 10/11/08
 	*/
 	class FrameTimeStopwatch extends Stopwatch {
-		
-		override public var _timer(get_timer, null) : Float ;
-		
-		
 		/**
 			Creates a new FrameTimeStopwatch.
 		*/
@@ -51,7 +47,7 @@ package org.casalib.time;
 			super();
 		}
 		
-		override function get_timer():Float {
+		override function get__timer():Float {
 			return FrameTime.getInstance().time;
 		}
 	}

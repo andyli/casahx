@@ -36,7 +36,7 @@ package org.casalib.control;
 		@author Mike Creighton
 		@version 10/27/08
 	*/
-	interface IResumable #if !cpp implements IRunnable #end{
+	interface IResumable extends IRunnable {
 		
 		
 		/**

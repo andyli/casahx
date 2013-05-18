@@ -1,28 +1,14 @@
 package test;
 
 class Test extends haxe.unit.TestRunner{
-	public static function main(){
-		#if cpp
-			nme.Lib.create(function():Void{
-				var runner = new Test();
-				runner.add(new TestMath());
-				runner.add(new TestUtil());
-				runner.run();
-
-				Sys.exit(0);
-			},400,300,24,0xFFFFFF,nme.Lib.RESIZABLE);
-		#elseif neko
-			var runner = new Test();
-			runner.add(new TestMath());
-			//runner.add(new TestUtil()); need fixing...
-			runner.run();
-
-			Sys.exit(0);
-		#else
-			var runner = new Test();
-			runner.add(new TestMath());
-			runner.add(new TestUtil());
-			runner.run();
+	public static function main():Void {
+		var runner = new Test();
+		runner.add(new TestMath());
+		runner.add(new TestUtil());
+		var success = runner.run();
+		
+		#if sys
+		Sys.exit(success ? 0 : 1);
 		#end
 	}
 }

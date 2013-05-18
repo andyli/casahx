@@ -40,7 +40,7 @@ package org.casalib.events;
 	*/
 	class InactivityEvent extends Event {
 		
-		public var milliseconds(getMilliseconds, setMilliseconds) : Float;
+		public var milliseconds(get_milliseconds, set_milliseconds) : Float;
 		inline public static var INACTIVE:String  = 'inactive';
 		inline public static var ACTIVATED:String = 'activated';
 		var _milliseconds:Float;
@@ -60,11 +60,11 @@ package org.casalib.events;
 		/**
 			The length of time an user has been inactive.
 		*/
-		private function getMilliseconds():Float{
+		private function get_milliseconds():Float{
 			return this._milliseconds;
 		}
 		
-		private function setMilliseconds(time:Float):Float{
+		private function set_milliseconds(time:Float):Float{
 			this._milliseconds = time;
 			return time;
 		}

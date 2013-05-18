@@ -139,11 +139,11 @@ package org.casalib.time;
 				}
 			</code>
 	*/
-	class Sequence extends Process, implements IResumable {
+	class Sequence extends Process implements IResumable {
 		
-		public var _current(get_current, null) : Task ;
-		public var looping(getLooping, setLooping) : Bool;
-		public var loops(getLoops, null) : UInt ;
+		public var _current(get__current, null) : Task ;
+		public var looping(get_looping, set_looping) : Bool;
+		public var loops(get_loops, null) : UInt ;
 		var _isLooping:Bool;
 		var _hasDelayCompleted:Bool;
 		var _sequence:Array<Task>;
@@ -256,19 +256,18 @@ package org.casalib.time;
 		/**
 			Indicates if the Sequence repeats once completed <code>true</code>; or stops <code>false</code>.
 		*/
-		private function getLooping():Bool{
+		private function get_looping():Bool{
 			return this._isLooping;
 		}
 		
-		private function setLooping(isLooping:Bool):Bool{
-			this._isLooping = isLooping;
-			return isLooping;
+		private function set_looping(isLooping:Bool):Bool{
+			return this._isLooping = isLooping;
 		}
 		
 		/**
 			The number of times the sequence has run since it {@link #start started}.
 		*/
-		private function getLoops():UInt {
+		private function get_loops():UInt {
 			return this._loops;
 		}
 		
@@ -343,7 +342,7 @@ package org.casalib.time;
 				this._current.scope.removeEventListener(this._current.completeEventName, this._startDelay);
 		}
 		
-		function get_current():Task {
+		function get__current():Task {
 			return this._sequence[this._currentTaskId];
 		}
 		
@@ -380,3 +379,4 @@ private class Task {
 		this.scope             = scope;
 		this.completeEventName = completeEventName;
 	}
+}

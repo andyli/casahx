@@ -41,7 +41,7 @@ package org.casalib.time;
 	*/
 	class FrameTime  {
 		
-		public var time(getTime, null) : Float ;
+		public var time(get_time, null) : Float ;
 		static var _frameTimeInstance:FrameTime;
 		var _enterFrame:EnterFrame;
 		var _time:Float;
@@ -70,7 +70,7 @@ package org.casalib.time;
 		/**
 			@return Returns the number of milliseconds from when the SWF started playing to the last <code>enterFrame</code> event.
 		*/
-		private function getTime():Float {
+		private function get_time():Float {
 			return this._time;
 		}
 		

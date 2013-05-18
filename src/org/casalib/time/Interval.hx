@@ -80,11 +80,11 @@ package org.casalib.time;
 				}
 			</code>
 	*/
-	class Interval extends Timer, implements IDestroyable, implements IRemovableEventDispatcher, implements IRunnable {
+	class Interval extends Timer implements IDestroyable implements IRemovableEventDispatcher implements IRunnable {
 		
-		public var arguments(getArguments, setArguments) : Array<Dynamic>;
-		public var callBack(getCallBack, setCallBack) : Dynamic;
-		public var destroyed(getDestroyed, null) : Bool ;
+		public var arguments(get_arguments, set_arguments) : Array<Dynamic>;
+		public var callBack(get_callBack, set_callBack) : Dynamic;
+		public var destroyed(get_destroyed, null) : Bool ;
 		var _callBack:Dynamic;
 		var _arguments:Array<Dynamic>;
 		var _isDestroyed:Bool;
@@ -131,11 +131,11 @@ package org.casalib.time;
 		/**
 			The function to execute after specified delay.
 		*/
-		private function getCallBack():Dynamic{
+		private function get_callBack():Dynamic{
 			return this._callBack;
 		}
 		
-		private function setCallBack(cb:Dynamic):Dynamic{
+		private function set_callBack(cb:Dynamic):Dynamic{
 			this._callBack = cb;
 			return cb;
 		}
@@ -143,11 +143,11 @@ package org.casalib.time;
 		/**
 			The arguments to be passed to the call back function when executed.
 		*/
-		private function getArguments():Array<Dynamic>{
+		private function get_arguments():Array<Dynamic>{
 			return this._arguments;
 		}
 		
-		private function setArguments(args:Array<Dynamic>):Array<Dynamic>{
+		private function set_arguments(args:Array<Dynamic>):Array<Dynamic>{
 			this._arguments = args;
 			return args;
 		}
@@ -165,24 +165,15 @@ package org.casalib.time;
 		/**
 			@exclude
 		*/
-		#if flash
-		public override function addEventListener(type:String, listener:Dynamic->Void, ?useCapture:Bool = false, ?priority:Int = 0, ?useWeakReference:Bool = false):Void{
+		override public function addEventListener(type:String, listener:Dynamic->Void, useCapture:Bool = false, priority:Int = 0, useWeakReference:Bool = false):Void {
 			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 			this._listenerManager.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
-		#else
-		public override function addEventListener(type:String, listener:Dynamic->Void, ?useCapture:Bool, ?priority:Int, ?useWeakReference:Bool):Int{
-			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-			this._listenerManager.addEventListener(type, listener, useCapture, priority, useWeakReference);
-			
-			return -1;
-		}
-		#end
 		
 		/**
 			@exclude
 		*/
-		public override function removeEventListener(type:String, listener:Dynamic->Void, ?useCapture:Bool #if flash = false #end):Void {
+		override public function removeEventListener(type:String, listener:Dynamic->Void, useCapture:Bool = false):Void {
 			super.removeEventListener(type, listener, useCapture);
 			this._listenerManager.removeEventListener(type, listener, useCapture);
 		}
@@ -203,7 +194,7 @@ package org.casalib.time;
 			this._listenerManager.removeEventListeners();
 		}
 		
-		private function getDestroyed():Bool {
+		private function get_destroyed():Bool {
 			return this._isDestroyed;
 		}
 		

@@ -87,7 +87,7 @@ package org.casalib.time;
 				}
 			</code>
 	*/
-	class Inactivity extends RemovableEventDispatcher, implements IRunnable {
+	class Inactivity extends RemovableEventDispatcher implements IRunnable {
 		
 		var _interval:Interval;
 		var _stopwatch:Stopwatch;

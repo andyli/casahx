@@ -2,7 +2,7 @@
 -lib hxcpp
 -lib nme
 -cp src
---remap flash:native
+--remap flash:nme
 -main test.Test
 
 -cmd echo "----------------------------------------"

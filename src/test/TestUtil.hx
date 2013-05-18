@@ -563,7 +563,7 @@ class TestUtil extends TestCase {
 	}
 	#end
 	
-	#if !php
+	#if false
 	public function testNavigateUtil():Void {
 		#if flash
 		this.assertEquals(flash.external.ExternalInterface.available,NavigateUtil.openWindow("http://www.google.com/#swf"));

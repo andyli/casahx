@@ -6,6 +6,5 @@
 
 -cmd echo "----------------------------------------"
 -cmd echo "Test Neko!"
--cmd cd test/bin/neko
--cmd neko Test.n
+-cmd (cd test/bin/neko && neko Test.n)
 -cmd echo "----------------------------------------"

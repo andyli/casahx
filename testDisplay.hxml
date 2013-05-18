@@ -8,7 +8,7 @@
 -lib hxcpp
 -lib nme
 -cp src
---remap flash:native
+--remap flash:nme
 -main test.TestDisplay
 
 --next
@@ -16,12 +16,12 @@
 -lib hxcpp
 -lib nme
 -cp src
---remap flash:native
+--remap flash:nme
 -main test.TestDisplay
 
 --next
 -js test/bin/js/Test.js
 -lib nme
 -cp src
---remap flash:browser
+--remap flash:nme
 -main test.TestDisplay

@@ -8,7 +8,7 @@
 -lib hxcpp
 -lib nme
 -cp src
---remap flash:native
+--remap flash:nme
 -main test.TestLoad
 
 --next
@@ -16,5 +16,5 @@
 -lib hxcpp
 -lib nme
 -cp src
---remap flash:native
+--remap flash:nme
 -main test.TestLoad

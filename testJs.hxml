@@ -1,5 +1,5 @@
 -js test/bin/js/Test.js
 -lib nme
 -cp src
---remap flash:browser
+--remap flash:nme
 -main test.Test

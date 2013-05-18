@@ -70,9 +70,9 @@ package org.casalib.time;
 	*/
 	class Stopwatch implements IResumable {
 		
-		inline public var _timer(get_timer, null) : Float ;
-		inline public var running(getRunning, null) : Bool ;
-		inline public var time(getTime, null) : Float ;
+		public var _timer(get__timer, null) : Float ;
+		public var running(get_running, null) : Bool ;
+		public var time(get_time, null) : Float ;
 		var _elapsedTime:Float;
 		var _startTime:Float;
 		var _isRunning:Bool;
@@ -117,7 +117,7 @@ package org.casalib.time;
 		/**
 			Determines if the stopwatch is currently running <code>true</code>, or if it isn't <code>false</code>.
 		*/
-		private function getRunning():Bool {
+		private function get_running():Bool {
 			return this._isRunning;
 		}
 		
@@ -127,11 +127,11 @@ package org.casalib.time;
 			@return Returns the elapsed time in milliseconds.
 			@usageNote Can be called before or after calling {@link Stopwatch#stop}.
 		*/
-		private function getTime():Float {
+		private function get_time():Float {
 			return (this._startTime != 0) ? this._timer - this._startTime + this._elapsedTime : this._elapsedTime;
 		}
 		
-		function get_timer():Float {
+		function get__timer():Float {
 			return haxe.Timer.stamp()*1000;
 		}
 	}
