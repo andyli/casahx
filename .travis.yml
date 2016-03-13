@@ -13,22 +13,26 @@ matrix:
     - haxe: "3.2.1"
     - haxe: "development"
       install:
-        # install and rebuild hxcpp
         - haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp.git
-        - cd $(haxelib path hxcpp | head -1)tools/hxcpp && haxe compile.hxml
-        - cd $(haxelib path hxcpp | head -1)project && neko build.n
-        - cd $TRAVIS_BUILD_DIR
-        # install nme
+        - pushd $(haxelib path hxcpp | head -1)
+        - pushd tools/hxcpp && haxe compile.hxml && popd
+        - pushd project && neko build.n && popd
+        - popd
         - yes | haxelib install nme
+        - yes | haxelib install lime
+        - yes | haxelib install openfl
   allow_failures:
     - haxe: "development"
 
 install:
   - yes | haxelib install hxcpp
   - yes | haxelib install nme
+  - yes | haxelib install lime
+  - yes | haxelib install openfl
   - haxelib list
 
 script:
-  - haxe -cp src -main test.Test -lib nme --remap flash:nme -cpp bin             && ./bin/Test
-  - haxe -cp src -main test.Test -lib nme --remap flash:nme -neko bin/Test.n     && neko bin/Test.n
-
+  - haxe -cp src -main test.Test -lib nme --remap flash:nme -cpp bin                             && ./bin/Test
+  - haxe -cp src -main test.Test -lib nme --remap flash:nme -neko bin/Test.n                     && neko bin/Test.n
+  - haxe -cp src -main test.Test -lib openfl -lib lime --remap flash:openfl -cpp bin             && ./bin/Test
+  - haxe -cp src -main test.Test -lib openfl -lib lime --remap flash:openfl -neko bin/Test.n     && neko bin/Test.n

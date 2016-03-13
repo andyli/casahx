@@ -127,7 +127,7 @@ class TestUtil extends TestCase {
 		
 		this.assertEquals(array, ArrayUtil.getItemByType([14,array,"","asdfn"],Type.getClass(array)));
 		
-		this.assertEquals(3, ArrayUtil.getItemsByKey([{b:12},{b:15},item,{b:15},{b:15}],"b",15).length);
+		this.assertEquals(3, ArrayUtil.getItemsByKey(([{b:12},{b:15},item,{b:15},{b:15}]:Array<Dynamic>),"b",15).length);
 		
 		this.assertEquals(2, ArrayUtil.getItemsByType([14,array,"","asdfn"],String).length);
 		
