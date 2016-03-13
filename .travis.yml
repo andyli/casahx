@@ -1,0 +1,34 @@
+language: haxe
+
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - gcc-multilib
+      - g++-multilib
+
+matrix:
+  include:
+    - haxe: "3.2.1"
+    - haxe: "development"
+      install:
+        # install and rebuild hxcpp
+        - haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp.git
+        - cd $(haxelib path hxcpp | head -1)tools/hxcpp && haxe compile.hxml
+        - cd $(haxelib path hxcpp | head -1)project && neko build.n
+        - cd $TRAVIS_BUILD_DIR
+        # install nme
+        - yes | haxelib install nme
+  allow_failures:
+    - haxe: "development"
+
+install:
+  - yes | haxelib install hxcpp
+  - yes | haxelib install nme
+  - haxelib list
+
+script:
+  - haxe -cp src -main test.Test -lib nme --remap flash:nme -cpp bin             && ./bin/Test
+  - haxe -cp src -main test.Test -lib nme --remap flash:nme -neko bin/Test.n     && neko bin/Test.n
+

@@ -644,9 +644,18 @@ class TestUtil extends TestCase {
 	}
 	
 	public function testObjectUtil():Void {
-		var rect = new Rectangle(1,2,3,4);
+		var rect = {
+			x: 1.0,
+			y: 2.0,
+			width: 3.0,
+			height: 4.0
+		};
 		
-		this.assertTrue(rect.equals(ObjectUtil.clone(rect)));
+		var cloned = ObjectUtil.clone(rect);
+		this.assertEquals(rect.x, cloned.x);
+		this.assertEquals(rect.y, cloned.y);
+		this.assertEquals(rect.width, cloned.width);
+		this.assertEquals(rect.height, cloned.height);
 		
 		this.assertTrue(ObjectUtil.contains(rect,3.0));
 		

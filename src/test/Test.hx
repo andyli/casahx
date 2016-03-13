@@ -1,8 +1,8 @@
 package test;
 
-class Test extends haxe.unit.TestRunner{
+class Test {
 	public static function main():Void {
-		var runner = new Test();
+		var runner = new haxe.unit.TestRunner();
 		runner.add(new TestMath());
 		runner.add(new TestUtil());
 		var success = runner.run();

@@ -75,8 +75,11 @@ package org.casalib.util;
 					trace(humanClone.name);
 				</code>
 		*/
-		inline public static function clone<T>(obj:Dynamic):T {
-			return cast haxe.Unserializer.run(haxe.Serializer.run(obj));
+		public static function clone<T>(obj:Dynamic):T {
+			var s = new haxe.Serializer();
+			s.useCache = true;
+			s.serialize(obj);
+			return cast haxe.Unserializer.run(s.toString());
 		}
 		
 		/**
