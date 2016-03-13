@@ -18,17 +18,17 @@ matrix:
         - pushd tools/hxcpp && haxe compile.hxml && popd
         - pushd project && neko build.n && popd
         - popd
-        - yes | haxelib install nme
-        - yes | haxelib install lime
-        - yes | haxelib install openfl
+        - yes | haxelib install nme     > /dev/null
+        - yes | haxelib install lime    > /dev/null
+        - yes | haxelib install openfl  > /dev/null
   allow_failures:
     - haxe: "development"
 
 install:
-  - yes | haxelib install hxcpp
-  - yes | haxelib install nme
-  - yes | haxelib install lime
-  - yes | haxelib install openfl
+  - yes | haxelib install hxcpp   > /dev/null
+  - yes | haxelib install nme     > /dev/null
+  - yes | haxelib install lime    > /dev/null
+  - yes | haxelib install openfl  > /dev/null
   - haxelib list
 
 script:
