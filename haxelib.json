@@ -1,0 +1,11 @@
+{
+  "name": "casalib",
+  "license": "BSD",
+  "tags": ["cross"],
+  "description": "A Haxe port of \"CASA Lib for ActionScript\", a great collection of helpful classes that streamline your coding.",
+  "contributors": ["andyli"],
+  "releasenote": "Haxe 3.0 support. Not compatable with Haxe 2.x.",
+  "version": "1.4.2",
+  "url": "http://github.com/andyli/casahx",
+  "classPath": "src"
+}
