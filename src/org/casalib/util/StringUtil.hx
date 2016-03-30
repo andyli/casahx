@@ -167,6 +167,9 @@ package org.casalib.util;
 		
 		/**
 			Creates an "universally unique" identifier (RFC 4122, version 4).
+
+			Note that this implementation can only expect no duplication within a single run of a program.
+			It is because it relies on `Math.random()` and we have no control on its implementation (particularly regarding to seeding).
 			
 			@return Returns an UUID.
 		*/
